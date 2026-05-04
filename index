@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log de Personajes — El Castillo de Sophia</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English+SC&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --bg: #0a0608;
+    --bg2: #110c0e;
+    --card: #160e11;
+    --border: #3a1f28;
+    --accent: #8b1a2f;
+    --gold: #c9933a;
+    --gold2: #e8b86d;
+    --text: #d4c4bc;
+    --muted: #7a6460;
+    --tag-bg: #1e1013;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(139,26,47,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(201,147,58,0.05) 0%, transparent 60%);
+  }
+
+  header {
+    text-align: center;
+    padding: 3.5rem 2rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 1.2rem auto 0;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    color: var(--gold2);
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    text-shadow: 0 0 40px rgba(201,147,58,0.25);
+  }
+
+  .subtitle {
+    font-family: 'IM Fell English SC', serif;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+
+  .count-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #f0cfc0;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.75rem;
+    padding: 0.2em 0.9em;
+    border-radius: 2px;
+    margin-top: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  .search-wrap {
+    max-width: 460px;
+    margin: 1.6rem auto 0;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    padding: 0.55rem 1rem;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-wrap input:focus { border-color: var(--gold); }
+  .search-wrap input::placeholder { color: var(--muted); }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1.2rem 1rem 0;
+  }
+
+  .filter-btn {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.75rem;
+    padding: 0.3em 0.85em;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold2);
+    background: rgba(201,147,58,0.07);
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.2rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.3rem 1.4rem;
+    position: relative;
+    transition: border-color 0.25s, transform 0.2s;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .card:hover {
+    border-color: #5a2535;
+    transform: translateY(-2px);
+  }
+  .card:hover::before { opacity: 1; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .char-name {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1.05rem;
+    color: var(--gold2);
+    line-height: 1.2;
+  }
+
+  .char-type {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.7rem;
+    padding: 0.2em 0.6em;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .type-divino   { background: rgba(139,26,47,0.3); color: #d98090; border: 1px solid rgba(139,26,47,0.5); }
+  .type-mago     { background: rgba(42,60,100,0.3); color: #88a0d0; border: 1px solid rgba(42,60,100,0.5); }
+  .type-caballero{ background: rgba(80,70,20,0.3); color: #d0b860; border: 1px solid rgba(80,70,20,0.5); }
+  .type-bruja    { background: rgba(20,80,60,0.3); color: #70c8a0; border: 1px solid rgba(20,80,60,0.5); }
+  .type-mortal   { background: rgba(60,50,50,0.3); color: #b0a0a0; border: 1px solid rgba(60,50,50,0.5); }
+  .type-bestia   { background: rgba(80,40,10,0.3); color: #d09050; border: 1px solid rgba(80,40,10,0.5); }
+  .type-entidad  { background: rgba(60,20,80,0.3); color: #b888d0; border: 1px solid rgba(60,20,80,0.5); }
+
+  .char-desc {
+    font-size: 0.93rem;
+    color: var(--text);
+    line-height: 1.55;
+    font-style: italic;
+    opacity: 0.9;
+  }
+
+  .char-source {
+    margin-top: 0.7rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'IM Fell English SC', serif;
+    letter-spacing: 0.05em;
+  }
+
+  .hidden { display: none !important; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-family: 'IM Fell English SC', serif;
+    letter-spacing: 0.1em;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>El Castillo de Sophia</h1>
+  <div class="subtitle">Log de Personajes · D. M. Soley</div>
+  <div class="count-badge" id="count-badge">35 personajes</div>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Buscar personaje…" oninput="filterCards()">
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="setFilter('todos',this)">Todos</button>
+    <button class="filter-btn" onclick="setFilter('divino',this)">Divino / Arconte</button>
+    <button class="filter-btn" onclick="setFilter('mago',this)">Mago / Empíreo</button>
+    <button class="filter-btn" onclick="setFilter('caballero',this)">Caballero</button>
+    <button class="filter-btn" onclick="setFilter('bruja',this)">Bruja / Hechicero</button>
+    <button class="filter-btn" onclick="setFilter('mortal',this)">Mortal / Civil</button>
+    <button class="filter-btn" onclick="setFilter('bestia',this)">Bestia / Dragón</button>
+    <button class="filter-btn" onclick="setFilter('entidad',this)">Entidad</button>
+  </div>
+</header>
+
+<main id="grid"></main>
+
+<footer>Tercera Edición · Primer Parche · Edición Digital</footer>
+
+<script>
+const personajes = [
+  // DIVINIDADES / ARCONTES
+  {
+    nombre: "Babalón",
+    tipo: "divino",
+    tipoLabel: "Divino / Arconte",
+    desc: "Súcubo escarlata, hermana de Saturno/Saklas y personificación del morbo. Figura recurrente como guía, seductora y regente del culto. Asume múltiples formas, desde doncella pálida hasta entidad titánica.",
+    fuente: "Caps. 1, 2, 3 y 4"
+  },
+  {
+    nombre: "Saturno / Saklas",
+    tipo: "divino",
+    tipoLabel: "Divino / Arconte",
+    desc: "Arconte creado para ser juez y regir el destino. Se rebeló contra su creador junto a Babalón. Se presenta como cubo negro flotante; voz espléndida que retumba kilómetros. Segundo nombre: Saklas.",
+    fuente: "Cap. 1 – El infierno"
+  },
+  {
+    nombre: "Sophia",
+    tipo: "entidad",
+    tipoLabel: "Entidad",
+    desc: "La \"primera madre\". Ser primordial que contempla con llanto la sátira cósmica. Habita un castillo de cristal en el cielo, sola y melancólica; fuente originaria de la canción que recorre el mundo.",
+    fuente: "Prólogo / Cap. 4 – La canción"
+  },
+  {
+    nombre: "Leviatán",
+    tipo: "divino",
+    tipoLabel: "Divino / Arconte",
+    desc: "Enorme serpiente celeste convocada en la batalla final. Aparece desde las estrellas y engulle cientos de servidores del Arquitecto de un solo bocado.",
+    fuente: "Cap. 4 – El gran conjuro"
+  },
+  {
+    nombre: "Azazel",
+    tipo: "divino",
+    tipoLabel: "Divino / Arconte",
+    desc: "Ángel caído portador de runas. Llamada \"La Parca\"; viste armadura negra con rostro siempre oculto y silba una tonada casi imperceptible. Usa una espada legendaria que convierte en polvo a quien corta.",
+    fuente: "Cap. 2 – La doncella de sangre"
+  },
+  {
+    nombre: "Asmodeo",
+    tipo: "divino",
+    tipoLabel: "Divino / Arconte",
+    desc: "Ángel caído portadora de runas. Mujer coqueta y rubia que lleva una máscara de huesos y usa magia de seducción engañosa.",
+    fuente: "Cap. 2 – La doncella de sangre"
+  },
+
+  // EMPÍREOS / MAGOS
+  {
+    nombre: "Mago Empíreo I",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Primer recipiente del linaje primordial. Sensible y melancólico; mantiene una relación mística con la luna a quien le escribe cartas de amor en idioma primordial.",
+    fuente: "Cap. 2 – La contención"
+  },
+  {
+    nombre: "Mago Empíreo II",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Segundo empíreo: guerrero violento y feroz. Combate con hombres bestia en el bosque y recibe el mazo \"Mgehye\" (destrucción) de la Reina Araña.",
+    fuente: "Cap. 2 – La crueldad"
+  },
+  {
+    nombre: "Mago Empíreo III",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Tercer empíreo. Lector obsesivo del testamento primordial; fuma en pipa y entra en estados alterados conectando con \"el dragón que duerme\". Profundamente tentado por el mal.",
+    fuente: "Cap. 2 – El llamado"
+  },
+  {
+    nombre: "Sasha / Mago Empíreo IV",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Cuarto empíreo. Receptor de seis pesadillas progresivas en que Babalón (quien también se presenta como \"Sasha\") le roba el corazón y se alimenta de su miedo.",
+    fuente: "Cap. 2 – Las 6 pesadillas de Sasha"
+  },
+  {
+    nombre: "Mago Empíreo (el último / moribundo)",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Empíreo final. Agonizante líder de la academia; reflexiona sobre su vida, el destino de sus sucesores y la inminente llegada de El Depravado. Amó en silencio a la luna.",
+    fuente: "Cap. 2 – Apoteosis / Solsticio de verano"
+  },
+
+  // CABALLEROS
+  {
+    nombre: "Caballero Guillermo V, Hijo del Sol",
+    tipo: "caballero",
+    tipoLabel: "Caballero",
+    desc: "Cruzado que encuentra en un santuario del desierto un antifaz negro de acero. Al ponérselo puede comandar cadáveres. Primer portador del \"Rostro de Metal\".",
+    fuente: "Cap. 1 – El rostro de metal"
+  },
+  {
+    nombre: "Caballero Joaquín IV, Hijo del Sol",
+    tipo: "caballero",
+    tipoLabel: "Caballero",
+    desc: "Cruzado superviviente de la persecución de la iglesia. Seducido en sueños por Babalón, lidera a los trece herejes supervivientes hacia la construcción del castillo.",
+    fuente: "Cap. 1 – La persecución"
+  },
+  {
+    nombre: "Alejandro IV, Hijo del Sol",
+    tipo: "caballero",
+    tipoLabel: "Caballero",
+    desc: "Caballero enviado a destruir al súcubo pero que cae enamorado de ella. Acepta convertirse en su consorte y protector, abandonando su fe y su misión.",
+    fuente: "Cap. 2 – Pasión y vesania"
+  },
+  {
+    nombre: "Kristian VIII, Hijo del Sol",
+    tipo: "caballero",
+    tipoLabel: "Caballero",
+    desc: "Llamado \"Último Hijo del Sol\". General de las tropas aliadas de la Primera Orden. Virtuoso y bendecido por la luz; muere heroicamente ante el General de la Horda en la batalla final.",
+    fuente: "Cap. 2 – Alabado sea el sol / Cap. 4"
+  },
+
+  // BRUJAS / HECHICEROS
+  {
+    nombre: "Morgana, la Bruja de Invierno",
+    tipo: "bruja",
+    tipoLabel: "Bruja / Hechicero",
+    desc: "Profesora prodigio de la academia. Creadora de los Noctámbulos y los Noctómanos. Piel pálida, cabello casi albino. Enamorada de Samara; protagonista de un arco emocional profundo. Mano derecha de El Depravado tras la devastación.",
+    fuente: "Cap. 2 y 4 (diarios I–V)"
+  },
+  {
+    nombre: "Samara",
+    tipo: "bestia",
+    tipoLabel: "Bestia / Dragón",
+    desc: "Hija del Dragón (El Depravado). Profesora de manipulación y directora de la academia. Cabello pelirrojo, piel trigueña, ojos ámbar. Coronada princesa de los draconianos y espada de su padre. Ama a Morgana pero la guerra la consume.",
+    fuente: "Caps. 2, 3 y 4"
+  },
+  {
+    nombre: "Nyla / Colmillo Bebé",
+    tipo: "bruja",
+    tipoLabel: "Bruja / Hechicero",
+    desc: "Alumna de la Casa de la Sangre: caníbal, sanguinaria y excéntrica. Sobreviviente de la calamidad; nombrada armera de Morgana. Recibe la runa del cielo al comunicarse con Leviatán.",
+    fuente: "Caps. 2 y 3"
+  },
+
+  // MORTALES / CIVILES
+  {
+    nombre: "Selena, Consorte de Saturno",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Joven sacerdotisa elegida para la boda ritual. Una de las tres esposas; sobrevive al rito, concibe al primer empíreo y recibe un anillo de plata que le muestra el futuro corrupto.",
+    fuente: "Cap. 1 – La boda"
+  },
+  {
+    nombre: "Natalia",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Una de las tres esposas del rito junto a Selena y Julieta. Muere a manos de la Gran Maestra durante la ceremonia.",
+    fuente: "Cap. 1 – La boda"
+  },
+  {
+    nombre: "Julieta",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "La tercera novia del rito; de sus genitales emerge la Gran Maestra al inicio de la ceremonia. Muere apuñalada por la diosa.",
+    fuente: "Cap. 1 – La boda"
+  },
+  {
+    nombre: "Ayda, la Anciana",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Anciana de 73 años del pueblo forestal. Narra cómo los templarios herejes reclutan a su nieto Caín y construyen el castillo. Huye al ver a la guerrera de ojos ámbar sobre la torre.",
+    fuente: "Cap. 1 – La comunión"
+  },
+  {
+    nombre: "Caín",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Nieto curioso de Ayda. Secuestrado de madrugada por los templarios herejes y convertido en trabajador hipnotizado en la construcción del castillo.",
+    fuente: "Cap. 1 – La comunión"
+  },
+  {
+    nombre: "Rodrigo, el Triste",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Estudiante de la academia secretamente enamorado de Samara. Observa desde lejos su belleza y poder sin atreverse a hablarle, paralizado por el maleficio de dominación.",
+    fuente: "Cap. 2 – Espíritu incendiario"
+  },
+  {
+    nombre: "Alicia, la Mentirosa",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Estudiante de la academia. Junto a Dante, se cuela de madrugada en la biblioteca donde encuentran al anciano misterioso y una cabra que los aterra.",
+    fuente: "Cap. 2 – La forma de la comedia"
+  },
+  {
+    nombre: "Dante",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Compañero de Alicia. Se escabulle con ella a la biblioteca nocturna; recibe uno de los manuscritos del anciano antes de huir aterrado por la risa de la cabra.",
+    fuente: "Cap. 2 – La forma de la comedia"
+  },
+  {
+    nombre: "Eros, el Pretendiente",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Estudiante de la Casa de la Sangre. Confiesa su amor platónico a una chica que lo seduce y luego intenta arrancarle el corazón en una capilla de Babalón.",
+    fuente: "Cap. 2 – Mi amor inmortal"
+  },
+  {
+    nombre: "Nimrod, el Pueblerino",
+    tipo: "mortal",
+    tipoLabel: "Mortal / Civil",
+    desc: "Hombre del pueblo que viaja desesperado al castillo buscando un hechizo para resucitar a su hija muerta. Acaba desencadenando la calamidad al recitar un conjuro equivocado.",
+    fuente: "Cap. 2 – La calamidad"
+  },
+  {
+    nombre: "Bruno, el Joven Noctómano",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Joven estudiante Noctómano. Junto a Nhiguel y Mathew, explora la cueva prohibida del norte con magia de proyección astral y casi pierde la cordura ante la entidad dormida.",
+    fuente: "Cap. 3 – Adónde fue el dragón"
+  },
+  {
+    nombre: "Nhiguel",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Noctómano, compañero de Bruno. Suele quedarse dormido en los rituales; en la cueva entra en convulsiones al ver demasiado de la entidad prohibida.",
+    fuente: "Cap. 3 – Adónde fue el dragón"
+  },
+  {
+    nombre: "Mathew",
+    tipo: "mago",
+    tipoLabel: "Mago / Empíreo",
+    desc: "Noctómano, compañero de Bruno. Habla espontáneamente en idioma primordial durante el trance en la cueva del dragón.",
+    fuente: "Cap. 3 – Adónde fue el dragón"
+  },
+  {
+    nombre: "Innana",
+    tipo: "bestia",
+    tipoLabel: "Bestia / Dragón",
+    desc: "La más curiosa de los Ahnah Yogshugg (Hijos de la Luna). Encuentra la reliquia lunar y cuida al recién nacido Mikael con gran ternura antes de despedirlo.",
+    fuente: "Caps. 3 / 4 – Luz y fuerza"
+  },
+  {
+    nombre: "Mikael",
+    tipo: "entidad",
+    tipoLabel: "Entidad",
+    desc: "Criatura nacida de la Lágrima Lunar. Tamaño de gato, escamas blancas translúcidas, cola larga y cuerno en la frente; emite luz iridiscente. Esperanza latente frente al dominio oscuro.",
+    fuente: "Cap. 4 – Luz y fuerza"
+  },
+
+  // BESTIAS / DRAGÓN
+  {
+    nombre: "El Depravado / Dominus, el Primer Dragón",
+    tipo: "bestia",
+    tipoLabel: "Bestia / Dragón",
+    desc: "El mayor de seis dragones hermanos. Escamas color metal, ojos negros. Padre de Samara y de las hordas draconianas. Antagonista central; busca dominar todos los planos. Frio y violento incluso con su propia hija.",
+    fuente: "Caps. 1, 3 y 4"
+  },
+  {
+    nombre: "El Primordial / El Engendro",
+    tipo: "entidad",
+    tipoLabel: "Entidad",
+    desc: "Ser de piel verde y ojos rojos, descendiente del arquitecto del mundo material. Primer narrador; recipiente del Señor Oscuro para entrar al reino mortal.",
+    fuente: "Cap. 1 – El primordial"
+  },
+  {
+    nombre: "General de la Horda",
+    tipo: "bestia",
+    tipoLabel: "Bestia / Dragón",
+    desc: "Draconiano de fuego, el más despiadado de todos. Nació de una arpía de cinco cabezas; escaló el mando asesinando a sus superiores. Portador del Mgehye en la noche de la devastación. Segundo de Samara.",
+    fuente: "Cap. 3 – La marcha de los draconianos"
+  },
+  {
+    nombre: "El anciano de la biblioteca",
+    tipo: "entidad",
+    tipoLabel: "Entidad",
+    desc: "Figura misteriosa, delgada, de saco marrón, que lee a la luz de una vela en la biblioteca nocturna. Entrega manuscritos a Alicia y Dante; irradia una presencia no-humana y ancestral.",
+    fuente: "Cap. 2 – La forma de la comedia"
+  },
+  {
+    nombre: "Gran Maestra / Diosa del Morbo",
+    tipo: "divino",
+    tipoLabel: "Divino / Arconte",
+    desc: "Entidad deiforme con tentáculos que emerge de la sangre de Julieta. Dirige el rito de la boda, apuñala a las novias y dibuja la Runa del Augurio. Maestra de las sacerdotisas de la casa.",
+    fuente: "Cap. 1 – La boda"
+  },
+];
+
+const grid = document.getElementById('grid');
+let currentFilter = 'todos';
+
+function renderCards(list) {
+  grid.innerHTML = '';
+  list.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.tipo = p.tipo;
+    div.innerHTML = `
+      <div class="card-header">
+        <div class="char-name">${p.nombre}</div>
+        <span class="char-type type-${p.tipo}">${p.tipoLabel}</span>
+      </div>
+      <div class="char-desc">${p.desc}</div>
+      <div class="char-source">◈ ${p.fuente}</div>
+    `;
+    grid.appendChild(div);
+  });
+  document.getElementById('count-badge').textContent = list.length + ' personajes';
+}
+
+function filterCards() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = personajes.filter(p => {
+    const matchFilter = currentFilter === 'todos' || p.tipo === currentFilter;
+    const matchSearch = !q ||
+      p.nombre.toLowerCase().includes(q) ||
+      p.desc.toLowerCase().includes(q) ||
+      p.tipoLabel.toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+  renderCards(filtered);
+}
+
+function setFilter(tipo, btn) {
+  currentFilter = tipo;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterCards();
+}
+
+renderCards(personajes);
+</script>
+</body>
+</html>
