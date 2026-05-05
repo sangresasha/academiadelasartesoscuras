@@ -348,29 +348,6 @@
   .idioma-trad { font-size: 0.83rem; color: var(--text); line-height: 1.5; }
   .idioma-ctx { margin-top: 0.5rem; font-size: 0.7rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
 
-  /* ═══ DIARIOS ═══ */
-  .diarios-wrap { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
-  .narrador-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
-  .narrador-tab { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.75rem; padding: 0.3em 1em; cursor: pointer; border-radius: 2px; letter-spacing: 0.08em; transition: all 0.2s; }
-  .narrador-tab:hover, .narrador-tab.active { border-color: var(--gold); color: var(--gold2); background: rgba(201,147,58,0.07); }
-  .narrador-section { display: none; }
-  .narrador-section.active { display: block; }
-
-  .diario-entry {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.5rem 1.6rem;
-    margin-bottom: 1rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .diario-entry::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); }
-  .diario-numero { font-family: 'IM Fell English SC', serif; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 0.4rem; }
-  .diario-titulo { font-family: 'IM Fell English SC', serif; font-size: 1.1rem; color: var(--gold2); margin-bottom: 0.6rem; }
-  .diario-texto { font-size: 0.95rem; color: var(--text); line-height: 1.7; white-space: pre-wrap; }
-  .diario-texto em { color: #b888d0; font-style: italic; }
-
   /* ═══ VIDEOS ═══ */
   .videos-wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   .videos-intro { text-align: center; margin-bottom: 2rem; }
@@ -459,7 +436,6 @@
   <button class="nav-btn" onclick="switchPage('cronologia', this)">Cronología</button>
   <button class="nav-btn" onclick="switchPage('facciones', this)">Facciones</button>
   <button class="nav-btn" onclick="switchPage('glosario', this)">Glosario</button>
-  <button class="nav-btn" onclick="switchPage('diarios', this)">Diarios</button>
   <button class="nav-btn" onclick="switchPage('videos', this)">Videos</button>
   <button class="nav-btn" onclick="switchPage('foro', this)">Foro</button>
 </nav>
@@ -515,6 +491,20 @@
   <div class="crono-wrap">
     <div class="crono-line"></div>
 
+    <!-- ERA 0: TIERRAS LEGENDARIAS -->
+    <div class="era-block">
+      <div class="era-titulo">Tierras Legendarias</div>
+
+      <div class="crono-evento">
+        <div class="crono-dot"></div>
+        <div class="crono-card">
+          <div class="crono-cap">Cap. 3 · La Mesa Redonda</div>
+          <div class="crono-nombre">El Depravado parte al sur</div>
+          <div class="crono-desc">El mayor de seis dragones hermanos, apodado "El Depravado", abandona las tierras legendarias y viaja al sur. Funda su culto, construye templos de metal y engendra las hordas draconianas.</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ERA 1 -->
     <div class="era-block">
       <div class="era-titulo">Era Primordial · Antes del Castillo</div>
@@ -543,15 +533,6 @@
           <div class="crono-cap">Cap. 1 · El Infierno</div>
           <div class="crono-nombre">Saturno proclama la profecía</div>
           <div class="crono-desc">En el inframundo, Saturno (cubo negro flotante) le revela al Primordial su linaje y recita la profecía: tres empíreos vendrán, el último iniciará la Gran Conspiración.</div>
-        </div>
-      </div>
-
-      <div class="crono-evento izq">
-        <div class="crono-dot"></div>
-        <div class="crono-card">
-          <div class="crono-cap">Cap. 3 · La Mesa Redonda</div>
-          <div class="crono-nombre">El Depravado parte al sur</div>
-          <div class="crono-desc">El mayor de seis dragones hermanos, apodado "El Depravado", abandona las tierras legendarias y viaja al sur. Funda su culto, construye templos de metal y engendra las hordas draconianas.</div>
         </div>
       </div>
     </div>
@@ -704,7 +685,7 @@
 
     <!-- ERA 6 -->
     <div class="era-block">
-      <div class="era-titulo">El Invierno · La Marcha del Dragón</div>
+      <div class="era-titulo">La Marcha del Dragón</div>
 
       <div class="crono-evento izq">
         <div class="crono-dot"></div>
@@ -820,7 +801,7 @@
     <div class="faccion-grid">
 
       <div class="faccion-card oscuras">
-        <span class="faccion-icon">🐉</span>
+        <span class="faccion-icon">🕯</span>
         <div class="faccion-nombre">Las Fuerzas del Mal</div>
         <div class="faccion-lema">«En nombre de El Depravado, marchamos»</div>
         <div class="faccion-desc">Coalición liderada por el Dragón Dominus, conocido como El Depravado. Unifica a los draconianos de fuego, los ángeles caídos (Saturno, Babalón, Azazel, Leviatán), las abominaciones y la horda del Pandemonio. Su objetivo es la conquista total del plano mortal y la instauración del Nuevo Orden.</div>
@@ -863,7 +844,7 @@
       </div>
 
       <div class="faccion-card orden">
-        <span class="faccion-icon">☀️</span>
+        <span class="faccion-icon">🕯</span>
         <div class="faccion-nombre">La Primera Orden</div>
         <div class="faccion-lema">«Benditos sean los que traen la paz»</div>
         <div class="faccion-desc">Iglesia militarizada que representa la fe en el Arquitecto del mundo. Sus templarios, los Hijos del Sol, lucharon durante siglos para purificar las tierras del mal. Respaldados por ángeles y arcángeles. Fueron diezmados en la batalla final por las hordas de El Depravado.</div>
@@ -881,7 +862,7 @@
       </div>
 
       <div class="faccion-card luna">
-        <span class="faccion-icon">🌙</span>
+        <span class="faccion-icon">🕯</span>
         <div class="faccion-nombre">Los Hijos de la Luna (Ahnah Yogshugg)</div>
         <div class="faccion-lema">«Bonito, brillante, hermoso»</div>
         <div class="faccion-desc">Pequeñas criaturas con colas largas y ojos brillantes que habitan ocultas entre la chatarra de las máquinas del Señor Oscuro. Guardianas de la Lágrima Lunar y de la criatura Mikael. Las Fuerzas del Mal no las perciben con su ojo carmesí. Representan la última chispa de esperanza.</div>
@@ -897,7 +878,7 @@
       </div>
 
       <div class="faccion-card horrores">
-        <span class="faccion-icon">👁</span>
+        <span class="faccion-icon">🕯</span>
         <div class="faccion-nombre">Iglesia de los Horrores</div>
         <div class="faccion-lema">«Ojos… ojos… ojos…»</div>
         <div class="faccion-desc">Culto errante que no venera ni a dioses ni a demonios conocidos, sino a la Bestia de las 100.000 Miradas, la Hija de la Calamidad. Sus fanáticos se ofrecen voluntariamente como recipientes, incubando en su carne los huevos de la criatura. Surgida en el período post-devastación.</div>
@@ -912,7 +893,7 @@
       </div>
 
       <div class="faccion-card oscuras" style="border-color:rgba(80,50,10,0.4);">
-        <span class="faccion-icon">🐍</span>
+        <span class="faccion-icon">🕯</span>
         <div class="faccion-nombre">El Culto de los Templarios Herejes</div>
         <div class="faccion-lema">«Construyamos un castillo más allá del horizonte»</div>
         <div class="faccion-desc">Los trece cruzados sobrevivientes que, tras ser perseguidos por su iglesia y seducidos por Babalón, fundaron el culto original que construyó el castillo. Su acto fundacional dio origen a la Academia. Antecesores directos de las Fuerzas del Mal en el plano mortal.</div>
@@ -946,7 +927,7 @@
     <div id="glosario-artefactos" class="glosario-section active">
 
       <div class="objeto-card">
-        <span class="objeto-icono">⚔️</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">El Mgehye</div>
         <div class="objeto-tipo-badge">Arma · Mazo de guerra</div>
         <div class="objeto-desc">Mazo imbuido con la runa de la putrefacción, forjado en la mansión de la Reina Araña. Su nombre en idioma primordial significa «destrucción». Derrite el filo de cualquier espada que lo golpee. Destinado a portar las hordas de El Depravado en la noche de la devastación.</div>
@@ -954,7 +935,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">🎭</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">El Rostro de Metal</div>
         <div class="objeto-tipo-badge">Artefacto · Antifaz</div>
         <div class="objeto-desc">Antifaz negro como la noche, hecho de acero similar al del calabozo. Estaba sellado en un cofre que solo se abrió con sangre. Al ponérselo, el portador puede comandar cadáveres y ejércitos de muertos. Se activa con el canto de las aves: «Ce' Le' Bug Na'ghftyar».</div>
@@ -962,7 +943,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">📖</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">El Libro de la Insoportable Oscuridad</div>
         <div class="objeto-tipo-badge">Reliquia · Códice</div>
         <div class="objeto-desc">Códice que contiene los secretos de la runa de la muerte. Considerado una de las reliquias más importantes de las tierras oscuras. Su custodia fue concedida a Morgana por los altos mandos del infierno. Ángeles y arcángeles intentaron recuperarlo sin éxito.</div>
@@ -970,7 +951,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">💍</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">El Anillo de Plata de Selena</div>
         <div class="objeto-tipo-badge">Joya ritual · Profética</div>
         <div class="objeto-desc">Anillo de plata dejado por Saturno en el altar tras el rito de la boda. Al ponérselo, la portadora puede ver el futuro: un futuro corrupto, sin esperanza. A pesar de la visión, Selena sintió calma. La plata era del mismo metal que vestía el Gran Maestro del rito.</div>
@@ -978,7 +959,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">📜</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">El Libro Negro / Testamento del Primordial</div>
         <div class="objeto-tipo-badge">Reliquia · Testamento</div>
         <div class="objeto-desc">Libro muy pesado escrito en idioma primordial. Descrito como un testamento dejado por el Primordial para su próximo recipiente. Las bibliotecarias de la academia lo entregaron al Empíreo III. Al leerlo, el Empíreo siente un subidón de energía y conexión con el Señor Oscuro.</div>
@@ -986,7 +967,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">🌙</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">La Lágrima Lunar</div>
         <div class="objeto-tipo-badge">Reliquia · Huevo cósmico</div>
         <div class="objeto-desc">Pedazo del cuerpo de la luna regalado por ella misma al Empíreo II en la noche de la crueldad, tras pedirle perdón. El Empíreo lo enterró al pie de una planta de jazmín. Veinte años después de la devastación, los Hijos de la Luna lo encontraron y de él nació Mikael.</div>
@@ -994,7 +975,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">🗡️</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">La Espada de Azazel</div>
         <div class="objeto-tipo-badge">Arma legendaria · Ángel Caído</div>
         <div class="objeto-desc">Espada legendaria portada por Azazel, la Parca. Convierte en polvo a todo aquel que es cortado por ella. Fue usada en la batalla final para borrar de la existencia a los ángeles y arcángeles que intentaban defender la Primera Orden.</div>
@@ -1002,7 +983,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">📚</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">Los Manuscritos de la Biblioteca</div>
         <div class="objeto-tipo-badge">Textos prohibidos</div>
         <div class="objeto-desc">Dos manuscritos entregados por el anciano misterioso a Alicia y Dante durante su incursión nocturna en la biblioteca. Escritos en un lenguaje nunca visto por los alumnos novatos. Los eruditos los confiscaron y prohibieron su lectura a estudiantes no iniciados.</div>
@@ -1010,7 +991,7 @@
       </div>
 
       <div class="objeto-card">
-        <span class="objeto-icono">🪆</span>
+        <span class="objeto-icono">⛧</span>
         <div class="objeto-nombre">La Muñeca de Nyla</div>
         <div class="objeto-tipo-badge">Objeto mágico · Egregor</div>
         <div class="objeto-desc">Muñeca regalada por Morgana a Nyla tras la calamidad. Sirve como vehículo para manifestar el Noctámbulo personal de Nyla. Solo ella es capaz de cuidar el equipo de Morgana sin caer en la locura, posiblemente porque ya está loca.</div>
@@ -1093,225 +1074,6 @@
         <div class="idioma-ctx">◈ Varios capítulos · Glosario inferido</div>
       </div>
 
-    </div>
-  </div>
-</div>
-
-<!-- DIARIOS -->
-<div id="page-diarios" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Diarios y Memorias por Narrador · D. M. Soley</div>
-  </header>
-  <div class="diarios-wrap">
-    <div class="narrador-tabs">
-      <button class="narrador-tab active" onclick="setNarradorTab('morgana', this)">Morgana</button>
-      <button class="narrador-tab" onclick="setNarradorTab('empireo', this)">El Empíreo</button>
-      <button class="narrador-tab" onclick="setNarradorTab('samara', this)">Samara</button>
-      <button class="narrador-tab" onclick="setNarradorTab('caballeros', this)">Caballeros</button>
-      <button class="narrador-tab" onclick="setNarradorTab('otros', this)">Otros</button>
-    </div>
-
-    <div id="diario-morgana" class="narrador-section active">
-      <div class="diario-entry">
-        <div class="diario-numero">Diario I · Cap. 2</div>
-        <div class="diario-titulo">Manía Nocturna</div>
-        <div class="diario-texto">Desde pequeña, me inculcaron el hábito de estudiar. Me enseñaron que el conocimiento era lo más importante y que la ignorancia tenía consecuencias brutales en este mundo. Cuando mi madre murió durante el parto me adoptaron las bibliotecarias más fundamentalistas y viejas de la academia…
-
-Encontré paz en los libros, en la noche. En mis años de estudiante era la mejor en todas las clases. Al terminar el curso, con veintitrés años, me ofrecieron trabajo como profesora. Y también sobresalí en esto: creé a los Noctámbulos —mis egregores de energía negativa— y formé la organización de los Noctómanos.
-
-Cuando no podía dormir tomaba un té de rosa de sharón. Este té me hacía soñar con un enorme castillo de cristal que flotaba en medio de las estrellas, con paredes de oro y diamantes rosados. Dentro siempre veía a una mujer llorando, triste…</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Diario II · Cap. 2</div>
-        <div class="diario-titulo">Solsticio de Verano</div>
-        <div class="diario-texto">Detesto los eventos sociales; sin embargo, sigo siendo profesora. La única capaz de sacarme de mi soledad fue Samara. Hace unos meses comenzamos a compartir sobre nuestras vidas personales. Ella me contó cómo anhelaba ver a su padre; yo le revelé algunos de mis secretos.
-
-La encontré vestida de manera diferente, más casual, con un vestido suelto de color rojo muy dulce, que combinaba con su cabello pelirrojo y su piel trigueña. Su rostro se ponía de color rosa cuando reía demasiado.
-
-Hacia el este vimos un altar con la estatua de un dragón cubierto de flores de jazmín. Agarré una y la guardé en el bolsillo de mi túnica. Intenté tocar su mano. Acerqué mis dedos, pero no sé si ella lo sintió…
-
-La acompañé hasta su dormitorio. Por un impulso, la besé. Agarré su cintura con fuerza, cerré mis ojos y sentí el fuego en mi pecho. Le regalé el jazmín. Cuando sostuvo la flor, me miró a los ojos fijamente. Abrió la puerta de su cuarto, me agarró de la mano, y nos tiramos en su cama…</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Diario III · Cap. 2</div>
-        <div class="diario-titulo">La Doncella de Sangre</div>
-        <div class="diario-texto">Durante los meses en los que la Primera Orden descubrió la gran conspiración se me ordenó asistir a varias clases en la Segunda Capilla de la Sangre. En una de ellas se unieron como invitadas de honor Azazel y Asmodeo.
-
-La Parca me miró con desprecio, pero yo la miré con admiración. La ramera intentó entablar conversación varias veces, pero la ignoré.
-
-Cuando Samara llegó, recitamos el hechizo juntas y me encontré en el plano de carne de Babalón: una enorme cámara hecha de vísceras que mutaban constantemente. Vi a la Hija del Dragón liberada de su máscara social, hablando de chismes de guerra con los súcubos. Y Babalón se hizo presente, enorme, como un rostro en el cielo violeta. Me reveló mi rol en la última marcha y vi la tierra que sería ocupada…</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Diario IV · Cap. 3</div>
-        <div class="diario-titulo">Solsticio de Invierno</div>
-        <div class="diario-texto">Al conocer la verdad, encriptada en el susurro de Babalón, la ansiedad por la guerra me invadió. Me volví paranoica con el mundo exterior, como un gato vagabundo.
-
-Ahora esos seres corruptos andaban sueltos por los bosques de las tierras oscuras y era mi culpa. Cuando la iglesia se incendió, los eruditos huimos a la Tercera Capilla de la Sangre. Nyla fue una de las pocas sobrevivientes. La nombré mi armera, le puse el apodo de «Colmillo Bebé» y le regalé una muñeca.
-
-Estoy confundida. A mis veintiocho años caí enamorada. Y peor aún, enamorada de un vástago del dragón con cientos de años más que yo. En ese doloroso sueño, caminé por un vasto campo cubierto de nieve. Al final vi a Samara. La saludé, grité su nombre, pero ella no me escuchaba…</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Diario V · Cap. 4</div>
-        <div class="diario-titulo">Una Carta de Disculpas</div>
-        <div class="diario-texto">El día que la confronté, la vi cansada, pero aun así decidí reclamarle y vomitarle todos mis sentimientos. Era una noche, después de la última reunión en la Tercera Capilla de la Sangre, antes de emprender el viaje hacia el norte.
-
-—Samara, necesito saber si me amas —le dije con una voz frágil y temblorosa.
-
-Por primera vez, en años de verla fuerte y dura, la inquebrantable espada de fuego empezó a llorar y mi corazón se rompió.
-
-—Te amo, Morgana. Nunca estuve con alguien como lo hice contigo la noche del festival. Nunca me arriesgué a hacer contacto con un humano; de hecho, nunca tuve interés… y lo hice contigo. ¿No es esa la mayor demostración de amor que podría darte?
-
-Faltaba una semana para la marcha. Te amo Samara, y la próxima vez que nos unamos, te voy a recibir con un amor incondicional. Esta es mi promesa para vos.</div>
-      </div>
-    </div>
-
-    <div id="diario-empireo" class="narrador-section">
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias I · Cap. 2</div>
-        <div class="diario-titulo">La Contención — El Empíreo Lunar</div>
-        <div class="diario-texto">La luna me miró con decepción, juzgándome. Sentí su recelo cuando nos cruzamos, también un toque de tristeza, así que entré a mi cuarto y saqué una guitarra para cantarle una serenata.
-
-Puse mi cabeza en el cuerpo del instrumento, cerré los ojos y moví los dedos. Las notas sonaron como gotas de sereno cayendo sobre las hojas de un árbol. Le hice saber que yo también estaba triste y que mi corazón estaba lleno de lágrimas.
-
-Nos sentimos y me abrazó. Sentí su calor en el pecho mientras mi canción reverberaba en el aire, en el tiempo. Me cantó uniéndose a mi melodía. «C' gotah» me susurró al oído en el idioma de la creación.
-
-Siento como mi alma transmuta cada vez que estoy en la academia. Sus paredes, sus libros. Desearía vivir por siempre dentro de su romántica melancolía.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias II · Cap. 2</div>
-        <div class="diario-titulo">La Crueldad — El Empíreo Guerrero</div>
-        <div class="diario-texto">La luna me volvió a mirar, pero esta vez pude ver el destino reflejado en sus ojos. Me escondí de ella, y escuché a los demonios cantar y golpear sus tambores frenéticamente llamando a la fiera.
-
-Algo comenzó a arder en mi tórax, quemando mi estómago y mis pulmones. Agarré mi espada y salí hacia el bosque para luchar contra los melenudos y salvajes hombres bestia. Los encontré frente a una hoguera. Cuando me acerqué, todos bajaron la cabeza.
-
-Reunimos hierbas, las fumamos en pipas hechas con huesos y peleamos hasta el amanecer. Las bestias me obsequiaron un mazo imbuido con la runa de la putrefacción: el Mgehye. La luna me regaló un pedazo de su cuerpo, dando así vida al secreto de la ternura, el cual enterré al pie de una planta de jazmín en el jardín del castillo.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias III · Cap. 2</div>
-        <div class="diario-titulo">El Llamado — La Tentación</div>
-        <div class="diario-texto">Las bibliotecarias me regalaron un libro negro muy pesado. Este era un testamento, escrito en el idioma primordial, lo cual me entusiasmó. Leí esos antiguos escritos y sentí un subidón de energía desde mi pecho hasta mi cabeza.
-
-Él siempre está en el fondo de mi mente mirándome fijamente. Afuera hay una tormenta y lo único que pasa por mi cabeza es que este es el camino correcto. El humo de mi pipa me lleva a un estado de consciencia alterada y me conecto con mi alter ego, con «ello», con la bestia que se oculta, el dragón que duerme en el centro de la tierra…
-
-Luché con todas mis fuerzas, no quería dejarlo entrar a mi corazón. Luché, pero finalmente pudo entrar. El mal. Y se sintió tan penoso, sentí la vergüenza y a la vez un gusto culposo.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias IV · Cap. 2</div>
-        <div class="diario-titulo">Las 6 Pesadillas de Sasha</div>
-        <div class="diario-texto">Me vi en un sueño sacando la Excalibur de la piedra y blandiéndola hacia el cielo. Al alzar la espada mi cara se transformó en la de una serpiente.
-
-La noche siguiente, en el umbral de la oscuridad, tuve la primera pesadilla. La vi aparecer, vestida de sangre fresca. Su cuerpo era una amalgama grotesca de músculos mutilados. Me dijo que me amaba, la monstruosa mujer se declaró como mi pretendiente y tras endulzar mis oídos, me pidió que le entregara mi alma. Yo acepté, con la lujuria quemando mi corazón.
-
-Me dijo que su nombre era Babalón, pero que también podía llamarla Sasha. Me mostró visiones sobre seres con ojos parecidos a ascuas y me besó. Así, durante seis noches, se alimentó de mi miedo, bebió de mi frío sudor. Me hechizó y se fue, llevándose mi corazón.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias Finales · Cap. 2</div>
-        <div class="diario-titulo">Apoteosis — El Último Adiós</div>
-        <div class="diario-texto">En unas semanas habré de partir. Mi cuerpo apenas se sostiene, pero he logrado construir los cimientos de un futuro donde solo existirá la descendencia de mi linaje original. Vi cómo la iglesia pasó de ser un refugio para los marginados de guerra a convertirse en una prodigiosa escuela de hechicería.
-
-En cuanto a la Hija del Dragón, desearía que su destino no fuera el mismo que el de su padre, porque, de ser así, su final sería tan trágico como el mío.
-
-Ahora que debo despedirme, me entristece recordar que hace muchos años la luna dejó de mirarme. En mis últimos sueños vi un ciervo blanco, con un cuerno en la frente, pisoteando lagartijas. A su paso, dejaba un rastro de sangre azul. Esto hizo que la duda volviera a arraigarse en mi corazón.
-
-No hay nada que pueda salvarnos. Estamos comprometidos con la condena.</div>
-      </div>
-    </div>
-
-    <div id="diario-samara" class="narrador-section">
-      <div class="diario-entry">
-        <div class="diario-numero">Reporte I · Cap. 2</div>
-        <div class="diario-titulo">El Pueblo Pesquero</div>
-        <div class="diario-texto">Tenían la piel translúcida, por lo que se podía ver su pálida sangre correr por sus venas, y sus ojos eran negros, como piedras en la playa. A pesar de su apariencia extraña, siempre fueron educados y pacíficos.
-
-Descubrimos que había una palabra que les molestaba muchísimo: «Lw'nafh'nah», algo parecido a «Dama Gris». Siempre respetamos esto.
-
-Nos explicaron que venían de otro mundo, uno azotado por una enfermedad que fue imposible de contener. Hablaban de su tierra natal, «Throdok'th», con respeto. No compartieron muchos detalles, más allá de descripciones de monolitos de piedra y poderosa magia.
-
-Una noche de lluvia intensa, un alumno irrumpió en el salón. Había sido atacado por los humanoides. Decidí visitar la costa para comprobarlo por mí misma. Lo que encontré fue lo opuesto a lo que esperaba. Nunca entendí qué fue lo que los llevó a derramar su sangre pálida.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Reporte II · Cap. 2</div>
-        <div class="diario-titulo">Escuadrón de Asalto — Fuego</div>
-        <div class="diario-texto">Esa noche salimos a cazar, bajo la luz de la luna creciente. Éramos diez en total: la Bruja de Invierno, cuatro de sus mejores alumnos, dos abominaciones de peso pesado, dos abominaciones más ágiles y yo. Nuestra misión era simple, encomendada por la mujerzuela de mi padre: eliminar a los familiares de los caballeros de la Primera Orden.
-
-Yo estaba emocionada. Llegamos al atardecer, esperamos a que la oscuridad fuera total para empezar a matar. Las abominaciones incendiaron las chozas. El pánico se hizo incontrolable.
-
-Me tomé mi tiempo. Ya hacía muchísimo tiempo que no me divertía tanto. Estoy ansiosa por encontrarme con mi padre.</div>
-      </div>
-    </div>
-
-    <div id="diario-caballeros" class="narrador-section">
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias · Cap. 1</div>
-        <div class="diario-titulo">Guillermo V — El Rostro de Metal</div>
-        <div class="diario-texto">La encontré en un santuario perdido. Estábamos en una misión cuyo objetivo era conquistar tierras del este. Mis camaradas habían avistado unas mezquitas en el medio del desierto. Nos adentramos y encontramos un complejo de piezas de metal, confuso, muchas chocaban entre ellas.
-
-En el medio del cuarto un cofre cerrado llamó a mi curiosidad. Me percaté de unas ranuras en el piso, parecidas a grietas creadas por el óxido. Me sentí poseído por algún tipo de fuerza, me desmayé y sentí como si un momento se hubiese borrado de mi mente.
-
-Cuando entré en razón todos mis acompañantes estaban muertos, degollados, y sangre se derramaba desde el filo de mi espada. El cofre se abrió. Dentro había un antifaz color negro como la noche. Me lo puse y escuché gritos de aves que formaban una frase: «Ce' Le' Bug Na'ghftyar». Así, con la máscara puesta, comandé los cadáveres de mis aliados.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias · Cap. 1</div>
-        <div class="diario-titulo">Joaquín IV — La Persecución</div>
-        <div class="diario-texto">Luché día y noche por mi iglesia. Así borramos civilizaciones enteras en nuestras campañas de conversión. En estos viajes muchos de nosotros visitamos sus templos y llevamos reliquias robadas.
-
-Al volver notamos que los obispos nos miraban con asco. La iglesia se había enterado de nuestros descubrimientos. Con puño de hierro nos persiguieron, nos torturaron, nos traicionaron. Yo escapé.
-
-En total fuimos trece los que sobrevivimos al genocidio. La última noche de la persecución tuve la aparición de una mujer vestida de rojo, con ojos color carmesí. En este sueño, la mujer me sedujo. Al despertar, sentí paz. Y con los demás herejes decidimos reunirnos, solo para enterarnos de que todos habíamos sido llamados. Se nos prometió la victoria, pero a cambio debíamos construir un castillo más allá del horizonte.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias · Cap. 2</div>
-        <div class="diario-titulo">Kristian VIII — Alabado Sea el Sol</div>
-        <div class="diario-texto">Anoche tuve un hermoso sueño. Vi a un bebé durmiendo en una cuna de oro. Pronto se me acercaron los ángeles: «¡Hijo del Sol! La poca luz que ilumina a estas tierras está siendo apagada, vos sos el único que nos puede escuchar, por qué tu corazón está lleno de virtud.»
-
-Desde esa noche, me mantengo firme ante mi juramento y mi iglesia. Es mi responsabilidad más grande la de purificar el sur de estas tierras.
-
-Fui nombrado «Último Hijo del Sol». El papa, los obispos y los cardenales ya están envejeciendo y tienen la teoría de que todo ya está escrito. Por eso entreno, estudio y rezo cada noche antes de dormir. Solo se necesita un vestigio de esperanza. Uno que quite a nuestra madre de su desesperación.</div>
-      </div>
-    </div>
-
-    <div id="diario-otros" class="narrador-section">
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias · Cap. 1</div>
-        <div class="diario-titulo">Selena — La Boda</div>
-        <div class="diario-texto">Una noche de lluvia, mientras dormía, una de las novicias de la casa me despertó. Esa noche, el consejo de los trece convocó una audiencia en la Casa de las Lágrimas para elegir una discípula para el próximo festival.
-
-No entendía por qué me habían elegido. Las sacerdotisas nos llevaron a la capilla para vestirnos de blanco. Me miré al espejo y me vi como un ángel.
-
-Los genitales de Natalia empezaron a sangrar, y de esa sangre emergió la Gran Maestra. Con su sangre dibujó una forma en el piso, parecida a un ojo, y la llamó la Runa del Augurio. Pronunció mi nombre y me dijo que yo iba a ser la madre.
-
-La Gran Maestra tomó la daga y la clavó en mi corazón, pero no morí. La daga se hundió dentro de mí y se hizo parte de mi carne. Me puse el anillo de plata que estaba en el altar, y ahí pude verlo todo. Un futuro corrupto, un futuro sin esperanza. Y sentí calma.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias · Cap. 1</div>
-        <div class="diario-titulo">Ayda — La Comunión</div>
-        <div class="diario-texto">Hace unas cuantas noches, unos extraños hombres comenzaron a migrar a nuestro bosque. A mis setenta y tres años podía reconocer el mal con solo mirarlo, y sabía que aquellos hombres no eran simples peregrinos. Eran templarios, pero ya no practicaban la fe por la que alguna vez habían peleado.
-
-Mi nieto, Caín, era un muchacho inquieto, lleno de curiosidad. Una noche, un zumbido me aturdió. Era potente, como el de una avispa monstruosa dentro de mi cráneo. Y luego un estruendo: vidrio rompiéndose. Fui como pude hasta su cuarto y solo encontré el viento haciendo volar sus cortinas. Mi tesoro había sido secuestrado por las sombras.
-
-Cuando me adentré en el bosque vi a muchos hombres moviendo troncos y piedras. Y allí, entre los obreros, reconocí a Caín. Trabajaba balbuceando, como hipnotizado, erigiendo la fortaleza. Mi corazón se rompió en ese instante.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Memorias · Cap. 2</div>
-        <div class="diario-titulo">Nimrod — La Calamidad</div>
-        <div class="diario-texto">La noche en que decidí salir del pueblo era fría. Los chamanes de las tierras del oeste contaban la historia de un fuerte en los bosques del sur, donde se manifestaban ángeles, demonios y dioses. Lo que realmente me atraía era la leyenda de un hechizo capaz de traer a los muertos del más allá.
-
-En la celda de al lado había un hombre flaco y golpeado. Susurraba incoherencias. Me incliné hacia él y le dije que mirase la pira: «Están a punto de sacrificarnos…» El hombre se lanzó al frenesí, gritando «¡Lw'nafh'nah! ¡Lw'nafh'nah!» y volcó la pira. Las llamas se extendieron por la sala.
-
-Entré a la biblioteca. Una figura de cabello blanco y ojos celestes me tomó la mano: «No vas a encontrar el hechizo que buscas acá, pero este otro puede que te ayude a traer a tu hija de vuelta.» Recité el mantra. Algo muy vil, una presencia recién nacida, se estaba manifestando. Había provocado una calamidad… todo por intentar traerla de vuelta.</div>
-      </div>
-      <div class="diario-entry">
-        <div class="diario-numero">Revelaciones · Cap. 4</div>
-        <div class="diario-titulo">Sophia — La Canción del Castillo en el Cielo</div>
-        <div class="diario-texto">Me siento sola y triste. La melancolía se vuelve una enfermedad que se derrama constantemente de mis ojos. Todo ese odio allá afuera me duele tanto; es como si me clavaran un cuchillo directo en el pecho.
-
-Al nacer, mi progenie cae en un sueño eterno y, en su fantasía, crea dioses que sienten envidia y se lastiman. Yo no engendré el mal, pero este halló la forma de anidar en el ego de mi primogénito.
-
-Pero al final, cuando El Depravado intente asesinarme, voy a correr otra vez para terminar, ojalá, en un lugar mejor, en donde pueda volver a ser feliz. En lo profundo de mi ser aún titila una chispa de esperanza.
-
-«En'ghft nog / Ph'nglui ya vultmag / Ya wugah'nagl ah naior / Eng y' mgep nog 'fhalma»</div>
-      </div>
     </div>
   </div>
 </div>
@@ -1634,25 +1396,10 @@ const lugares = [
   { nombre:"El Campo de Nieve de Morgana", tipo:"otro", tipoLabel:"Otro Plano", desc:"Plano onírico de Morgana: vasto campo nevado con tormenta blanca. El súcubo escarlata le revela aquí su maldición.", fuente:"Cap. 3 – Solsticio de invierno" },
 ];
 
-// ═══ Videos del canal @sangresasha ═══
-// ID del canal: UCeqjdwNR8pDL4tqa0bQ0YXA
-// Se usan IDs de videos reales del canal cargados manualmente
-// (La API pública de YouTube requiere API key; usamos embed directo con IDs conocidos)
-const videosCanal = [
-  {
-    id: "placeholder1",
-    titulo: "Canal de Sangre Sasha",
-    desc: "Visitá el canal oficial para ver todos los fragmentos de audio y contenido del universo de El Castillo de Sophia.",
-    esPlaceholder: true
-  }
-];
-
 function renderVideos() {
   const grid = document.getElementById('videos-grid');
   if (!grid) return;
 
-  // Intentamos cargar via oEmbed / noembed para obtener thumbnails reales
-  // Como fallback, mostramos un embed del canal directamente
   grid.innerHTML = `
     <div class="video-card" style="grid-column: 1 / -1;">
       <div style="position:relative; width:100%; padding-top:56.25%; background:#0d0810;">
@@ -1670,7 +1417,6 @@ function renderVideos() {
     </div>
   `;
 
-  // Intentar cargar videos individuales via la API pública de YouTube (sin key, via RSS/noembed)
   cargarVideosYT();
 }
 
@@ -1679,7 +1425,6 @@ async function cargarVideosYT() {
   const channelId = 'UCeqjdwNR8pDL4tqa0bQ0YXA';
 
   try {
-    // Usamos el feed de YouTube convertido a JSON via una API pública
     const resp = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`);
     if (!resp.ok) throw new Error('no feed');
     const data = await resp.json();
@@ -1687,7 +1432,6 @@ async function cargarVideosYT() {
 
     grid.innerHTML = '';
     data.items.forEach(item => {
-      // Extraer video ID del link
       const match = item.link.match(/v=([^&]+)/);
       const videoId = match ? match[1] : null;
       if (!videoId) return;
@@ -1713,7 +1457,6 @@ async function cargarVideosYT() {
       grid.appendChild(card);
     });
   } catch(e) {
-    // Si no se puede cargar el feed, dejamos el embed del canal completo
     console.log('Feed no disponible, mostrando embed del canal');
   }
 }
@@ -1774,14 +1517,6 @@ window.setGlosarioTab = function(tab, btn) {
   document.querySelectorAll('.glosario-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.glosario-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('glosario-' + tab).classList.add('active');
-  btn.classList.add('active');
-};
-
-// ═══ Diarios tabs ═══
-window.setNarradorTab = function(tab, btn) {
-  document.querySelectorAll('.narrador-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.narrador-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('diario-' + tab).classList.add('active');
   btn.classList.add('active');
 };
 
