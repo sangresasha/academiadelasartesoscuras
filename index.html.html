@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academia de las Artes Oscuras</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English+SC&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --bg: #0a0608;
+    --card: #160e11;
+    --border: #3a1f28;
+    --accent: #8b1a2f;
+    --gold: #c9933a;
+    --gold2: #e8b86d;
+    --text: #d4c4bc;
+    --muted: #7a6460;
+    --tag-bg: #1e1013;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(139,26,47,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(201,147,58,0.05) 0%, transparent 60%);
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,6,8,0.95);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-btn {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { color: var(--gold2); }
+  .nav-btn.active { color: var(--gold2); border-bottom-color: var(--gold); }
+
+  header {
+    text-align: center;
+    padding: 3rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  header::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 1.2rem auto 0;
+  }
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    color: var(--gold2);
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    text-shadow: 0 0 40px rgba(201,147,58,0.25);
+  }
+  .subtitle { font-family: 'IM Fell English SC', serif; color: var(--muted); font-size: 0.82rem; margin-top: 0.5rem; letter-spacing: 0.12em; }
+  .count-badge { display: inline-block; background: var(--accent); color: #f0cfc0; font-family: 'IM Fell English SC', serif; font-size: 0.72rem; padding: 0.2em 0.9em; border-radius: 2px; margin-top: 0.6rem; letter-spacing: 0.1em; }
+  .search-wrap { max-width: 440px; margin: 1.2rem auto 0; }
+  .search-wrap input { width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: 'Crimson Pro', serif; font-size: 0.95rem; padding: 0.5rem 1rem; border-radius: 3px; outline: none; transition: border-color 0.2s; }
+  .search-wrap input:focus { border-color: var(--gold); }
+  .search-wrap input::placeholder { color: var(--muted); }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; padding: 1rem 1rem 0; }
+  .filter-btn { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.72rem; padding: 0.25em 0.8em; cursor: pointer; border-radius: 2px; letter-spacing: 0.08em; transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold2); background: rgba(201,147,58,0.07); }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem 1.4rem; position: relative; transition: border-color 0.25s, transform 0.2s; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.25s; }
+  .card:hover { border-color: #5a2535; transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+  .card.lugar::before { background: var(--gold); }
+  .card.lugar:hover { border-color: #6a5020; }
+
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; }
+  .char-name { font-family: 'IM Fell English SC', serif; font-size: 1.05rem; color: var(--gold2); line-height: 1.2; }
+  .char-type { font-family: 'IM Fell English SC', serif; font-size: 0.68rem; padding: 0.2em 0.6em; border-radius: 2px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.05em; }
+
+  .type-divino    { background: rgba(139,26,47,0.3);  color: #d98090; border: 1px solid rgba(139,26,47,0.5); }
+  .type-angel     { background: rgba(20,40,80,0.3);   color: #7090c8; border: 1px solid rgba(20,40,80,0.5); }
+  .type-alumno    { background: rgba(30,50,40,0.3);   color: #80b090; border: 1px solid rgba(30,50,40,0.5); }
+  .type-mago      { background: rgba(42,60,100,0.3);  color: #88a0d0; border: 1px solid rgba(42,60,100,0.5); }
+  .type-caballero { background: rgba(80,70,20,0.3);   color: #d0b860; border: 1px solid rgba(80,70,20,0.5); }
+  .type-bruja     { background: rgba(20,80,60,0.3);   color: #70c8a0; border: 1px solid rgba(20,80,60,0.5); }
+  .type-mortal    { background: rgba(60,50,50,0.3);   color: #b0a0a0; border: 1px solid rgba(60,50,50,0.5); }
+  .type-bestia    { background: rgba(80,40,10,0.3);   color: #d09050; border: 1px solid rgba(80,40,10,0.5); }
+  .type-entidad   { background: rgba(60,20,80,0.3);   color: #b888d0; border: 1px solid rgba(60,20,80,0.5); }
+  .type-castillo  { background: rgba(100,60,10,0.3);  color: #e0a840; border: 1px solid rgba(100,60,10,0.5); }
+  .type-infierno  { background: rgba(120,20,20,0.3);  color: #e06060; border: 1px solid rgba(120,20,20,0.5); }
+  .type-bosque    { background: rgba(20,60,30,0.3);   color: #60b870; border: 1px solid rgba(20,60,30,0.5); }
+  .type-exterior  { background: rgba(40,40,70,0.3);   color: #8888c8; border: 1px solid rgba(40,40,70,0.5); }
+  .type-otro      { background: rgba(50,50,50,0.3);   color: #a0a0a0; border: 1px solid rgba(50,50,50,0.5); }
+
+  .char-desc { font-size: 0.93rem; color: var(--text); line-height: 1.55; font-style: italic; opacity: 0.9; }
+  .char-source { margin-top: 0.7rem; font-size: 0.73rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
+
+  /* ═══ FORO ═══ */
+  .foro-wrap { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  #foro-lista { display: block; }
+  #foro-hilo  { display: none; }
+
+  .btn-nuevo-hilo { display: flex; align-items: center; gap: 0.5rem; background: none; border: 1px solid var(--accent); color: var(--gold2); font-family: 'IM Fell English SC', serif; font-size: 0.85rem; letter-spacing: 0.1em; padding: 0.55rem 1.4rem; cursor: pointer; border-radius: 3px; transition: all 0.2s; margin-bottom: 1.6rem; }
+  .btn-nuevo-hilo:hover { background: rgba(139,26,47,0.18); border-color: var(--gold); }
+
+  .sep { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); margin: 1.2rem 0; }
+
+  .hilo-item { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1rem 1.3rem; cursor: pointer; transition: border-color 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+  .hilo-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .hilo-item:hover { border-color: #5a2535; transform: translateY(-1px); }
+  .hilo-item:hover::before { opacity: 1; }
+  .hilo-item + .hilo-item { margin-top: 0.7rem; }
+
+  .hilo-titulo { font-family: 'IM Fell English SC', serif; font-size: 1rem; color: var(--gold2); margin-bottom: 0.2rem; }
+  .hilo-meta { font-size: 0.78rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .hilo-meta .resp-count { background: rgba(139,26,47,0.25); color: #d98090; border: 1px solid rgba(139,26,47,0.4); padding: 0.1em 0.6em; border-radius: 2px; font-size: 0.7rem; }
+  .hilo-preview { font-size: 0.88rem; color: var(--text); opacity: 0.7; margin-top: 0.35rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .btn-volver { background: none; border: none; color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.82rem; letter-spacing: 0.1em; cursor: pointer; padding: 0; margin-bottom: 1.4rem; transition: color 0.2s; display: flex; align-items: center; gap: 0.4rem; }
+  .btn-volver:hover { color: var(--gold2); }
+
+  .hilo-detalle-titulo { font-family: 'IM Fell English SC', serif; font-size: 1.35rem; color: var(--gold2); line-height: 1.25; margin-bottom: 0.3rem; }
+  .hilo-detalle-meta { font-size: 0.78rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; margin-bottom: 1.2rem; }
+
+  .mensaje { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1rem 1.3rem; margin-bottom: 0.8rem; position: relative; }
+  .mensaje.op { border-color: #4a2535; }
+  .mensaje.op::before { content: 'OP'; position: absolute; top: 0.7rem; right: 0.9rem; font-family: 'IM Fell English SC', serif; font-size: 0.65rem; color: var(--accent); letter-spacing: 0.08em; }
+  .msg-autor { font-family: 'IM Fell English SC', serif; font-size: 0.82rem; color: var(--gold); margin-bottom: 0.25rem; letter-spacing: 0.05em; }
+  .msg-fecha { font-family: 'IM Fell English SC', serif; font-size: 0.7rem; color: var(--muted); margin-left: 0.6rem; }
+  .msg-texto { font-size: 0.97rem; color: var(--text); line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+
+  .foro-form { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem; margin-top: 1.2rem; }
+  .foro-form h3 { font-family: 'IM Fell English SC', serif; font-size: 0.85rem; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.9rem; }
+  .foro-form label { display: block; font-family: 'IM Fell English SC', serif; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.25rem; margin-top: 0.7rem; }
+  .foro-form label:first-of-type { margin-top: 0; }
+  .foro-form input, .foro-form textarea { width: 100%; background: #0f0910; border: 1px solid var(--border); color: var(--text); font-family: 'Crimson Pro', serif; font-size: 0.97rem; padding: 0.5rem 0.9rem; border-radius: 3px; outline: none; transition: border-color 0.2s; resize: vertical; }
+  .foro-form input:focus, .foro-form textarea:focus { border-color: var(--gold); }
+  .foro-form input::placeholder, .foro-form textarea::placeholder { color: var(--muted); }
+  .foro-form textarea { min-height: 90px; }
+  .foro-form .form-row { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+  .foro-form .form-row > div { flex: 1; min-width: 160px; }
+
+  .btn-submit { margin-top: 1rem; background: var(--accent); border: 1px solid #a02040; color: #f0cfc0; font-family: 'IM Fell English SC', serif; font-size: 0.82rem; letter-spacing: 0.1em; padding: 0.55rem 1.6rem; cursor: pointer; border-radius: 3px; transition: all 0.2s; }
+  .btn-submit:hover { background: #a02040; border-color: var(--gold); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .foro-vacio { text-align: center; padding: 3rem 1rem; color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.9rem; letter-spacing: 0.08em; }
+  .foro-vacio-icon { font-size: 2rem; display: block; margin-bottom: 0.7rem; opacity: 0.35; }
+  .foro-loading { text-align: center; padding: 2rem; color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.85rem; letter-spacing: 0.1em; }
+
+  .modal-bg { display: none; position: fixed; inset: 0; background: rgba(5,3,4,0.88); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-bg.open { display: flex; }
+  .modal { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 1.8rem; max-width: 540px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+  .modal h2 { font-family: 'IM Fell English SC', serif; color: var(--gold2); font-size: 1.1rem; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+  .modal::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); border-radius: 5px 0 0 5px; }
+  .btn-cerrar-modal { position: absolute; top: 0.8rem; right: 1rem; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; line-height: 1; }
+  .btn-cerrar-modal:hover { color: var(--gold2); }
+
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.78rem; font-family: 'IM Fell English SC', serif; letter-spacing: 0.1em; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-btn active" onclick="switchPage('personajes', this)">Personajes</button>
+  <button class="nav-btn" onclick="switchPage('lugares', this)">Lugares</button>
+  <button class="nav-btn" onclick="switchPage('foro', this)">Foro</button>
+</nav>
+
+<!-- PERSONAJES -->
+<div id="page-personajes" class="page active">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Log de Personajes · D. M. Soley</div>
+    <div class="count-badge" id="badge-personajes">38 personajes</div>
+    <div class="search-wrap"><input type="text" id="search-personajes" placeholder="Buscar personaje…" oninput="filterPersonajes()"></div>
+    <div class="filters" id="filters-personajes">
+      <button class="filter-btn active" onclick="setFilterP('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="setFilterP('divino',this)">Divino / Arconte</button>
+      <button class="filter-btn" onclick="setFilterP('angel',this)">Ángel Caído</button>
+      <button class="filter-btn" onclick="setFilterP('mago',this)">Mago / Empíreo</button>
+      <button class="filter-btn" onclick="setFilterP('caballero',this)">Caballero</button>
+      <button class="filter-btn" onclick="setFilterP('bruja',this)">Bruja / Hechicero</button>
+      <button class="filter-btn" onclick="setFilterP('alumno',this)">Alumno</button>
+      <button class="filter-btn" onclick="setFilterP('mortal',this)">Mortal / Civil</button>
+      <button class="filter-btn" onclick="setFilterP('bestia',this)">Bestia / Dragón</button>
+      <button class="filter-btn" onclick="setFilterP('entidad',this)">Entidad</button>
+    </div>
+  </header>
+  <main id="grid-personajes"></main>
+</div>
+
+<!-- LUGARES -->
+<div id="page-lugares" class="page">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Log de Lugares · D. M. Soley</div>
+    <div class="count-badge" id="badge-lugares">— lugares</div>
+    <div class="search-wrap"><input type="text" id="search-lugares" placeholder="Buscar lugar…" oninput="filterLugares()"></div>
+    <div class="filters" id="filters-lugares">
+      <button class="filter-btn active" onclick="setFilterL('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="setFilterL('castillo',this)">Castillo / Academia</button>
+      <button class="filter-btn" onclick="setFilterL('infierno',this)">Inframundo</button>
+      <button class="filter-btn" onclick="setFilterL('bosque',this)">Bosques / Exterior</button>
+      <button class="filter-btn" onclick="setFilterL('exterior',this)">Tierras / Pueblos</button>
+      <button class="filter-btn" onclick="setFilterL('otro',this)">Otro Plano</button>
+    </div>
+  </header>
+  <main id="grid-lugares"></main>
+</div>
+
+<!-- FORO -->
+<div id="page-foro" class="page">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Cámara de los Susurros · Foro</div>
+    <div class="count-badge" id="badge-foro">0 hilos</div>
+  </header>
+  <div class="foro-wrap">
+    <div id="foro-lista">
+      <button class="btn-nuevo-hilo" onclick="abrirModal()">✦ Abrir nuevo hilo</button>
+      <div id="hilos-container"><div class="foro-loading">Invocando los archivos…</div></div>
+    </div>
+    <div id="foro-hilo">
+      <button class="btn-volver" onclick="volverLista()">← Volver a los hilos</button>
+      <div class="hilo-detalle-titulo" id="hilo-titulo-detalle"></div>
+      <div class="hilo-detalle-meta" id="hilo-meta-detalle"></div>
+      <div class="sep"></div>
+      <div id="mensajes-container"></div>
+      <div class="foro-form">
+        <h3>◈ Dejar una respuesta</h3>
+        <label>Tu nombre</label>
+        <input type="text" id="resp-autor" placeholder="Nombre o seudónimo…" maxlength="60">
+        <label>Mensaje</label>
+        <textarea id="resp-texto" placeholder="Escribe tu respuesta…" maxlength="2000"></textarea>
+        <button class="btn-submit" id="btn-resp" onclick="enviarRespuesta()">Enviar respuesta</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal nuevo hilo -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <button class="btn-cerrar-modal" onclick="cerrarModal()">✕</button>
+    <h2>✦ Nuevo hilo</h2>
+    <div class="foro-form" style="background:none;border:none;padding:0;margin:0;">
+      <div class="form-row">
+        <div>
+          <label>Tu nombre</label>
+          <input type="text" id="nuevo-autor" placeholder="Nombre o seudónimo…" maxlength="60">
+        </div>
+        <div>
+          <label>Categoría</label>
+          <input type="text" id="nuevo-cat" placeholder="ej. Teorías, Personajes…" maxlength="40">
+        </div>
+      </div>
+      <label>Título del hilo</label>
+      <input type="text" id="nuevo-titulo" placeholder="¿De qué querés hablar?" maxlength="120">
+      <label>Mensaje inicial</label>
+      <textarea id="nuevo-texto" placeholder="Escribe el primer mensaje del hilo…" maxlength="3000"></textarea>
+      <button class="btn-submit" id="btn-crear" onclick="crearHilo()">Abrir hilo</button>
+    </div>
+  </div>
+</div>
+
+<footer>Tercera Edición · Primer Parche · Edición Digital</footer>
+
+<!-- Firebase SDK (módulos ES) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, doc, updateDoc, arrayUnion, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCOdpTR_Y-9eQoCJBlZ-OMybckIPqdstQo",
+    authDomain: "aao-ecds-1.firebaseapp.com",
+    projectId: "aao-ecds-1",
+    storageBucket: "aao-ecds-1.firebasestorage.app",
+    messagingSenderId: "186213040999",
+    appId: "1:186213040999:web:9e8c9fd8e7ac7e3dc065c2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  function fechaFormato(ts) {
+    if (!ts) return '…';
+    const d = (ts.toDate) ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString('es', { day:'2-digit', month:'short', year:'numeric' }) +
+           ' · ' + d.toLocaleTimeString('es', { hour:'2-digit', minute:'2-digit' });
+  }
+
+  function escHtml(str) {
+    return String(str || '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  let hiloActualId = null;
+  let unsubHilos   = null;
+  let unsubMensajes = null;
+
+  // ── Escucha en tiempo real la lista de hilos ──
+  function iniciarEscuchaHilos() {
+    if (unsubHilos) return;
+    const q = query(collection(db, 'hilos'), orderBy('fecha', 'desc'));
+    unsubHilos = onSnapshot(q, (snap) => {
+      const cont  = document.getElementById('hilos-container');
+      const badge = document.getElementById('badge-foro');
+      badge.textContent = snap.size + ' hilo' + (snap.size !== 1 ? 's' : '');
+      if (snap.empty) {
+        cont.innerHTML = `<div class="foro-vacio"><span class="foro-vacio-icon">🕯</span>Ningún hilo ha sido abierto aún.<br>Sé el primero en romper el silencio.</div>`;
+        return;
+      }
+      cont.innerHTML = '';
+      snap.forEach(docSnap => {
+        const h  = docSnap.data();
+        const id = docSnap.id;
+        const respCount = h.mensajes ? h.mensajes.length - 1 : 0;
+        const preview   = h.mensajes && h.mensajes[0] ? h.mensajes[0].texto.slice(0, 120) : '';
+        const div = document.createElement('div');
+        div.className = 'hilo-item';
+        div.onclick = () => abrirHilo(id, h);
+        div.innerHTML = `
+          <div class="hilo-titulo">${escHtml(h.titulo)}</div>
+          <div class="hilo-preview">${escHtml(preview)}${preview.length >= 120 ? '…' : ''}</div>
+          <div class="hilo-meta">
+            <span>✦ ${escHtml(h.autor)}</span>
+            ${h.categoria ? `<span>· ${escHtml(h.categoria)}</span>` : ''}
+            <span>· ${fechaFormato(h.fecha)}</span>
+            <span class="resp-count">${respCount} resp.</span>
+          </div>`;
+        cont.appendChild(div);
+      });
+    }, (err) => {
+      document.getElementById('hilos-container').innerHTML =
+        `<div class="foro-vacio">Error al cargar los hilos. Verificá tu conexión.</div>`;
+      console.error(err);
+    });
+  }
+
+  // ── Abrir un hilo ──
+  function abrirHilo(id, data) {
+    hiloActualId = id;
+    document.getElementById('foro-lista').style.display = 'none';
+    document.getElementById('foro-hilo').style.display  = 'block';
+    document.getElementById('hilo-titulo-detalle').textContent = data.titulo;
+    document.getElementById('hilo-meta-detalle').textContent   =
+      `Iniciado por ${data.autor}${data.categoria ? ' · ' + data.categoria : ''} · ${fechaFormato(data.fecha)}`;
+    document.getElementById('resp-autor').value = '';
+    document.getElementById('resp-texto').value = '';
+
+    if (unsubMensajes) unsubMensajes();
+    unsubMensajes = onSnapshot(doc(db, 'hilos', id), (snap) => {
+      if (snap.exists()) renderMensajes(snap.data().mensajes || []);
+    });
+  }
+
+  function renderMensajes(mensajes) {
+    const cont = document.getElementById('mensajes-container');
+    cont.innerHTML = '';
+    mensajes.forEach((m, i) => {
+      const div = document.createElement('div');
+      div.className = 'mensaje' + (i === 0 ? ' op' : '');
+      div.innerHTML = `
+        <div class="msg-autor">${escHtml(m.autor)}<span class="msg-fecha">${fechaFormato(m.fecha)}</span></div>
+        <div class="msg-texto">${escHtml(m.texto)}</div>`;
+      cont.appendChild(div);
+    });
+  }
+
+  // ── Volver a la lista ──
+  window.volverLista = function() {
+    hiloActualId = null;
+    if (unsubMensajes) { unsubMensajes(); unsubMensajes = null; }
+    document.getElementById('foro-lista').style.display = 'block';
+    document.getElementById('foro-hilo').style.display  = 'none';
+  };
+
+  // ── Modal ──
+  window.abrirModal   = () => document.getElementById('modal-bg').classList.add('open');
+  window.cerrarModal  = () => document.getElementById('modal-bg').classList.remove('open');
+  document.getElementById('modal-bg').addEventListener('click', e => { if (e.target === e.currentTarget) window.cerrarModal(); });
+
+  // ── Crear hilo ──
+  window.crearHilo = async function() {
+    const autor  = document.getElementById('nuevo-autor').value.trim();
+    const cat    = document.getElementById('nuevo-cat').value.trim();
+    const titulo = document.getElementById('nuevo-titulo').value.trim();
+    const texto  = document.getElementById('nuevo-texto').value.trim();
+    if (!autor)  { alert('Por favor ingresá tu nombre.');          return; }
+    if (!titulo) { alert('El hilo necesita un título.');           return; }
+    if (!texto)  { alert('Escribe el primer mensaje del hilo.');   return; }
+    const btn = document.getElementById('btn-crear');
+    btn.disabled = true; btn.textContent = 'Abriendo…';
+    try {
+      const ref = await addDoc(collection(db, 'hilos'), {
+        titulo, autor, categoria: cat,
+        fecha: serverTimestamp(),
+        mensajes: [{ autor, texto, fecha: new Date().toISOString() }]
+      });
+      window.cerrarModal();
+      ['nuevo-autor','nuevo-cat','nuevo-titulo','nuevo-texto'].forEach(id => { document.getElementById(id).value = ''; });
+      abrirHilo(ref.id, { titulo, autor, categoria: cat, fecha: { toDate: () => new Date() } });
+    } catch(e) {
+      alert('Error al crear el hilo. Verificá tu conexión y las reglas de Firestore.');
+      console.error(e);
+    }
+    btn.disabled = false; btn.textContent = 'Abrir hilo';
+  };
+
+  // ── Enviar respuesta ──
+  window.enviarRespuesta = async function() {
+    const autor = document.getElementById('resp-autor').value.trim();
+    const texto = document.getElementById('resp-texto').value.trim();
+    if (!autor) { alert('Por favor ingresá tu nombre.'); return; }
+    if (!texto) { alert('Escribe un mensaje.');          return; }
+    if (!hiloActualId) return;
+    const btn = document.getElementById('btn-resp');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    try {
+      await updateDoc(doc(db, 'hilos', hiloActualId), {
+        mensajes: arrayUnion({ autor, texto, fecha: new Date().toISOString() })
+      });
+      document.getElementById('resp-autor').value = '';
+      document.getElementById('resp-texto').value = '';
+      setTimeout(() => {
+        const last = document.getElementById('mensajes-container').lastElementChild;
+        last && last.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    } catch(e) {
+      alert('Error al enviar. Verificá tu conexión.');
+      console.error(e);
+    }
+    btn.disabled = false; btn.textContent = 'Enviar respuesta';
+  };
+
+  // ── Activar foro al navegar ──
+  const _origSwitch = window.switchPage;
+  window.switchPage = function(page, btn) {
+    _origSwitch(page, btn);
+    if (page === 'foro') iniciarEscuchaHilos();
+  };
+</script>
+
+<!-- Lógica de personajes y lugares (no usa módulos) -->
+<script>
+const personajes = [
+  { nombre:"Babalón / Gran Maestra", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Súcubo escarlata, hermana de Saturno/Saklas y personificación del morbo. Se manifiesta como Gran Maestra en el rito de la boda: emerge de la sangre de Julieta, dirige la ceremonia y dibuja la Runa del Augurio.", fuente:"Caps. 1, 2, 3 y 4" },
+  { nombre:"Saturno / Saklas", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Arconte creado para ser juez y regir el destino. Se rebeló contra su creador junto a Babalón. Se presenta como cubo negro flotante; voz espléndida que retumba kilómetros.", fuente:"Cap. 1 – El infierno" },
+  { nombre:"Sophia", tipo:"entidad", tipoLabel:"Entidad", desc:"La \"primera madre\". Ser primordial que contempla con llanto la sátira cósmica. Habita un castillo de cristal en el cielo, sola y melancólica.", fuente:"Prólogo / Cap. 4 – La canción" },
+  { nombre:"Leviatán", tipo:"angel", tipoLabel:"Ángel Caído", desc:"Enorme serpiente celeste. Aparece desde las estrellas en la batalla final y engulle cientos de servidores del Arquitecto de un solo bocado.", fuente:"Cap. 3 – La fundamentalista / Cap. 4 – El gran conjuro" },
+  { nombre:"Azazel", tipo:"angel", tipoLabel:"Ángel Caído", desc:"Llamada \"La Parca\". Viste armadura negra con rostro siempre oculto y silba una tonada casi imperceptible. Porta una espada legendaria que convierte en polvo a quien corta.", fuente:"Cap. 2 – La doncella de sangre / Cap. 4 – El gran conjuro" },
+  { nombre:"Asmodeo", tipo:"angel", tipoLabel:"Ángel Caído", desc:"Ángel caído coqueta y rubia que lleva una máscara de huesos. Usa magia de seducción engañosa; intenta repetidamente entablar conversación con Morgana, quien la ignora.", fuente:"Cap. 2 – La doncella de sangre" },
+  { nombre:"Belcebú", tipo:"angel", tipoLabel:"Ángel Caído", desc:"Súcubo de la mansión esmeralda. Desciende las escaleras como un espectro, enloquece y mata a los soldados de Alejandro IV con su sola presencia.", fuente:"Cap. 2 – Pasión y vesania" },
+  { nombre:"Belial", tipo:"angel", tipoLabel:"Ángel Caído", desc:"Súcubo adorado por Eros. Lo seduce en una fiesta clandestina y lo lleva a una capilla de Babalón donde intenta arrancarle el corazón.", fuente:"Cap. 2 – Mi amor inmortal" },
+  { nombre:"El Mago Empíreo", tipo:"mago", tipoLabel:"Mago / Empíreo", desc:"Un único recipiente que atraviesa múltiples vidas numeradas. Sensible y lunar en su primera encarnación; guerrero feroz en la segunda; tentado por el mal en la tercera.", fuente:"Cap. 2 – La contención, La crueldad, El llamado, Las 6 pesadillas, Apoteosis" },
+  { nombre:"Caballero Guillermo V, Hijo del Sol", tipo:"caballero", tipoLabel:"Caballero", desc:"Cruzado que encuentra en un santuario del desierto un antifaz negro de acero. Al ponérselo puede comandar cadáveres. Primer portador del \"Rostro de Metal\".", fuente:"Cap. 1 – El rostro de metal" },
+  { nombre:"Caballero Joaquín IV, Hijo del Sol", tipo:"caballero", tipoLabel:"Caballero", desc:"Cruzado superviviente de la persecución de la iglesia. Seducido en sueños por Babalón, lidera a los trece herejes supervivientes hacia la construcción del castillo.", fuente:"Cap. 1 – La persecución" },
+  { nombre:"Alejandro IV, Hijo del Sol", tipo:"caballero", tipoLabel:"Caballero", desc:"Caballero enviado a destruir a Belcebú pero que cae enamorado de ella. Acepta convertirse en su consorte y protector, abandonando su fe y su misión.", fuente:"Cap. 2 – Pasión y vesania" },
+  { nombre:"Kristian VIII, Hijo del Sol", tipo:"caballero", tipoLabel:"Caballero", desc:"Llamado \"Último Hijo del Sol\". General de las tropas aliadas de la Primera Orden. Muere heroicamente ante el General de la Horda en la batalla final.", fuente:"Cap. 2 – Alabado sea el sol / Cap. 4" },
+  { nombre:"Morgana, la Bruja de Invierno", tipo:"bruja", tipoLabel:"Bruja / Hechicero", desc:"Profesora prodigio de la academia. Creadora de los Noctámbulos y los Noctómanos. Piel pálida, cabello casi albino. Enamorada de Samara.", fuente:"Cap. 2 y 4 (diarios I–V)" },
+  { nombre:"Samara", tipo:"bestia", tipoLabel:"Bestia / Dragón", desc:"Hija del Dragón (El Depravado). Profesora de manipulación y directora de la academia. Cabello pelirrojo, piel trigueña, ojos ámbar. Coronada princesa de los draconianos.", fuente:"Caps. 2, 3 y 4" },
+  { nombre:"Nyla / Colmillo Bebé", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumna de la Casa de la Sangre: caníbal, sanguinaria y excéntrica. Sobreviviente de la calamidad; nombrada armera de Morgana.", fuente:"Caps. 2, 3 y 4" },
+  { nombre:"Bruno, el Joven Noctómano", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumno Noctómano de la Casa de la Lágrima. Lidera la exploración de la cueva prohibida del norte; casi pierde la cordura ante la entidad dormida.", fuente:"Cap. 3 – Adónde fue el dragón" },
+  { nombre:"Mathew, el Joven Noctómano", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumno Noctómano de la Casa de la Lágrima. Habla espontáneamente en idioma primordial en la cueva del dragón. Lleva años enamorado de Namah.", fuente:"Cap. 3 – Adónde fue el dragón / Dagas" },
+  { nombre:"Nhiguel", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumno Noctómano, compañero de Bruno y Mathew. Suele quedarse dormido en los rituales; en la cueva del dragón entra en convulsiones al ver la entidad prohibida.", fuente:"Cap. 3 – Adónde fue el dragón" },
+  { nombre:"Rodrigo, el Triste", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumno de la academia secretamente enamorado de Samara. Paralizado por el maleficio de dominación, la observa desde lejos sin atreverse a hablarle.", fuente:"Cap. 2 – Espíritu incendiario" },
+  { nombre:"Alicia, la Mentirosa", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumna de la academia. Junto a Dante, se cuela de madrugada en la biblioteca donde encuentran al anciano misterioso y una cabra que los aterra.", fuente:"Cap. 2 – La forma de la comedia" },
+  { nombre:"Dante", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumno de la academia, compañero de Alicia. Se escabulle con ella a la biblioteca nocturna; recibe uno de los manuscritos del anciano antes de huir aterrado.", fuente:"Cap. 2 – La forma de la comedia" },
+  { nombre:"Eros, el Pretendiente", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumno de la Casa de la Sangre. Enamorado de Belial, un súcubo que lo seduce en una fiesta y luego intenta arrancarle el corazón.", fuente:"Cap. 2 – Mi amor inmortal" },
+  { nombre:"Namah", tipo:"alumno", tipoLabel:"Alumno", desc:"Ex alumna de la Casa de la Lágrima que migró a la Casa de la Sangre. Cabello rubio que tiñó de negro; ojos descritos como dos dagas. Amor no correspondido de Mathew.", fuente:"Dagas" },
+  { nombre:"Selena, Consorte de Saturno", tipo:"mortal", tipoLabel:"Mortal / Civil", desc:"Joven sacerdotisa elegida para la boda ritual. Sobrevive al rito, concibe al primer empíreo y recibe un anillo de plata que le muestra el futuro corrupto.", fuente:"Cap. 1 – La boda" },
+  { nombre:"Natalia", tipo:"mortal", tipoLabel:"Mortal / Civil", desc:"Una de las tres esposas del rito. De sus genitales emerge Babalón al inicio de la ceremonia. Muere apuñalada por la diosa.", fuente:"Cap. 1 – La boda" },
+  { nombre:"Julieta", tipo:"mortal", tipoLabel:"Mortal / Civil", desc:"Una de las tres esposas del rito. Muere a manos de Babalón durante la ceremonia.", fuente:"Cap. 1 – La boda" },
+  { nombre:"Ayda, la Anciana", tipo:"mortal", tipoLabel:"Mortal / Civil", desc:"Anciana de 73 años del pueblo forestal. Narra cómo los templarios herejes reclutan a su nieto Caín y construyen el castillo.", fuente:"Cap. 1 – La comunión" },
+  { nombre:"Caín", tipo:"mortal", tipoLabel:"Mortal / Civil", desc:"Nieto curioso de Ayda. Secuestrado de madrugada por los templarios herejes y convertido en trabajador hipnotizado en la construcción del castillo.", fuente:"Cap. 1 – La comunión" },
+  { nombre:"Nimrod, el Pueblerino", tipo:"mortal", tipoLabel:"Mortal / Civil", desc:"Hombre del pueblo que viaja al castillo buscando un hechizo para resucitar a su hija muerta. Desencadena la calamidad al recitar un conjuro equivocado.", fuente:"Cap. 2 – La calamidad" },
+  { nombre:"El Depravado / Dominus, el Primer Dragón", tipo:"bestia", tipoLabel:"Bestia / Dragón", desc:"El mayor de seis dragones hermanos. Escamas color metal, ojos negros. Padre de Samara y de las hordas draconianas. Antagonista central.", fuente:"Caps. 1, 3 y 4" },
+  { nombre:"General de la Horda", tipo:"bestia", tipoLabel:"Bestia / Dragón", desc:"Draconiano de fuego, el más despiadado de todos. Nació de una arpía de cinco cabezas; escaló el mando asesinando a sus superiores.", fuente:"Cap. 3 – La marcha de los draconianos" },
+  { nombre:"Innana", tipo:"bestia", tipoLabel:"Bestia / Dragón", desc:"La más curiosa de los Ahnah Yogshugg (Hijos de la Luna). Encuentra la reliquia lunar y cuida al recién nacido Mikael con gran ternura.", fuente:"Caps. 3 / 4 – Luz y fuerza" },
+  { nombre:"El Primordial / El Engendro", tipo:"entidad", tipoLabel:"Entidad", desc:"Ser de piel verde y ojos rojos, descendiente del arquitecto del mundo material. Primer narrador; recipiente del Señor Oscuro para entrar al reino mortal.", fuente:"Cap. 1 – El primordial" },
+  { nombre:"Mikael", tipo:"entidad", tipoLabel:"Entidad", desc:"Criatura nacida de la Lágrima Lunar. Tamaño de gato, escamas blancas translúcidas, cola larga y cuerno en la frente; emite luz iridiscente.", fuente:"Cap. 4 – Luz y fuerza" },
+  { nombre:"El anciano de la biblioteca", tipo:"entidad", tipoLabel:"Entidad", desc:"Figura misteriosa, delgada, de saco marrón, que lee a la luz de una vela en la biblioteca nocturna. Entrega manuscritos a Alicia y Dante.", fuente:"Cap. 2 – La forma de la comedia" },
+  { nombre:"El Lamento", tipo:"entidad", tipoLabel:"Entidad", desc:"La \"no nacida\": entidad creada por el pesar desbordado de Sophia. Tomó forma de mujer con cabellos rubios, voz gruesa y podrida. Viste un vestido gris y corona de espinas.", fuente:"Cap. 4 – Mi corazón roto" },
+  { nombre:"La Bestia de las 100.000 Miradas", tipo:"entidad", tipoLabel:"Entidad", desc:"Entidad del vacío con miles de ojos, exiliada por su fealdad. Nace a la existencia atraída por los fanáticos de la Iglesia de los Horrores.", fuente:"Cap. 3 – Las 100.000 miradas / Cap. 4 – El cuerpo del horror" },
+];
+
+const lugares = [
+  { nombre:"El Castillo / Academia de las Artes Oscuras", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Fortaleza construida por los trece templarios herejes al sur de los bosques encantados. Con el tiempo se convirtió en una prodigiosa escuela de hechicería.", fuente:"Caps. 1, 2 y 4" },
+  { nombre:"Casa de las Lágrimas", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Torre del castillo dedicada a las sacerdotisas y estudiantes de la luna. Sede de los rituales de llanto y de la crianza de Morgana.", fuente:"Cap. 1 – La boda / Cap. 2 – Manía nocturna" },
+  { nombre:"Casa de la Sangre", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Torre del castillo donde estudian los hematófagos seguidores de Babalón. Especializada en magia de sangre y artes oscuras más extremas.", fuente:"Caps. 1, 2 y 3" },
+  { nombre:"La Biblioteca", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Enorme sala con estanterías que desafían los límites de la realidad. Alberga manuscritos en idioma primordial y textos prohibidos.", fuente:"Cap. 2 – La forma de la comedia" },
+  { nombre:"Primera Capilla de la Sangre", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Capilla principal del castillo donde Samara es coronada princesa de los draconianos ante toda la academia.", fuente:"Cap. 2 – Solsticio de verano" },
+  { nombre:"Segunda Capilla de la Sangre", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Capilla usada para clases avanzadas de magia de sangre. Aquí se realiza el conjuro que transporta al plano de carne de Babalón.", fuente:"Cap. 2 – La doncella de sangre / Dagas" },
+  { nombre:"Tercera Capilla de la Sangre", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Mansión-refugio a la que huyen los eruditos supervivientes tras la calamidad. Base de operaciones de Morgana y los Noctómanos.", fuente:"Cap. 3 – Solsticio de invierno" },
+  { nombre:"El Jardín del Castillo", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Jardín de flores pálidas con laberinto y faroles de luz blanca. Aroma a jazmín permanente.", fuente:"Cap. 1 – El primordial / Cap. 2 – La crueldad" },
+  { nombre:"El Calabozo / Capilla subterránea", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Dos niveles bajo el gran salón: calabozo de ladrillo negro y capilla fúnebre con estrella de sal donde se manifestó Saturno por primera vez.", fuente:"Cap. 1 – El primordial" },
+  { nombre:"Cuarto de Tortura", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Habitación usada como espacio de castigo y entrenamiento extremo. Nyla lo habita como dormitorio tras la calamidad.", fuente:"Cap. 3 – Adónde fue el dragón / Solsticio de invierno" },
+  { nombre:"El Infierno / La Esfera Nocturna", tipo:"infierno", tipoLabel:"Inframundo", desc:"Ciudad de torres gigantescas de metal negro con llamas brotando de sus aberturas. Habitada por muertos vivientes que cumplen condenas.", fuente:"Cap. 1 – El infierno" },
+  { nombre:"El Pandemonio", tipo:"infierno", tipoLabel:"Inframundo", desc:"Abismo donde residen los ejércitos draconianos de fuego antes de la marcha. Lugar de entrenamiento brutal del General de la Horda.", fuente:"Cap. 3 – La marcha de los draconianos" },
+  { nombre:"El Tártaro / El Abismo", tipo:"infierno", tipoLabel:"Inframundo", desc:"Confín más profundo del inframundo desde donde se arrastran los demonios reptilianos en la noche de la devastación.", fuente:"Cap. 4 – El gran conjuro" },
+  { nombre:"La Cueva del Norte / La Cueva del Dragón", tipo:"infierno", tipoLabel:"Inframundo", desc:"Cueva prohibida al norte del bosque profundo. Paredes heladas con sustancia viscosa roja. En su interior duerme la entidad primordial.", fuente:"Cap. 3 – Adónde fue el dragón" },
+  { nombre:"El Plano de Carne de Babalón", tipo:"infierno", tipoLabel:"Inframundo", desc:"Dimensión hecha de carne y vísceras en mutación constante. Cielo violeta oscuro como un hematoma. Aquí Babalón se manifiesta como figura titánica.", fuente:"Cap. 2 – La doncella de sangre" },
+  { nombre:"Los Bosques Encantados", tipo:"bosque", tipoLabel:"Bosques / Exterior", desc:"Arboleda maldita que rodea el castillo. Sede de reuniones clandestinas de alumnos, rituales nocturnos y hombres bestia.", fuente:"Caps. 1, 2 y 3" },
+  { nombre:"El Bosque Profundo", tipo:"bosque", tipoLabel:"Bosques / Exterior", desc:"Zona prohibida al norte del bosque encantado. Custodiado por hombres bestia. Sede de la cueva del dragón.", fuente:"Cap. 3 – Adónde fue el dragón / Dagas" },
+  { nombre:"El Altar del Dragón", tipo:"bosque", tipoLabel:"Bosques / Exterior", desc:"Altar con la estatua de un dragón al este del pueblo pesquero, cubierto de flores de jazmín. Lugar íntimo de Morgana y Samara.", fuente:"Cap. 2 – Solsticio de verano" },
+  { nombre:"Capilla de Babalón en el bosque", tipo:"bosque", tipoLabel:"Bosques / Exterior", desc:"Capilla con marcas de sangre junto a un lago de color rojo con la estatua de una mujer llorando.", fuente:"Cap. 2 – Mi amor inmortal" },
+  { nombre:"El Pueblo Pesquero", tipo:"exterior", tipoLabel:"Tierras / Pueblos", desc:"Asentamiento costero construido por humanoides del mar. Desaparece tras una tribulación nocturna cuya causa nunca se aclaró.", fuente:"Cap. 2 – El pueblo pesquero" },
+  { nombre:"Throdok'th", tipo:"exterior", tipoLabel:"Tierras / Pueblos", desc:"Reino bajo mares oscuros del que provienen los humanoides del pueblo pesquero. Sus habitantes lo recuerdan con monolitos de piedra y poderosa magia.", fuente:"Cap. 2 – El pueblo pesquero" },
+  { nombre:"Las Tierras del Este", tipo:"exterior", tipoLabel:"Tierras / Pueblos", desc:"Región de los templos visitados por los cruzados y los asentamientos de familias de los Hijos del Sol.", fuente:"Caps. 1 y 2" },
+  { nombre:"Los Templos del Sol / La Mezquita", tipo:"exterior", tipoLabel:"Tierras / Pueblos", desc:"Sede central de la Primera Orden. Escenario de la batalla final donde convergen las hordas draconianas y los Noctómanos.", fuente:"Cap. 4 – El gran conjuro" },
+  { nombre:"La Mansión Esmeralda", tipo:"exterior", tipoLabel:"Tierras / Pueblos", desc:"Posada de mármol donde habita Belcebú. Su presencia enloquece a todos los visitantes salvo a Alejandro IV.", fuente:"Cap. 2 – Pasión y vesania" },
+  { nombre:"El Castillo de Cristal de Sophia", tipo:"otro", tipoLabel:"Otro Plano", desc:"Enorme castillo que flota en medio de las estrellas, con paredes de oro y diamantes rosados. Sophia habita aquí sola junto a su hijo durmiente.", fuente:"Cap. 2 – Manía nocturna / Cap. 4 – La canción" },
+  { nombre:"La Esfera Nocturna", tipo:"otro", tipoLabel:"Otro Plano", desc:"Plano de noche eterna donde nació el Primordial. Sus pilares blancos sirven de guía hacia el castillo.", fuente:"Cap. 1 – El primordial" },
+  { nombre:"El Campo de Nieve de Morgana", tipo:"otro", tipoLabel:"Otro Plano", desc:"Plano onírico de Morgana: vasto campo nevado con tormenta blanca. El súcubo escarlata le revela aquí su maldición.", fuente:"Cap. 3 – Solsticio de invierno" },
+];
+
+let filterP = 'todos', filterL = 'todos';
+
+window.switchPage = function(page, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  btn.classList.add('active');
+};
+
+function renderGrid(containerId, badgeId, list) {
+  const grid = document.getElementById(containerId);
+  grid.innerHTML = '';
+  list.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'card' + (containerId === 'grid-lugares' ? ' lugar' : '');
+    div.innerHTML = `<div class="card-header"><div class="char-name">${item.nombre}</div><span class="char-type type-${item.tipo}">${item.tipoLabel}</span></div><div class="char-desc">${item.desc}</div><div class="char-source">◈ ${item.fuente}</div>`;
+    grid.appendChild(div);
+  });
+  document.getElementById(badgeId).textContent = list.length + (containerId === 'grid-personajes' ? ' personajes' : ' lugares');
+}
+
+window.filterPersonajes = function() {
+  const q = document.getElementById('search-personajes').value.toLowerCase();
+  renderGrid('grid-personajes','badge-personajes', personajes.filter(p => (filterP==='todos'||p.tipo===filterP)&&(!q||p.nombre.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))));
+};
+window.filterLugares = function() {
+  const q = document.getElementById('search-lugares').value.toLowerCase();
+  renderGrid('grid-lugares','badge-lugares', lugares.filter(l => (filterL==='todos'||l.tipo===filterL)&&(!q||l.nombre.toLowerCase().includes(q)||l.desc.toLowerCase().includes(q))));
+};
+window.setFilterP = function(tipo, btn) {
+  filterP = tipo;
+  document.querySelectorAll('#filters-personajes .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  window.filterPersonajes();
+};
+window.setFilterL = function(tipo, btn) {
+  filterL = tipo;
+  document.querySelectorAll('#filters-lugares .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  window.filterLugares();
+};
+
+renderGrid('grid-personajes','badge-personajes', personajes);
+renderGrid('grid-lugares','badge-lugares', lugares);
+</script>
+</body>
+</html>
