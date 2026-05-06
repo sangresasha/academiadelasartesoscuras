@@ -95,7 +95,7 @@
 
   main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
 
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem 1.4rem; position: relative; transition: border-color 0.25s, transform 0.2s; overflow: hidden; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem 1.4rem; position: relative; transition: border-color 0.25s, transform 0.2s; overflow: hidden; cursor: pointer; }
   .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.25s; }
   .card:hover { border-color: #5a2535; transform: translateY(-2px); }
   .card:hover::before { opacity: 1; }
@@ -184,6 +184,13 @@
   .modal::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); border-radius: 5px 0 0 5px; }
   .btn-cerrar-modal { position: absolute; top: 0.8rem; right: 1rem; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; line-height: 1; }
   .btn-cerrar-modal:hover { color: var(--gold2); }
+
+  /* ═══ DETALLE (MODAL LECTURA) ═══ */
+  .detalle-modal .modal { max-width: 700px; }
+  .detalle-modal .detalle-nombre { font-family: 'IM Fell English SC', serif; font-size: 1.4rem; color: var(--gold2); margin-bottom: 0.3rem; }
+  .detalle-modal .detalle-tipo { font-size: 0.85rem; margin-bottom: 1rem; display: inline-block; }
+  .detalle-modal .detalle-desc { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+  .detalle-modal .detalle-fuente { font-size: 0.85rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
 
   /* ═══ CRONOLOGÍA ═══ */
   .crono-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.2rem 4rem; position: relative; }
@@ -825,7 +832,7 @@
       <div class="faccion-card academia">
         <span class="faccion-icon">🕯</span>
         <div class="faccion-nombre">La Academia de las Artes Oscuras</div>
-        <div class="faccion-lema">«El conocimiento es más importante que la ignorancia»</div>
+        <div class="faccion-lema">«Hagase la voluntad de las tinieblas...»</div>
         <div class="faccion-desc">Institución fundada por los trece templarios herejes bajo la dirección de Samara. Organizada en casas: la Casa de las Lágrimas (luna, magia blanca oscura) y la Casa de la Sangre (hematófagos, adoradores de Babalón). Sus eruditos, Noctómanos, forman el brazo mágico de las Fuerzas del Mal.</div>
         <div class="faccion-section-title">Figuras Clave</div>
         <div class="faccion-tags">
@@ -846,7 +853,7 @@
       <div class="faccion-card orden">
         <span class="faccion-icon">🕯</span>
         <div class="faccion-nombre">La Primera Orden</div>
-        <div class="faccion-lema">«Benditos sean los que traen la paz»</div>
+        <div class="faccion-lema">«Madre de cristal ¿Por qué lloras así? Si vos sos la respuesta...»</div>
         <div class="faccion-desc">Iglesia militarizada que representa la fe en el Arquitecto del mundo. Sus templarios, los Hijos del Sol, lucharon durante siglos para purificar las tierras del mal. Respaldados por ángeles y arcángeles. Fueron diezmados en la batalla final por las hordas de El Depravado.</div>
         <div class="faccion-section-title">Figuras Clave</div>
         <div class="faccion-tags">
@@ -1152,6 +1159,17 @@
   </div>
 </div>
 
+<!-- Modal detalle (lectura ampliada) -->
+<div class="modal-bg detalle-modal" id="detalle-modal-bg">
+  <div class="modal">
+    <button class="btn-cerrar-modal" onclick="cerrarDetalle()">✕</button>
+    <div class="detalle-nombre" id="detalle-nombre"></div>
+    <span class="char-type detalle-tipo" id="detalle-tipo"></span>
+    <div class="detalle-desc" id="detalle-desc"></div>
+    <div class="detalle-fuente" id="detalle-fuente"></div>
+  </div>
+</div>
+
 <footer>Tercera Edición · Primer Parche · Edición Digital</footer>
 
 <!-- Firebase SDK (módulos ES) -->
@@ -1326,7 +1344,7 @@
 
 <script>
 const personajes = [
-  { nombre:"Babalón / Gran Maestra", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Súcubo escarlata, hermana de Saturno/Saklas y personificación del morbo. Se manifiesta como Gran Maestra en el rito de la boda: emerge de la sangre de Julieta, dirige la ceremonia y dibuja la Runa del Augurio.", fuente:"Caps. 1, 2, 3 y 4" },
+  { nombre:"Babalón", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Súcubo escarlata, hermana de Saturno/Saklas y personificación del morbo. Se manifiesta como Gran Maestra en el rito de la boda: emerge de la sangre de Julieta, dirige la ceremonia y dibuja la Runa del Augurio.", fuente:"Caps. 1, 2, 3 y 4" },
   { nombre:"Saturno / Saklas", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Arconte creado para ser juez y regir el destino. Se rebeló contra su creador junto a Babalón. Se presenta como cubo negro flotante; voz espléndida que retumba kilómetros.", fuente:"Cap. 1 – El infierno" },
   { nombre:"Sophia", tipo:"entidad", tipoLabel:"Entidad", desc:"La \"primera madre\". Ser primordial que contempla con llanto la sátira cósmica. Habita un castillo de cristal en el cielo, sola y melancólica.", fuente:"Prólogo / Cap. 4 – La canción" },
   { nombre:"Leviatán", tipo:"angel", tipoLabel:"Ángel Caído", desc:"Enorme serpiente celeste. Aparece desde las estrellas en la batalla final y engulle cientos de servidores del Arquitecto de un solo bocado.", fuente:"Cap. 3 – La fundamentalista / Cap. 4 – El gran conjuro" },
@@ -1479,6 +1497,24 @@ window.switchPage = function(page, btn) {
   if (page === 'videos') renderVideos();
 };
 
+// ═══ Detalle ampliado ═══
+window.abrirDetalle = function(item) {
+  document.getElementById('detalle-nombre').textContent = item.nombre;
+  const tipoEl = document.getElementById('detalle-tipo');
+  tipoEl.textContent = item.tipoLabel;
+  tipoEl.className = 'char-type detalle-tipo type-' + item.tipo;
+  document.getElementById('detalle-desc').textContent = item.desc;
+  document.getElementById('detalle-fuente').textContent = '◈ ' + item.fuente;
+  document.getElementById('detalle-modal-bg').classList.add('open');
+};
+
+window.cerrarDetalle = function() {
+  document.getElementById('detalle-modal-bg').classList.remove('open');
+};
+document.getElementById('detalle-modal-bg').addEventListener('click', function(e) {
+  if (e.target === this) window.cerrarDetalle();
+});
+
 function renderGrid(containerId, badgeId, list) {
   const grid = document.getElementById(containerId);
   grid.innerHTML = '';
@@ -1486,6 +1522,7 @@ function renderGrid(containerId, badgeId, list) {
     const div = document.createElement('div');
     div.className = 'card' + (containerId === 'grid-lugares' ? ' lugar' : '');
     div.innerHTML = `<div class="card-header"><div class="char-name">${item.nombre}</div><span class="char-type type-${item.tipo}">${item.tipoLabel}</span></div><div class="char-desc">${item.desc}</div><div class="char-source">◈ ${item.fuente}</div>`;
+    div.addEventListener('click', () => window.abrirDetalle(item));
     grid.appendChild(div);
   });
   document.getElementById(badgeId).textContent = list.length + (containerId === 'grid-personajes' ? ' personajes' : ' lugares');
