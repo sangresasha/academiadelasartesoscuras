@@ -58,6 +58,126 @@
   .nav-btn:hover { color: var(--gold2); }
   .nav-btn.active { color: var(--gold2); border-bottom-color: var(--gold); }
 
+  /* WIDGET DE RELOJ Y VISITANTES */
+  .widget-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 50;
+  }
+
+  .widget {
+    background: rgba(22, 14, 17, 0.95);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    min-width: 220px;
+    backdrop-filter: blur(10px);
+  }
+
+  .widget-titulo {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    text-align: center;
+  }
+
+  .reloj {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.8rem;
+    color: var(--gold2);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .calendario {
+    background: rgba(10, 6, 8, 0.8);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.8rem;
+    font-family: 'IM Fell English SC', serif;
+  }
+
+  .cal-mes { 
+    text-align: center; 
+    font-size: 0.75rem; 
+    color: var(--gold2); 
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .cal-dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+  }
+
+  .cal-dia-nombre {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .cal-dia-numero {
+    font-size: 0.65rem;
+    text-align: center;
+    color: var(--text);
+    padding: 0.2rem;
+    background: rgba(139, 26, 47, 0.2);
+    border-radius: 2px;
+  }
+
+  .cal-dia-numero.hoy {
+    background: var(--accent);
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .visitantes {
+    background: rgba(10, 6, 8, 0.8);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .visitantes-numero {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.6rem;
+    color: var(--gold2);
+    margin: 0.4rem 0;
+  }
+
+  .visitantes-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 768px) {
+    .widget-container {
+      bottom: 10px;
+      right: 10px;
+      gap: 0.8rem;
+    }
+    .widget {
+      min-width: 180px;
+      padding: 0.8rem;
+    }
+    .reloj {
+      font-size: 1.4rem;
+    }
+  }
+
   #page-inicio {
     min-height: calc(100vh - 56px);
     position: relative;
@@ -206,57 +326,17 @@
     text-shadow: 0 0 40px rgba(201,147,58,0.25);
   }
   .subtitle { font-family: 'IM Fell English SC', serif; color: var(--muted); font-size: 0.82rem; margin-top: 0.5rem; letter-spacing: 0.12em; }
-  .count-badge { display: inline-block; background: var(--accent); color: #f0cfc0; font-family: 'IM Fell English SC', serif; font-size: 0.72rem; padding: 0.2em 0.9em; border-radius: 2px; margin-top: 0.5rem; }
-  .search-wrap { max-width: 440px; margin: 1.2rem auto 0; }
-  .search-wrap input { width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: 'Crimson Pro', serif; font-size: 0.95rem; padding: 0.5rem 1rem; border-radius: 2px; }
-  .search-wrap input:focus { outline: none; border-color: var(--gold); }
-  .search-wrap input::placeholder { color: var(--muted); }
-
-  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; padding: 1rem 1rem 0; }
-  .filter-btn { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.72rem; padding: 0.25em 0.8em; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
-  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold2); background: rgba(201,147,58,0.07); }
 
   .page { display: none; }
   .page.active { display: block; }
 
-  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
-
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem 1.4rem; position: relative; transition: border-color 0.25s, transform 0.2s; overflow: hidden; }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.25s; }
-  .card:hover { border-color: #5a2535; transform: translateY(-2px); }
-  .card:hover::before { opacity: 1; }
-  .card.lugar::before { background: var(--gold); }
-  .card.lugar:hover { border-color: #6a5020; }
-
-  .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; }
-  .char-name { font-family: 'IM Fell English SC', serif; font-size: 1.05rem; color: var(--gold2); line-height: 1.2; }
-  .char-type { font-family: 'IM Fell English SC', serif; font-size: 0.68rem; padding: 0.2em 0.6em; border-radius: 2px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.05em; }
-
-  .type-divino    { background: rgba(139,26,47,0.3);  color: #d98090; border: 1px solid rgba(139,26,47,0.5); }
-  .type-angel     { background: rgba(20,40,80,0.3);   color: #7090c8; border: 1px solid rgba(20,40,80,0.5); }
-  .type-alumno    { background: rgba(30,50,40,0.3);   color: #80b090; border: 1px solid rgba(30,50,40,0.5); }
-  .type-mago      { background: rgba(42,60,100,0.3);  color: #88a0d0; border: 1px solid rgba(42,60,100,0.5); }
-  .type-caballero { background: rgba(80,70,20,0.3);   color: #d0b860; border: 1px solid rgba(80,70,20,0.5); }
-  .type-bruja     { background: rgba(20,80,60,0.3);   color: #70c8a0; border: 1px solid rgba(20,80,60,0.5); }
-  .type-mortal    { background: rgba(60,50,50,0.3);   color: #b0a0a0; border: 1px solid rgba(60,50,50,0.5); }
-  .type-bestia    { background: rgba(80,40,10,0.3);   color: #d09050; border: 1px solid rgba(80,40,10,0.5); }
-  .type-entidad   { background: rgba(60,20,80,0.3);   color: #b888d0; border: 1px solid rgba(60,20,80,0.5); }
-  .type-castillo  { background: rgba(100,60,10,0.3);  color: #e0a840; border: 1px solid rgba(100,60,10,0.5); }
-  .type-infierno  { background: rgba(120,20,20,0.3);  color: #e06060; border: 1px solid rgba(120,20,20,0.5); }
-  .type-bosque    { background: rgba(20,60,30,0.3);   color: #60b870; border: 1px solid rgba(20,60,30,0.5); }
-  .type-exterior  { background: rgba(40,40,70,0.3);   color: #8888c8; border: 1px solid rgba(40,40,70,0.5); }
-  .type-otro      { background: rgba(50,50,50,0.3);   color: #a0a0a0; border: 1px solid rgba(50,50,50,0.5); }
-
-  .char-desc { font-size: 0.93rem; color: var(--text); line-height: 1.55; font-style: italic; opacity: 0.9; }
-  .char-source { margin-top: 0.7rem; font-size: 0.73rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
-
-  /* ESTILOS DEL BLOG */
   .blog-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   .blog-header-actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
   .btn-nuevo-post { display: flex; align-items: center; gap: 0.5rem; background: none; border: 1px solid var(--accent); color: var(--gold2); font-family: 'IM Fell English SC', serif; font-size: 0.82rem; letter-spacing: 0.1em; padding: 0.5rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
   .btn-nuevo-post:hover { background: rgba(139,26,47,0.15); border-color: var(--gold); }
   .btn-admin { background: none; border: 1px solid var(--gold); color: var(--gold); font-family: 'IM Fell English SC', serif; font-size: 0.75rem; letter-spacing: 0.08em; padding: 0.4rem 1rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
   .btn-admin:hover { background: rgba(201,147,58,0.1); }
+  .btn-nuevo-post { display: none; }
 
   .blog-post { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; }
   .blog-post::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold); opacity: 0.8; }
@@ -271,7 +351,6 @@
   .blog-btn:hover { border-color: var(--accent); color: var(--gold2); }
   .blog-btn.eliminar:hover { border-color: #e06060; color: #e06060; }
 
-  /* MODAL DEL BLOG */
   .modal-bg { display: none; position: fixed; inset: 0; background: rgba(5,3,4,0.88); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
   .modal-bg.open { display: flex; }
   .modal { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 1.8rem; max-width: 700px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
@@ -293,25 +372,8 @@
   .blog-vacio { text-align: center; padding: 3rem 1rem; color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.9rem; letter-spacing: 0.08em; }
   .blog-vacio-icon { font-size: 2rem; display: block; margin-bottom: 0.7rem; opacity: 0.35; }
 
-  /* LOGIN MODAL */
   .login-modal { max-width: 400px; }
   .login-modal h2 { text-align: center; margin-bottom: 1.8rem; }
-
-  .detalle-modal .modal { max-width: 700px; }
-  .detalle-nombre { font-family: 'IM Fell English SC', serif; font-size: 1.4rem; color: var(--gold2); margin-bottom: 0.3rem; }
-  .detalle-tipo { font-size: 0.85rem; margin-bottom: 1rem; display: inline-block; }
-  .detalle-desc { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
-  .detalle-fuente { font-size: 0.85rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
-
-  /* BLOG DETALLE */
-  .blog-detalle { max-width: 800px; margin: 0 auto; padding: 2rem 1.2rem; }
-  .blog-post-completo { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; }
-  .blog-post-completo::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold); }
-  .blog-titulo-completo { font-family: 'IM Fell English SC', serif; font-size: 1.6rem; color: var(--gold2); margin-bottom: 0.7rem; line-height: 1.2; }
-  .blog-meta-completo { font-size: 0.8rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .blog-contenido-completo { font-size: 1rem; color: var(--text); line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
-  .btn-volver-blog { background: none; border: none; color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.82rem; letter-spacing: 0.1em; cursor: pointer; padding: 0; margin-bottom: 1.5rem; }
-  .btn-volver-blog:hover { color: var(--gold2); }
 
   footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.78rem; font-family: 'IM Fell English SC', serif; letter-spacing: 0.1em; border-top: 1px solid var(--border); }
 </style>
@@ -320,14 +382,7 @@
 
 <nav>
   <button class="nav-btn active" data-page="inicio">Inicio</button>
-  <button class="nav-btn" data-page="personajes">Personajes</button>
-  <button class="nav-btn" data-page="lugares">Lugares</button>
-  <button class="nav-btn" data-page="cronologia">Cronología</button>
-  <button class="nav-btn" data-page="facciones">Facciones</button>
-  <button class="nav-btn" data-page="glosario">Glosario</button>
   <button class="nav-btn" data-page="blog">Blog</button>
-  <button class="nav-btn" data-page="videos">Videos</button>
-  <button class="nav-btn" data-page="foro">Foro</button>
 </nav>
 
 <!-- INICIO -->
@@ -337,102 +392,9 @@
     <h1 class="inicio-titulo">Academia de las<br>Artes Oscuras</h1>
     <div class="inicio-sep"><span class="inicio-sep-icon">◆</span></div>
     <div class="inicio-botones">
-      <button class="inicio-btn" data-page="personajes">Entrar</button>
-      <button class="inicio-btn-secundario" data-page="foro">Foro</button>
+      <button class="inicio-btn" data-page="blog">Blog</button>
     </div>
     <div class="inicio-lema">«Hagase la voluntad de las tinieblas…»</div>
-  </div>
-</div>
-
-<!-- PERSONAJES -->
-<div id="page-personajes" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Log de Personajes · D. M. Soley</div>
-    <div class="count-badge" id="badge-personajes">38 personajes</div>
-    <div class="search-wrap"><input type="text" id="search-personajes" placeholder="Buscar personaje…" oninput="filterPersonajes()"></div>
-    <div class="filters" id="filters-personajes">
-      <button class="filter-btn active" data-filter-p="todos">Todos</button>
-      <button class="filter-btn" data-filter-p="divino">Divino / Arconte</button>
-      <button class="filter-btn" data-filter-p="angel">Ángel Caído</button>
-      <button class="filter-btn" data-filter-p="mago">Mago / Empíreo</button>
-      <button class="filter-btn" data-filter-p="caballero">Caballero</button>
-      <button class="filter-btn" data-filter-p="bruja">Bruja / Hechicero</button>
-      <button class="filter-btn" data-filter-p="alumno">Alumno</button>
-      <button class="filter-btn" data-filter-p="mortal">Mortal / Civil</button>
-      <button class="filter-btn" data-filter-p="bestia">Bestia / Dragón</button>
-      <button class="filter-btn" data-filter-p="entidad">Entidad</button>
-    </div>
-  </header>
-  <main id="grid-personajes"></main>
-</div>
-
-<!-- LUGARES -->
-<div id="page-lugares" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Log de Lugares · D. M. Soley</div>
-    <div class="count-badge" id="badge-lugares">— lugares</div>
-    <div class="search-wrap"><input type="text" id="search-lugares" placeholder="Buscar lugar…" oninput="filterLugares()"></div>
-    <div class="filters" id="filters-lugares">
-      <button class="filter-btn active" data-filter-l="todos">Todos</button>
-      <button class="filter-btn" data-filter-l="castillo">Castillo / Academia</button>
-      <button class="filter-btn" data-filter-l="infierno">Inframundo</button>
-      <button class="filter-btn" data-filter-l="bosque">Bosques / Exterior</button>
-      <button class="filter-btn" data-filter-l="exterior">Tierras / Pueblos</button>
-      <button class="filter-btn" data-filter-l="otro">Otro Plano</button>
-    </div>
-  </header>
-  <main id="grid-lugares"></main>
-</div>
-
-<!-- CRONOLOGÍA -->
-<div id="page-cronologia" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Cronología de los Hechos · D. M. Soley</div>
-  </header>
-  <div class="crono-wrap" style="max-width:860px; margin:0 auto; padding:2rem 1.2rem 4rem; position:relative;">
-    <div style="position:absolute; left:50%; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, transparent, var(--border) 5%, var(--border) 95%, transparent); transform:translateX(-50%); pointer-events:none;"></div>
-    <div style="margin-bottom:3rem; position:relative;">
-      <div style="text-align:center; font-family:'Cinzel Decorative', serif; font-size:0.75rem; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.4rem; position:relative;">◆ Tierras Legendarias</div>
-      <div style="display:flex; gap:1.5rem; margin-bottom:1.2rem; position:relative;">
-        <div style="position:absolute; left:50%; top:0.55rem; width:8px; height:8px; background:var(--accent); border:1px solid var(--gold); border-radius:50%; transform:translateX(-50%);"></div>
-        <div style="background:var(--card); border:1px solid var(--border); border-radius:4px; padding:1rem 1.2rem; width:calc(50% - 2rem); position:relative;">
-          <div style="font-family:'IM Fell English SC', serif; font-size:0.65rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:0.2rem;">Cap. 3 · La Mesa Redonda</div>
-          <div style="font-family:'IM Fell English SC', serif; font-size:0.95rem; color:var(--gold2); line-height:1.2; margin-bottom:0.3rem;">El Depravado parte al sur</div>
-          <div style="font-size:0.88rem; color:var(--text); opacity:0.85; line-height:1.5;">El mayor de los dragones recibe una visión y decide marcharse.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FACCIONES -->
-<div id="page-facciones" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Facciones y Órdenes · D. M. Soley</div>
-  </header>
-  <div style="max-width:1060px; margin:0 auto; padding:2rem 1.2rem 4rem;">
-    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:1.2rem;">
-      <div style="background:var(--card); border:1px solid var(--border); border-radius:4px; padding:1.4rem; position:relative; overflow:hidden;">
-        <span style="font-size:1.6rem; margin-bottom:0.6rem; display:block;">🕯</span>
-        <div style="font-family:'IM Fell English SC', serif; font-size:1.1rem; color:var(--gold2); margin-bottom:0.25rem; line-height:1.2;">Las Fuerzas del Mal</div>
-        <div style="font-family:'IM Fell English SC', serif; font-size:0.72rem; color:var(--muted); letter-spacing:0.08em; margin-bottom:0.8rem; font-style:italic;">«En nombre de El Depravado, marchamos…»</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- GLOSARIO -->
-<div id="page-glosario" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Glosario · Reliquias, Artefactos e Idioma Primordial</div>
-  </header>
-  <div style="max-width:1060px; margin:0 auto; padding:2rem 1.2rem 4rem;">
-    <p style="text-align:center; color:var(--muted);">Sección en preparación…</p>
   </div>
 </div>
 
@@ -452,37 +414,25 @@
         <div class="blog-vacio"><span class="blog-vacio-icon">🕯</span>Cargando bitácora…</div>
       </div>
     </div>
-    <div id="blog-detalle" style="display:none;">
-      <button class="btn-volver-blog" id="btn-volver-blog">← Volver</button>
-      <div class="blog-post-completo">
-        <div class="blog-titulo-completo" id="detalle-titulo"></div>
-        <div class="blog-meta-completo" id="detalle-meta"></div>
-        <div class="blog-contenido-completo" id="detalle-contenido"></div>
-      </div>
+  </div>
+</div>
+
+<!-- WIDGET RELOJ Y VISITANTES -->
+<div class="widget-container">
+  <!-- Reloj y Calendario -->
+  <div class="widget">
+    <div class="widget-titulo">⏰ Hora Actual</div>
+    <div class="reloj" id="reloj">00:00:00</div>
+    <div class="calendario" id="calendario"></div>
+  </div>
+
+  <!-- Contador de Visitantes -->
+  <div class="widget">
+    <div class="visitantes">
+      <div class="widget-titulo">👁 Visitantes</div>
+      <div class="visitantes-numero" id="contador-visitantes">0</div>
+      <div class="visitantes-label">almas que transitan</div>
     </div>
-  </div>
-</div>
-
-<!-- VIDEOS -->
-<div id="page-videos" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Archivos de Sangre Sasha · Canal Oficial</div>
-  </header>
-  <div style="max-width:1060px; margin:0 auto; padding:2rem 1.2rem 4rem;">
-    <p style="text-align:center; color:var(--muted);">Sección en preparación…</p>
-  </div>
-</div>
-
-<!-- FORO -->
-<div id="page-foro" class="page">
-  <header>
-    <h1>Academia de las Artes Oscuras</h1>
-    <div class="subtitle">Cámara de los Susurros · Foro</div>
-    <div class="count-badge" id="badge-foro">0 hilos</div>
-  </header>
-  <div style="max-width:820px; margin:0 auto; padding:2rem 1.2rem 4rem;">
-    <p style="text-align:center; color:var(--muted);">Foro en preparación…</p>
   </div>
 </div>
 
@@ -516,74 +466,98 @@
   </div>
 </div>
 
-<!-- MODAL DETALLE MODAL -->
-<div class="modal-bg detalle-modal" id="detalle-modal-bg">
-  <div class="modal">
-    <button class="btn-cerrar-modal" id="cerrar-detalle-btn">✕</button>
-    <div class="detalle-nombre" id="detalle-nombre"></div>
-  </div>
-</div>
-
-<footer>Tercera Edición · Primer Parche · Edición Digital</footer>
+<footer>SANGRE SASHA</footer>
 
 <script>
 // ============================================
-// DATOS (personajes y lugares)
+// RELOJ Y CALENDARIO EN TIEMPO REAL
 // ============================================
-const personajes = [
-  { nombre:"Babalón", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Súcubo escarlata, hermana de Saturno/Saklas y personificación del morbo.", fuente:"Cap. 1 · La Boda" },
-  { nombre:"Saturno / Saklas", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Arconte creador para ser juez y regir el destino.", fuente:"Prólogo" },
-];
-
-const lugares = [
-  { nombre:"El Castillo / Academia de las Artes Oscuras", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Fortaleza construida por los trece templarios herejes.", fuente:"Cap. 1 · La Comunión" },
-];
-
-// ============================================
-// FUNCIONES GLOBALES
-// ============================================
-function renderGrid(containerId, list, isLugar = false) {
-  const grid = document.getElementById(containerId);
-  if (!grid) return;
-  grid.innerHTML = '';
-  list.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'card' + (isLugar ? ' lugar' : '');
-    div.innerHTML = `<div class="card-header"><div class="char-name">${item.nombre}</div><span class="char-type type-${item.tipo}">${item.tipoLabel}</span></div><div class="char-desc">${item.desc}</div>`;
-    grid.appendChild(div);
-  });
+function actualizarReloj() {
+  const ahora = new Date();
+  const horas = String(ahora.getHours()).padStart(2, '0');
+  const minutos = String(ahora.getMinutes()).padStart(2, '0');
+  const segundos = String(ahora.getSeconds()).padStart(2, '0');
+  
+  document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
 }
 
-function switchPage(page, targetBtn = null) {
+function actualizarCalendario() {
+  const ahora = new Date();
+  const mes = ahora.getMonth();
+  const año = ahora.getFullYear();
+  const hoy = ahora.getDate();
+  
+  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  const dias = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
+  
+  const primerDia = new Date(año, mes, 1).getDay();
+  const ultimoDia = new Date(año, mes + 1, 0).getDate();
+  
+  let html = `<div class="cal-mes">${meses[mes]} ${año}</div>`;
+  html += '<div class="cal-dias">';
+  
+  // Nombres de los días
+  dias.forEach(d => {
+    html += `<div class="cal-dia-nombre">${d}</div>`;
+  });
+  
+  // Espacios vacíos
+  for (let i = 0; i < primerDia; i++) {
+    html += '<div class="cal-dia-numero" style="opacity:0;"></div>';
+  }
+  
+  // Días del mes
+  for (let i = 1; i <= ultimoDia; i++) {
+    const clase = i === hoy ? 'hoy' : '';
+    html += `<div class="cal-dia-numero ${clase}">${i}</div>`;
+  }
+  
+  html += '</div>';
+  document.getElementById('calendario').innerHTML = html;
+}
+
+// Actualizar cada segundo
+setInterval(actualizarReloj, 1000);
+setInterval(actualizarCalendario, 60000); // Actualizar cada minuto
+actualizarReloj();
+actualizarCalendario();
+
+// ============================================
+// CONTADOR DE VISITANTES
+// ============================================
+function inicializarContador() {
+  let visitantes = parseInt(localStorage.getItem('visitantes') || '0');
+  
+  // Incrementar contador
+  visitantes++;
+  localStorage.setItem('visitantes', visitantes);
+  
+  document.getElementById('contador-visitantes').textContent = visitantes;
+}
+
+inicializarContador();
+
+// ============================================
+// NAVEGACIÓN
+// ============================================
+function switchPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const targetPage = document.getElementById(`page-${page}`);
   if (targetPage) targetPage.classList.add('active');
   
   document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-  if (targetBtn) targetBtn.classList.add('active');
-  else {
-    const matchingBtn = document.querySelector(`.nav-btn[data-page="${page}"]`);
-    if (matchingBtn) matchingBtn.classList.add('active');
-  }
+  const matchingBtn = document.querySelector(`.nav-btn[data-page="${page}"]`);
+  if (matchingBtn) matchingBtn.classList.add('active');
 }
 
-// ============================================
-// INICIALIZACIÓN DE EVENTOS
-// ============================================
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchPage(btn.dataset.page, btn));
+    btn.addEventListener('click', () => switchPage(btn.dataset.page));
   });
   
-  document.querySelectorAll('.inicio-btn, .inicio-btn-secundario').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const page = btn.dataset.page;
-      if (page) switchPage(page, document.querySelector(`.nav-btn[data-page="${page}"]`));
-    });
+  document.querySelectorAll('.inicio-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchPage(btn.dataset.page));
   });
-  
-  renderGrid('grid-personajes', personajes, false);
-  renderGrid('grid-lugares', lugares, true);
 });
 
 window.switchPage = switchPage;
@@ -610,7 +584,7 @@ window.switchPage = switchPage;
   let editingPostId = null;
   let unsubPosts = null;
 
-  // CONTRASEÑA ADMIN (CAMBIA ESTO POR TU CONTRASEÑA)
+  // CONTRASEÑA ADMIN
   const ADMIN_PASSWORD = "sangresasha123";
 
   function formatFecha(ts) {
@@ -644,7 +618,7 @@ window.switchPage = switchPage;
         const div = document.createElement('div');
         div.className = 'blog-post';
         
-        let actionsHtml = `<div class="blog-titulo" onclick="window.abrirPostDetalle('${id}')">${escHtml(post.titulo)}</div>`;
+        let actionsHtml = `<div class="blog-titulo">${escHtml(post.titulo)}</div>`;
         
         if (isAdmin) {
           actionsHtml += `
@@ -665,16 +639,6 @@ window.switchPage = switchPage;
     }, (err) => console.error(err));
   }
 
-  window.abrirPostDetalle = function(id) {
-    const posts = document.querySelectorAll('.blog-post');
-    const post = Array.from(posts).find(p => p.dataset.id === id);
-    
-    // Buscar en Firestore
-    unsubPosts?.(); // Pause current subscription temporarily
-    doc(collection(db, 'blog_posts'), id);
-    // Aquí simplemente navegamos al detalle
-  };
-
   // LOGIN ADMIN
   document.getElementById('btn-login-admin')?.addEventListener('click', () => {
     document.getElementById('modal-login').classList.add('open');
@@ -691,7 +655,7 @@ window.switchPage = switchPage;
       document.getElementById('modal-login').classList.remove('open');
       document.getElementById('admin-password').value = '';
       document.getElementById('btn-nuevo-post').style.display = 'flex';
-      cargarPosts(); // Recargar para mostrar botones de edición
+      cargarPosts();
     } else {
       alert('Contraseña incorrecta');
     }
@@ -721,14 +685,12 @@ window.switchPage = switchPage;
 
     try {
       if (editingPostId) {
-        // Editar
         await updateDoc(doc(db, 'blog_posts', editingPostId), {
           titulo,
           contenido,
           fecha_editado: serverTimestamp()
         });
       } else {
-        // Crear
         await addDoc(collection(db, 'blog_posts'), {
           titulo,
           contenido,
@@ -751,10 +713,6 @@ window.switchPage = switchPage;
   window.editarPost = function(id) {
     if (!isAdmin) return;
     editingPostId = id;
-    
-    // Obtener datos del post
-    // Aquí necesitarías hacer una query para obtener el post específico
-    // Por ahora, abre el modal vacío
     document.getElementById('modal-titulo').textContent = '✦ Editar Post';
     document.getElementById('modal-post').classList.add('open');
   };
