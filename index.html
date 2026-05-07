@@ -326,17 +326,56 @@
     text-shadow: 0 0 40px rgba(201,147,58,0.25);
   }
   .subtitle { font-family: 'IM Fell English SC', serif; color: var(--muted); font-size: 0.82rem; margin-top: 0.5rem; letter-spacing: 0.12em; }
+  .count-badge { display: inline-block; background: var(--accent); color: #f0cfc0; font-family: 'IM Fell English SC', serif; font-size: 0.72rem; padding: 0.2em 0.9em; border-radius: 2px; margin-top: 0.5rem; }
+  .search-wrap { max-width: 440px; margin: 1.2rem auto 0; }
+  .search-wrap input { width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: 'Crimson Pro', serif; font-size: 0.95rem; padding: 0.5rem 1rem; border-radius: 2px; }
+  .search-wrap input:focus { outline: none; border-color: var(--gold); }
+  .search-wrap input::placeholder { color: var(--muted); }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; padding: 1rem 1rem 0; }
+  .filter-btn { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.72rem; padding: 0.25em 0.8em; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold2); background: rgba(201,147,58,0.07); }
 
   .page { display: none; }
   .page.active { display: block; }
 
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem 1.4rem; position: relative; transition: border-color 0.25s, transform 0.2s; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.25s; }
+  .card:hover { border-color: #5a2535; transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+  .card.lugar::before { background: var(--gold); }
+  .card.lugar:hover { border-color: #6a5020; }
+
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; }
+  .char-name { font-family: 'IM Fell English SC', serif; font-size: 1.05rem; color: var(--gold2); line-height: 1.2; }
+  .char-type { font-family: 'IM Fell English SC', serif; font-size: 0.68rem; padding: 0.2em 0.6em; border-radius: 2px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.05em; }
+
+  .type-divino    { background: rgba(139,26,47,0.3);  color: #d98090; border: 1px solid rgba(139,26,47,0.5); }
+  .type-angel     { background: rgba(20,40,80,0.3);   color: #7090c8; border: 1px solid rgba(20,40,80,0.5); }
+  .type-alumno    { background: rgba(30,50,40,0.3);   color: #80b090; border: 1px solid rgba(30,50,40,0.5); }
+  .type-mago      { background: rgba(42,60,100,0.3);  color: #88a0d0; border: 1px solid rgba(42,60,100,0.5); }
+  .type-caballero { background: rgba(80,70,20,0.3);   color: #d0b860; border: 1px solid rgba(80,70,20,0.5); }
+  .type-bruja     { background: rgba(20,80,60,0.3);   color: #70c8a0; border: 1px solid rgba(20,80,60,0.5); }
+  .type-mortal    { background: rgba(60,50,50,0.3);   color: #b0a0a0; border: 1px solid rgba(60,50,50,0.5); }
+  .type-bestia    { background: rgba(80,40,10,0.3);   color: #d09050; border: 1px solid rgba(80,40,10,0.5); }
+  .type-entidad   { background: rgba(60,20,80,0.3);   color: #b888d0; border: 1px solid rgba(60,20,80,0.5); }
+  .type-castillo  { background: rgba(100,60,10,0.3);  color: #e0a840; border: 1px solid rgba(100,60,10,0.5); }
+  .type-infierno  { background: rgba(120,20,20,0.3);  color: #e06060; border: 1px solid rgba(120,20,20,0.5); }
+  .type-bosque    { background: rgba(20,60,30,0.3);   color: #60b870; border: 1px solid rgba(20,60,30,0.5); }
+  .type-exterior  { background: rgba(40,40,70,0.3);   color: #8888c8; border: 1px solid rgba(40,40,70,0.5); }
+  .type-otro      { background: rgba(50,50,50,0.3);   color: #a0a0a0; border: 1px solid rgba(50,50,50,0.5); }
+
+  .char-desc { font-size: 0.93rem; color: var(--text); line-height: 1.55; font-style: italic; opacity: 0.9; }
+  .char-source { margin-top: 0.7rem; font-size: 0.73rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
+
   .blog-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   .blog-header-actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-  .btn-nuevo-post { display: flex; align-items: center; gap: 0.5rem; background: none; border: 1px solid var(--accent); color: var(--gold2); font-family: 'IM Fell English SC', serif; font-size: 0.82rem; letter-spacing: 0.1em; padding: 0.5rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+  .btn-nuevo-post { display: none; align-items: center; gap: 0.5rem; background: none; border: 1px solid var(--accent); color: var(--gold2); font-family: 'IM Fell English SC', serif; font-size: 0.82rem; letter-spacing: 0.1em; padding: 0.5rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
   .btn-nuevo-post:hover { background: rgba(139,26,47,0.15); border-color: var(--gold); }
   .btn-admin { background: none; border: 1px solid var(--gold); color: var(--gold); font-family: 'IM Fell English SC', serif; font-size: 0.75rem; letter-spacing: 0.08em; padding: 0.4rem 1rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
   .btn-admin:hover { background: rgba(201,147,58,0.1); }
-  .btn-nuevo-post { display: none; }
 
   .blog-post { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; }
   .blog-post::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold); opacity: 0.8; }
@@ -375,6 +414,67 @@
   .login-modal { max-width: 400px; }
   .login-modal h2 { text-align: center; margin-bottom: 1.8rem; }
 
+  .detalle-modal .modal { max-width: 700px; }
+  .detalle-nombre { font-family: 'IM Fell English SC', serif; font-size: 1.4rem; color: var(--gold2); margin-bottom: 0.3rem; }
+  .detalle-tipo { font-size: 0.85rem; margin-bottom: 1rem; display: inline-block; }
+  .detalle-desc { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+  .detalle-fuente { font-size: 0.85rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
+
+  .crono-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.2rem 4rem; position: relative; }
+  .crono-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--border) 5%, var(--border) 95%, transparent); transform: translateX(-50%); pointer-events: none; }
+  @media (max-width: 640px) { .crono-line { left: 1.2rem; } }
+
+  .era-block { margin-bottom: 3rem; position: relative; }
+  .era-titulo { text-align: center; font-family: 'Cinzel Decorative', serif; font-size: 0.75rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.4rem; position: relative; z-index: 10; }
+  .era-titulo::before { content: '◆'; display: block; font-size: 0.6rem; color: var(--accent); margin-bottom: 0.3rem; letter-spacing: 0; }
+
+  .crono-evento { display: flex; gap: 1.5rem; margin-bottom: 1.2rem; position: relative; }
+  .crono-evento.izq { flex-direction: row-reverse; }
+  .crono-dot { position: absolute; left: 50%; top: 0.55rem; width: 8px; height: 8px; background: var(--accent); border: 1px solid var(--gold); border-radius: 50%; transform: translateX(-50%); flex-shrink: 0; }
+  .crono-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1rem 1.2rem; width: calc(50% - 2rem); position: relative; transition: border-color 0.2s; }
+  .crono-card:hover { border-color: #5a2535; }
+  .crono-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); border-radius: 3px 0 0 3px; opacity: 0.5; }
+  .crono-evento.izq .crono-card { margin-left: auto; }
+  .crono-evento.izq .crono-card::before { left: auto; right: 0; border-radius: 0 3px 3px 0; }
+  .crono-cap { font-family: 'IM Fell English SC', serif; font-size: 0.65rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+  .crono-nombre { font-family: 'IM Fell English SC', serif; font-size: 0.95rem; color: var(--gold2); line-height: 1.2; margin-bottom: 0.3rem; }
+  .crono-desc { font-size: 0.88rem; color: var(--text); opacity: 0.85; line-height: 1.5; }
+
+  @media (max-width: 640px) {
+    .crono-evento, .crono-evento.izq { flex-direction: column; padding-left: 2.5rem; }
+    .crono-card, .crono-evento.izq .crono-card { width: 100%; margin-left: 0; }
+    .crono-dot { left: 1.2rem; }
+    .crono-evento.izq .crono-card::before { left: 0; right: auto; border-radius: 3px 0 0 3px; }
+  }
+
+  .facciones-wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  .faccion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.2rem; }
+  .faccion-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.4rem; position: relative; overflow: hidden; transition: border-color 0.25s, transform 0.2s; }
+  .faccion-card:hover { transform: translateY(-2px); }
+  .faccion-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+  .faccion-card.oscuras::after { background: linear-gradient(to right, var(--accent), transparent); }
+  .faccion-card.oscuras { border-color: rgba(139,26,47,0.4); }
+  .faccion-card.oscuras:hover { border-color: #8b1a2f; }
+  .faccion-icon { font-size: 1.6rem; margin-bottom: 0.6rem; display: block; }
+  .faccion-nombre { font-family: 'IM Fell English SC', serif; font-size: 1.1rem; color: var(--gold2); margin-bottom: 0.25rem; line-height: 1.2; }
+  .faccion-lema { font-family: 'IM Fell English SC', serif; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.8rem; font-style: italic; }
+  .faccion-desc { font-size: 0.9rem; color: var(--text); line-height: 1.55; margin-bottom: 0.9rem; }
+
+  .glosario-wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  .glosario-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+  .glosario-tab { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.75rem; padding: 0.3em 1em; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
+  .glosario-tab:hover, .glosario-tab.active { border-color: var(--gold); color: var(--gold2); background: rgba(201,147,58,0.07); }
+  .glosario-section { display: none; }
+  .glosario-section.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+  .objeto-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem 1.3rem; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+  .objeto-card:hover { border-color: #5a3020; transform: translateY(-2px); }
+  .objeto-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold); opacity: 0.6; }
+  .objeto-icono { font-size: 1.2rem; margin-bottom: 0.4rem; display: block; }
+  .objeto-nombre { font-family: 'IM Fell English SC', serif; font-size: 1rem; color: var(--gold2); margin-bottom: 0.3rem; }
+  .objeto-tipo-badge { display: inline-block; background: rgba(201,147,58,0.12); border: 1px solid rgba(201,147,58,0.3); color: var(--gold); font-family: 'IM Fell English SC', serif; font-size: 0.7rem; padding: 0.2em 0.5em; border-radius: 2px; }
+  .objeto-desc { font-size: 0.88rem; color: var(--text); line-height: 1.5; font-style: italic; opacity: 0.9; }
+
   footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.78rem; font-family: 'IM Fell English SC', serif; letter-spacing: 0.1em; border-top: 1px solid var(--border); }
 </style>
 </head>
@@ -382,8 +482,30 @@
 
 <nav>
   <button class="nav-btn active" data-page="inicio">Inicio</button>
+  <button class="nav-btn" data-page="personajes">Personajes</button>
+  <button class="nav-btn" data-page="lugares">Lugares</button>
+  <button class="nav-btn" data-page="cronologia">Cronología</button>
+  <button class="nav-btn" data-page="facciones">Facciones</button>
+  <button class="nav-btn" data-page="glosario">Glosario</button>
   <button class="nav-btn" data-page="blog">Blog</button>
 </nav>
+
+<!-- WIDGET RELOJ Y VISITANTES -->
+<div class="widget-container">
+  <div class="widget">
+    <div class="widget-titulo">⏰ Hora Actual</div>
+    <div class="reloj" id="reloj">00:00:00</div>
+    <div class="calendario" id="calendario"></div>
+  </div>
+
+  <div class="widget">
+    <div class="visitantes">
+      <div class="widget-titulo">👁 Visitantes</div>
+      <div class="visitantes-numero" id="contador-visitantes">0</div>
+      <div class="visitantes-label">almas que transitan</div>
+    </div>
+  </div>
+</div>
 
 <!-- INICIO -->
 <div id="page-inicio" class="page active">
@@ -392,9 +514,103 @@
     <h1 class="inicio-titulo">Academia de las<br>Artes Oscuras</h1>
     <div class="inicio-sep"><span class="inicio-sep-icon">◆</span></div>
     <div class="inicio-botones">
-      <button class="inicio-btn" data-page="blog">Blog</button>
+      <button class="inicio-btn" data-page="personajes">Entrar</button>
+      <button class="inicio-btn-secundario" data-page="blog">Blog</button>
     </div>
     <div class="inicio-lema">«Hagase la voluntad de las tinieblas…»</div>
+  </div>
+</div>
+
+<!-- PERSONAJES -->
+<div id="page-personajes" class="page">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Log de Personajes · D. M. Soley</div>
+    <div class="count-badge" id="badge-personajes">38 personajes</div>
+    <div class="search-wrap"><input type="text" id="search-personajes" placeholder="Buscar personaje…" oninput="filterPersonajes()"></div>
+    <div class="filters" id="filters-personajes">
+      <button class="filter-btn active" data-filter-p="todos">Todos</button>
+      <button class="filter-btn" data-filter-p="divino">Divino / Arconte</button>
+      <button class="filter-btn" data-filter-p="angel">Ángel Caído</button>
+      <button class="filter-btn" data-filter-p="mago">Mago / Empíreo</button>
+      <button class="filter-btn" data-filter-p="caballero">Caballero</button>
+      <button class="filter-btn" data-filter-p="bruja">Bruja / Hechicero</button>
+      <button class="filter-btn" data-filter-p="alumno">Alumno</button>
+      <button class="filter-btn" data-filter-p="mortal">Mortal / Civil</button>
+      <button class="filter-btn" data-filter-p="bestia">Bestia / Dragón</button>
+      <button class="filter-btn" data-filter-p="entidad">Entidad</button>
+    </div>
+  </header>
+  <main id="grid-personajes"></main>
+</div>
+
+<!-- LUGARES -->
+<div id="page-lugares" class="page">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Log de Lugares · D. M. Soley</div>
+    <div class="count-badge" id="badge-lugares">— lugares</div>
+    <div class="search-wrap"><input type="text" id="search-lugares" placeholder="Buscar lugar…" oninput="filterLugares()"></div>
+    <div class="filters" id="filters-lugares">
+      <button class="filter-btn active" data-filter-l="todos">Todos</button>
+      <button class="filter-btn" data-filter-l="castillo">Castillo / Academia</button>
+      <button class="filter-btn" data-filter-l="infierno">Inframundo</button>
+      <button class="filter-btn" data-filter-l="bosque">Bosques / Exterior</button>
+      <button class="filter-btn" data-filter-l="exterior">Tierras / Pueblos</button>
+      <button class="filter-btn" data-filter-l="otro">Otro Plano</button>
+    </div>
+  </header>
+  <main id="grid-lugares"></main>
+</div>
+
+<!-- CRONOLOGÍA -->
+<div id="page-cronologia" class="page">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Cronología de los Hechos · D. M. Soley</div>
+  </header>
+  <div class="crono-wrap">
+    <div class="crono-line"></div>
+    <div class="era-block">
+      <div class="era-titulo">Tierras Legendarias</div>
+      <div class="crono-evento"><div class="crono-dot"></div><div class="crono-card"><div class="crono-cap">Cap. 3 · La Mesa Redonda</div><div class="crono-nombre">El Depravado parte al sur</div><div class="crono-desc">El dragón recibe una visión y decide marcharse.</div></div></div>
+    </div>
+    <div class="era-block">
+      <div class="era-titulo">Era Primordial · Antes del Castillo</div>
+      <div class="crono-evento"><div class="crono-dot"></div><div class="crono-card"><div class="crono-cap">Prólogo</div><div class="crono-nombre">El Primer Dios y su Sombra</div><div class="crono-desc">Los comienzos del universo oscuro.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FACCIONES -->
+<div id="page-facciones" class="page">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Facciones y Órdenes · D. M. Soley</div>
+  </header>
+  <div class="facciones-wrap">
+    <div class="faccion-grid">
+      <div class="faccion-card oscuras"><span class="faccion-icon">🕯</span><div class="faccion-nombre">Las Fuerzas del Mal</div><div class="faccion-lema">«En nombre de El Depravado, marchamos…»</div><div class="faccion-desc">Los poderes oscuros al servicio del dragón primordial.</div></div>
+      <div class="faccion-card academia"><span class="faccion-icon">🕯</span><div class="faccion-nombre">La Academia de las Artes Oscuras</div><div class="faccion-lema">«Hagase la voluntad de las tinieblas…»</div><div class="faccion-desc">Centro de enseñanza de la magia oscura.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div id="page-glosario" class="page">
+  <header>
+    <h1>Academia de las Artes Oscuras</h1>
+    <div class="subtitle">Glosario · Reliquias, Artefactos</div>
+  </header>
+  <div class="glosario-wrap">
+    <div class="glosario-tabs">
+      <button class="glosario-tab active" data-gtab="artefactos">Reliquias y Artefactos</button>
+    </div>
+    <div id="glosario-artefactos" class="glosario-section active">
+      <div class="objeto-card"><span class="objeto-icono">⛧</span><div class="objeto-nombre">El Mgehye</div><div class="objeto-tipo-badge">Arma · Mazo de guerra</div><div class="objeto-desc">Arma legendaria de poder destructivo.</div></div>
+      <div class="objeto-card"><span class="objeto-icono">⛧</span><div class="objeto-nombre">El Rostro de Metal</div><div class="objeto-tipo-badge">Artefacto · Antifaz</div><div class="objeto-desc">Antifaz misterioso de poderes desconocidos.</div></div>
+      <div class="objeto-card"><span class="objeto-icono">⛧</span><div class="objeto-nombre">El Libro Negro</div><div class="objeto-tipo-badge">Reliquia · Códice</div><div class="objeto-desc">Testamento del Primordial, libro de hechizos oscuros.</div></div>
+    </div>
   </div>
 </div>
 
@@ -413,25 +629,6 @@
       <div id="posts-container">
         <div class="blog-vacio"><span class="blog-vacio-icon">🕯</span>Cargando bitácora…</div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- WIDGET RELOJ Y VISITANTES -->
-<div class="widget-container">
-  <!-- Reloj y Calendario -->
-  <div class="widget">
-    <div class="widget-titulo">⏰ Hora Actual</div>
-    <div class="reloj" id="reloj">00:00:00</div>
-    <div class="calendario" id="calendario"></div>
-  </div>
-
-  <!-- Contador de Visitantes -->
-  <div class="widget">
-    <div class="visitantes">
-      <div class="widget-titulo">👁 Visitantes</div>
-      <div class="visitantes-numero" id="contador-visitantes">0</div>
-      <div class="visitantes-label">almas que transitan</div>
     </div>
   </div>
 </div>
@@ -466,6 +663,17 @@
   </div>
 </div>
 
+<!-- MODAL DETALLE -->
+<div class="modal-bg detalle-modal" id="detalle-modal-bg">
+  <div class="modal">
+    <button class="btn-cerrar-modal" id="cerrar-detalle-btn">✕</button>
+    <div class="detalle-nombre" id="detalle-nombre"></div>
+    <span class="char-type detalle-tipo" id="detalle-tipo"></span>
+    <div class="detalle-desc" id="detalle-desc"></div>
+    <div class="detalle-fuente" id="detalle-fuente"></div>
+  </div>
+</div>
+
 <footer>SANGRE SASHA</footer>
 
 <script>
@@ -496,17 +704,14 @@ function actualizarCalendario() {
   let html = `<div class="cal-mes">${meses[mes]} ${año}</div>`;
   html += '<div class="cal-dias">';
   
-  // Nombres de los días
   dias.forEach(d => {
     html += `<div class="cal-dia-nombre">${d}</div>`;
   });
   
-  // Espacios vacíos
   for (let i = 0; i < primerDia; i++) {
     html += '<div class="cal-dia-numero" style="opacity:0;"></div>';
   }
   
-  // Días del mes
   for (let i = 1; i <= ultimoDia; i++) {
     const clase = i === hoy ? 'hoy' : '';
     html += `<div class="cal-dia-numero ${clase}">${i}</div>`;
@@ -516,9 +721,8 @@ function actualizarCalendario() {
   document.getElementById('calendario').innerHTML = html;
 }
 
-// Actualizar cada segundo
 setInterval(actualizarReloj, 1000);
-setInterval(actualizarCalendario, 60000); // Actualizar cada minuto
+setInterval(actualizarCalendario, 60000);
 actualizarReloj();
 actualizarCalendario();
 
@@ -527,40 +731,163 @@ actualizarCalendario();
 // ============================================
 function inicializarContador() {
   let visitantes = parseInt(localStorage.getItem('visitantes') || '0');
-  
-  // Incrementar contador
   visitantes++;
   localStorage.setItem('visitantes', visitantes);
-  
   document.getElementById('contador-visitantes').textContent = visitantes;
 }
 
 inicializarContador();
 
 // ============================================
-// NAVEGACIÓN
+// DATOS (personajes y lugares)
 // ============================================
-function switchPage(page) {
+const personajes = [
+  { nombre:"Babalón", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Súcubo escarlata, hermana de Saturno. Personificación del morbo y la seducción.", fuente:"Cap. 1 · La Boda" },
+  { nombre:"Saturno / Saklas", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Arconte creado para regir el destino. Se rebeló contra su creador.", fuente:"Prólogo" },
+  { nombre:"Sophia", tipo:"entidad", tipoLabel:"Entidad", desc:"La primera madre. Ser primordial que contempla con llanto la sátira cósmica.", fuente:"Cap. 4 · Luz y Fuerza" },
+  { nombre:"El Mago Empíreo", tipo:"mago", tipoLabel:"Mago / Empíreo", desc:"Un único recipiente que atraviesa múltiples vidas. Sensible y lunar en su primera encarnación.", fuente:"Cap. 2 · La Contención" },
+  { nombre:"Morgana, la Bruja de Invierno", tipo:"bruja", tipoLabel:"Bruja / Hechicero", desc:"Profesora prodigio de la academia. Creadora de los Noctómanos.", fuente:"Cap. 2 · Manía Nocturna" },
+  { nombre:"Samara", tipo:"bestia", tipoLabel:"Bestia / Dragón", desc:"Hija del Dragón. Profesora de manipulación y directora de la academia.", fuente:"Cap. 1 · La Comunión" },
+  { nombre:"Nyla / Colmillo Bebé", tipo:"alumno", tipoLabel:"Alumno", desc:"Alumna caníbal y sanguinaria. Nombrada armera tras la calamidad.", fuente:"Cap. 3 · La Marcha del Dragón" },
+  { nombre:"El Depravado", tipo:"bestia", tipoLabel:"Bestia / Dragón", desc:"El mayor de seis dragones hermanos. Padre de Samara. El Primer Dragón.", fuente:"Cap. 4 · El Gran Conjuro" },
+];
+
+const lugares = [
+  { nombre:"El Castillo / Academia de las Artes Oscuras", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Fortaleza construida por los trece templarios herejes.", fuente:"Cap. 1 · La Comunión" },
+  { nombre:"Casa de las Lágrimas", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Torre del castillo dedicada a las sacerdotisas y estudiantes de la luna.", fuente:"Cap. 2 · La Contención" },
+  { nombre:"Casa de la Sangre", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Torre donde estudian los hematófagos seguidores de Babalón.", fuente:"Cap. 1 · La Boda" },
+  { nombre:"La Biblioteca", tipo:"castillo", tipoLabel:"Castillo / Academia", desc:"Enorme sala con estanterías que desafían los límites de la realidad.", fuente:"Cap. 2 · La Forma de la Comedia" },
+  { nombre:"El Infierno / La Esfera Nocturna", tipo:"infierno", tipoLabel:"Inframundo", desc:"Ciudad de torres gigantescas de metal negro con llamas brotando.", fuente:"Cap. 1 · El Infierno" },
+  { nombre:"Los Bosques Encantados", tipo:"bosque", tipoLabel:"Bosques / Exterior", desc:"Arboleda maldita que rodea el castillo. Sede de rituales nocturnos.", fuente:"Cap. 2 · Solsticio de Verano" },
+  { nombre:"El Castillo de Cristal de Sophia", tipo:"otro", tipoLabel:"Otro Plano", desc:"Castillo que flota en las estrellas con paredes de oro y diamantes.", fuente:"Cap. 4 · Luz y Fuerza" },
+];
+
+// ============================================
+// FUNCIONES GLOBALES
+// ============================================
+let currentFilterP = 'todos';
+let currentFilterL = 'todos';
+
+function renderGrid(containerId, badgeId, list, isLugar = false) {
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+  grid.innerHTML = '';
+  list.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'card' + (isLugar ? ' lugar' : '');
+    div.innerHTML = `<div class="card-header"><div class="char-name">${item.nombre}</div><span class="char-type type-${item.tipo}">${item.tipoLabel}</span></div><div class="char-desc">${item.desc}</div><div class="char-source">◈ ${item.fuente}</div>`;
+    div.addEventListener('click', () => abrirDetalle(item));
+    grid.appendChild(div);
+  });
+  const badge = document.getElementById(badgeId);
+  if (badge) badge.textContent = list.length + (containerId === 'grid-personajes' ? ' personajes' : ' lugares');
+}
+
+function filterPersonajes() {
+  const q = document.getElementById('search-personajes')?.value.toLowerCase() || '';
+  const filtered = personajes.filter(p => (currentFilterP === 'todos' || p.tipo === currentFilterP) && (!q || p.nombre.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)));
+  renderGrid('grid-personajes', 'badge-personajes', filtered, false);
+}
+
+function filterLugares() {
+  const q = document.getElementById('search-lugares')?.value.toLowerCase() || '';
+  const filtered = lugares.filter(l => (currentFilterL === 'todos' || l.tipo === currentFilterL) && (!q || l.nombre.toLowerCase().includes(q) || l.desc.toLowerCase().includes(q)));
+  renderGrid('grid-lugares', 'badge-lugares', filtered, true);
+}
+
+function setFilterP(tipo, btn) {
+  currentFilterP = tipo;
+  document.querySelectorAll('#filters-personajes .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterPersonajes();
+}
+
+function setFilterL(tipo, btn) {
+  currentFilterL = tipo;
+  document.querySelectorAll('#filters-lugares .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterLugares();
+}
+
+function switchPage(page, targetBtn = null) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const targetPage = document.getElementById(`page-${page}`);
   if (targetPage) targetPage.classList.add('active');
   
   document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-  const matchingBtn = document.querySelector(`.nav-btn[data-page="${page}"]`);
-  if (matchingBtn) matchingBtn.classList.add('active');
+  if (targetBtn) targetBtn.classList.add('active');
+  else {
+    const matchingBtn = document.querySelector(`.nav-btn[data-page="${page}"]`);
+    if (matchingBtn) matchingBtn.classList.add('active');
+  }
 }
 
+function abrirDetalle(item) {
+  document.getElementById('detalle-nombre').textContent = item.nombre;
+  const tipoEl = document.getElementById('detalle-tipo');
+  tipoEl.textContent = item.tipoLabel;
+  tipoEl.className = 'char-type detalle-tipo type-' + item.tipo;
+  document.getElementById('detalle-desc').textContent = item.desc;
+  document.getElementById('detalle-fuente').textContent = '◈ ' + item.fuente;
+  document.getElementById('detalle-modal-bg').classList.add('open');
+}
+
+function cerrarDetalle() { document.getElementById('detalle-modal-bg').classList.remove('open'); }
+
+function setGlosarioTab(tab, btn) {
+  document.querySelectorAll('.glosario-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.glosario-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(`glosario-${tab}`).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ============================================
+// INICIALIZACIÓN DE EVENTOS
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchPage(btn.dataset.page));
+    btn.addEventListener('click', () => switchPage(btn.dataset.page, btn));
   });
   
-  document.querySelectorAll('.inicio-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchPage(btn.dataset.page));
+  document.querySelectorAll('.inicio-btn, .inicio-btn-secundario').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.dataset.page;
+      if (page) switchPage(page, document.querySelector(`.nav-btn[data-page="${page}"]`));
+    });
   });
+  
+  document.querySelectorAll('#filters-personajes .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => setFilterP(btn.dataset.filterP, btn));
+  });
+  
+  document.querySelectorAll('#filters-lugares .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => setFilterL(btn.dataset.filterL, btn));
+  });
+  
+  const searchP = document.getElementById('search-personajes');
+  if (searchP) searchP.addEventListener('input', filterPersonajes);
+  const searchL = document.getElementById('search-lugares');
+  if (searchL) searchL.addEventListener('input', filterLugares);
+  
+  document.querySelectorAll('.glosario-tab').forEach(btn => {
+    btn.addEventListener('click', () => setGlosarioTab(btn.dataset.gtab, btn));
+  });
+  
+  document.getElementById('cerrar-detalle-btn')?.addEventListener('click', cerrarDetalle);
+  document.getElementById('detalle-modal-bg')?.addEventListener('click', e => { if (e.target === e.currentTarget) cerrarDetalle(); });
+  
+  renderGrid('grid-personajes', 'badge-personajes', personajes, false);
+  renderGrid('grid-lugares', 'badge-lugares', lugares, true);
 });
 
 window.switchPage = switchPage;
+window.filterPersonajes = filterPersonajes;
+window.filterLugares = filterLugares;
+window.setFilterP = setFilterP;
+window.setFilterL = setFilterL;
+window.setGlosarioTab = setGlosarioTab;
+window.cerrarDetalle = cerrarDetalle;
+window.abrirDetalle = abrirDetalle;
 </script>
 
 <!-- Firebase y Blog -->
@@ -584,7 +911,6 @@ window.switchPage = switchPage;
   let editingPostId = null;
   let unsubPosts = null;
 
-  // CONTRASEÑA ADMIN
   const ADMIN_PASSWORD = "sangresasha123";
 
   function formatFecha(ts) {
@@ -639,7 +965,6 @@ window.switchPage = switchPage;
     }, (err) => console.error(err));
   }
 
-  // LOGIN ADMIN
   document.getElementById('btn-login-admin')?.addEventListener('click', () => {
     document.getElementById('modal-login').classList.add('open');
   });
@@ -661,7 +986,6 @@ window.switchPage = switchPage;
     }
   });
 
-  // NUEVO POST
   document.getElementById('btn-nuevo-post')?.addEventListener('click', () => {
     if (!isAdmin) return;
     editingPostId = null;
@@ -671,7 +995,6 @@ window.switchPage = switchPage;
     document.getElementById('modal-post').classList.add('open');
   });
 
-  // GUARDAR POST
   document.getElementById('btn-guardar-post')?.addEventListener('click', async () => {
     if (!isAdmin) return;
     
@@ -709,7 +1032,6 @@ window.switchPage = switchPage;
     }
   });
 
-  // EDITAR POST
   window.editarPost = function(id) {
     if (!isAdmin) return;
     editingPostId = id;
@@ -717,7 +1039,6 @@ window.switchPage = switchPage;
     document.getElementById('modal-post').classList.add('open');
   };
 
-  // ELIMINAR POST
   window.eliminarPost = function(id) {
     if (!isAdmin) return;
     if (confirm('¿Eliminar este post?')) {
@@ -725,7 +1046,6 @@ window.switchPage = switchPage;
     }
   };
 
-  // CERRAR MODALES
   document.getElementById('cerrar-modal-post')?.addEventListener('click', () => {
     document.getElementById('modal-post').classList.remove('open');
   });
@@ -742,7 +1062,6 @@ window.switchPage = switchPage;
     }
   });
 
-  // INICIALIZAR
   cargarPosts();
 </script>
 
