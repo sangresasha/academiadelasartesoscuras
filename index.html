@@ -59,9 +59,104 @@
   .nav-btn.active { color: var(--gold2); border-bottom-color: var(--gold); }
 
   /* ==============================
-     WIDGET RELOJ + VISITANTES — ELIMINADO DEL FIXED
-     Ahora va en el footer
+     WIDGET RELOJ + VISITANTES
   ============================== */
+  .widget-container {
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+  .widget {
+    background: rgba(22, 14, 17, 0.95);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    min-width: 160px;
+    backdrop-filter: blur(10px);
+  }
+  .widget-titulo {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.6rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    text-align: center;
+  }
+  .reloj {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.2rem;
+    color: var(--gold2);
+    text-align: center;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+  }
+  .calendario {
+    background: rgba(10, 6, 8, 0.8);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.4rem;
+    font-family: 'IM Fell English SC', serif;
+  }
+  .cal-mes {
+    text-align: center;
+    font-size: 0.65rem;
+    color: var(--gold2);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.1em;
+  }
+  .cal-dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.1rem;
+  }
+  .cal-dia-nombre {
+    font-size: 0.55rem;
+    color: var(--muted);
+    text-align: center;
+    font-weight: bold;
+  }
+  .cal-dia-numero {
+    font-size: 0.55rem;
+    text-align: center;
+    color: var(--text);
+    padding: 0.1rem;
+    background: rgba(139, 26, 47, 0.2);
+    border-radius: 2px;
+  }
+  .cal-dia-numero.hoy {
+    background: var(--accent);
+    color: #fff;
+    font-weight: bold;
+  }
+  .visitantes {
+    background: rgba(10, 6, 8, 0.8);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .visitantes-numero {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.2rem;
+    color: var(--gold2);
+    margin: 0.2rem 0;
+  }
+  .visitantes-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 768px) {
+    .widget-container { gap: 0.6rem; padding: 0.8rem; }
+    .widget { min-width: 130px; padding: 0.5rem; }
+    .reloj { font-size: 1rem; }
+  }
 
   /* ==============================
      PÁGINA INICIO
@@ -354,128 +449,7 @@
   .detalle-desc { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
   .detalle-fuente { font-size: 0.85rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
 
-  /* ==============================
-     CAMBIO 1, 2, 3: Footer con reloj, calendario y visitantes
-     — tamaño reducido, posición estática en footer
-  ============================== */
-  footer {
-    text-align: center;
-    padding: 1.2rem 2rem;
-    color: var(--muted);
-    font-size: 0.78rem;
-    font-family: 'IM Fell English SC', serif;
-    letter-spacing: 0.1em;
-    border-top: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  /* Contenedor compacto del reloj + calendario + visitantes en footer */
-  .footer-widgets {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 1rem;
-    width: 100%;
-  }
-
-  .footer-widget-box {
-    background: rgba(22, 14, 17, 0.8);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.5rem 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-
-  /* Reloj en footer — más pequeño */
-  .footer-reloj-label {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 0.6rem;
-    color: var(--gold);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  #reloj-footer {
-    font-family: 'Crimson Pro', serif;
-    font-size: 1rem;
-    color: var(--gold2);
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-  }
-
-  /* Calendario en footer — compacto */
-  .footer-cal-mes {
-    font-size: 0.58rem;
-    color: var(--gold2);
-    text-align: center;
-    margin-bottom: 0.2rem;
-    letter-spacing: 0.08em;
-    font-family: 'IM Fell English SC', serif;
-  }
-
-  .footer-cal-dias {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-  }
-
-  .footer-cal-dia-nombre {
-    font-size: 0.48rem;
-    color: var(--muted);
-    text-align: center;
-    font-family: 'IM Fell English SC', serif;
-  }
-
-  .footer-cal-dia-numero {
-    font-size: 0.52rem;
-    text-align: center;
-    color: var(--text);
-    padding: 1px;
-    border-radius: 2px;
-    background: rgba(139, 26, 47, 0.1);
-    font-family: 'IM Fell English SC', serif;
-  }
-
-  .footer-cal-dia-numero.hoy {
-    background: var(--accent);
-    color: #fff;
-    font-weight: bold;
-  }
-
-  /* Visitantes en footer */
-  .footer-visitantes-numero {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1rem;
-    color: var(--gold2);
-  }
-
-  .footer-visitantes-label {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 0.6rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-  }
-
-  .footer-brand {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
-
-  @media (max-width: 600px) {
-    .footer-widgets { gap: 0.6rem; }
-    .footer-widget-box { padding: 0.4rem 0.6rem; }
-  }
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.78rem; font-family: 'IM Fell English SC', serif; letter-spacing: 0.1em; border-top: 1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -491,9 +465,6 @@
   <button class="nav-btn" data-page="foro">Foro</button>
   <button class="nav-btn" data-page="blog">Blog</button>
 </nav>
-
-<!-- CAMBIO 2 y 3: Widget reloj + visitantes ELIMINADO de posición fija.
-     Ahora se renderiza dentro del footer al final del documento. -->
 
 <!-- ==============================
      INICIO
@@ -819,47 +790,37 @@
   </div>
 </div>
 
-<!-- ==============================
-     CAMBIO 3: Footer estático con reloj, calendario y visitantes
-============================== -->
 <footer>
-  <div class="footer-widgets">
-    <!-- Reloj -->
-    <div class="footer-widget-box">
-      <span class="footer-reloj-label">⏰ Hora</span>
-      <span id="reloj-footer">00:00:00</span>
+  <!-- WIDGET RELOJ + VISITANTES -->
+  <div class="widget-container">
+    <div class="widget">
+      <div class="widget-titulo">⏰ Hora Actual</div>
+      <div class="reloj" id="reloj">00:00:00</div>
+      <div class="calendario" id="calendario"></div>
     </div>
-
-    <!-- Calendario compacto -->
-    <div class="footer-widget-box">
-      <div id="calendario-footer"></div>
-    </div>
-
-    <!-- Visitantes globales -->
-    <div class="footer-widget-box">
-      <span class="footer-reloj-label">👁 Almas</span>
-      <span class="footer-visitantes-numero" id="contador-visitantes-footer">…</span>
+    <div class="widget">
+      <div class="visitantes">
+        <div class="widget-titulo">👁 Visitantes</div>
+        <div class="visitantes-numero" id="contador-visitantes">0</div>
+        <div class="visitantes-label">almas que transitan</div>
+      </div>
     </div>
   </div>
-  <div class="footer-brand">SANGRE SASHA</div>
+  SANGRE SASHA
 </footer>
 
 <!-- ==============================
      SCRIPT PRINCIPAL
 ============================== -->
 <script>
-// ——— CAMBIO 1 y 3: RELOJ en footer (id="reloj-footer") ———
+// ——— RELOJ Y CALENDARIO ———
 function actualizarReloj() {
   const ahora = new Date();
-  // CAMBIO: apunta al nuevo id del footer en lugar del widget flotante
-  const el = document.getElementById('reloj-footer');
-  if (el) el.textContent =
+  document.getElementById('reloj').textContent =
     String(ahora.getHours()).padStart(2,'0') + ':' +
     String(ahora.getMinutes()).padStart(2,'0') + ':' +
     String(ahora.getSeconds()).padStart(2,'0');
 }
-
-// ——— CAMBIO 1 y 3: CALENDARIO en footer (id="calendario-footer") ———
 function actualizarCalendario() {
   const ahora = new Date();
   const mes = ahora.getMonth(), año = ahora.getFullYear(), hoy = ahora.getDate();
@@ -867,25 +828,17 @@ function actualizarCalendario() {
   const dias = ['D','L','M','X','J','V','S'];
   const primerDia = new Date(año, mes, 1).getDay();
   const ultimoDia = new Date(año, mes + 1, 0).getDate();
-  // CAMBIO: clases renombradas a "footer-cal-*" para el footer compacto
-  let html = `<div class="footer-cal-mes">${meses[mes]} ${año}</div><div class="footer-cal-dias">`;
-  dias.forEach(d => { html += `<div class="footer-cal-dia-nombre">${d}</div>`; });
-  for (let i = 0; i < primerDia; i++) html += '<div class="footer-cal-dia-numero" style="opacity:0;"></div>';
-  for (let i = 1; i <= ultimoDia; i++) html += `<div class="footer-cal-dia-numero${i===hoy?' hoy':''}">${i}</div>`;
+  let html = `<div class="cal-mes">${meses[mes]} ${año}</div><div class="cal-dias">`;
+  dias.forEach(d => { html += `<div class="cal-dia-nombre">${d}</div>`; });
+  for (let i = 0; i < primerDia; i++) html += '<div class="cal-dia-numero" style="opacity:0;"></div>';
+  for (let i = 1; i <= ultimoDia; i++) html += `<div class="cal-dia-numero${i===hoy?' hoy':''}">${i}</div>`;
   html += '</div>';
-  // CAMBIO: apunta al nuevo contenedor del footer
-  const el = document.getElementById('calendario-footer');
-  if (el) el.innerHTML = html;
+  document.getElementById('calendario').innerHTML = html;
 }
-
 setInterval(actualizarReloj, 1000);
 setInterval(actualizarCalendario, 60000);
 actualizarReloj();
 actualizarCalendario();
-
-// ——— CAMBIO 4: CONTADOR DE VISITANTES GLOBAL (Firebase) ———
-// Se inicializa en el módulo Firebase de abajo para poder usar Firestore.
-// La función inicializarContador() original (localStorage) es reemplazada.
 
 // ——— DATOS ———
 const personajes = [
@@ -1120,6 +1073,43 @@ window.setFilterL = setFilterL;
 window.setGlosarioTab = setGlosarioTab;
 window.cerrarDetalle = cerrarDetalle;
 window.abrirDetalle = abrirDetalle;
+</script>
+
+<!-- ==============================
+     FIREBASE — VISITANTES GLOBAL
+============================== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCOdpTR_Y-9eQoCJBlZ-OMybckIPqdstQo",
+    authDomain: "aao-ecds-1.firebaseapp.com",
+    projectId: "aao-ecds-1",
+    storageBucket: "aao-ecds-1.firebasestorage.app",
+    messagingSenderId: "186213040999",
+    appId: "1:186213040999:web:9e8c9fd8e7ac7e3dc065c2"
+  };
+
+  const app = initializeApp(firebaseConfig, 'visitas-app');
+  const db = getFirestore(app);
+  const viewsRef = doc(db, 'stats', 'views');
+
+  async function inicializarContador() {
+    const snap = await getDoc(viewsRef);
+    if (!snap.exists()) {
+      await setDoc(viewsRef, { count: 1 });
+      document.getElementById('contador-visitantes').textContent = '1';
+    } else {
+      await setDoc(viewsRef, { count: increment(1) }, { merge: true });
+    }
+    onSnapshot(viewsRef, (docSnap) => {
+      if (docSnap.exists()) {
+        document.getElementById('contador-visitantes').textContent = docSnap.data().count;
+      }
+    });
+  }
+  inicializarContador();
 </script>
 
 <!-- ==============================
@@ -1398,59 +1388,6 @@ window.abrirDetalle = abrirDetalle;
       deleteDoc(doc(db, 'blog_posts', id)).catch(err => console.error(err));
     }
   };
-</script>
-
-<!-- ==============================
-     CAMBIO 4: CONTADOR GLOBAL DE VISITANTES vía Firebase
-     Usa la misma config del proyecto. Incrementa con FieldValue.increment(1)
-     en el documento "stats/global", campo "views".
-============================== -->
-<script type="module">
-  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  // Reutiliza la misma configuración del proyecto existente
-  const firebaseConfig = {
-    apiKey: "AIzaSyCOdpTR_Y-9eQoCJBlZ-OMybckIPqdstQo",
-    authDomain: "aao-ecds-1.firebaseapp.com",
-    projectId: "aao-ecds-1",
-    storageBucket: "aao-ecds-1.firebasestorage.app",
-    messagingSenderId: "186213040999",
-    appId: "1:186213040999:web:9e8c9fd8e7ac7e3dc065c2"
-  };
-
-  // Usa una instancia con nombre distinto para no colisionar con foro-app y blog-app
-  const app = initializeApp(firebaseConfig, 'views-app');
-  const db = getFirestore(app);
-  const statsRef = doc(db, 'stats', 'global');
-
-  // Incrementa el contador global en 1 al cargar la página
-  async function inicializarContadorGlobal() {
-    try {
-      // Intenta incrementar. Si el doc no existe, setDoc lo crea con views=1.
-      const snap = await getDoc(statsRef);
-      if (snap.exists()) {
-        await updateDoc(statsRef, { views: increment(1) });
-      } else {
-        await setDoc(statsRef, { views: 1 });
-      }
-    } catch (e) {
-      console.error('Error al incrementar contador:', e);
-    }
-  }
-
-  // Escucha en tiempo real el contador para mostrarlo siempre actualizado
-  function escucharContador() {
-    onSnapshot(statsRef, (snap) => {
-      const el = document.getElementById('contador-visitantes-footer');
-      if (el && snap.exists()) {
-        el.textContent = snap.data().views ?? '…';
-      }
-    }, (err) => console.error(err));
-  }
-
-  inicializarContadorGlobal();
-  escucharContador();
 </script>
 
 </body>
