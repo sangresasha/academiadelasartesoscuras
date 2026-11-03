@@ -4,6 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Academia de las Artes Oscuras</title>
+<!--
+  ═══════════════════════════════════════════════════════════════════════
+  ⚠  CONFIGURACIÓN REQUERIDA EN FIREBASE CONSOLE
+  ═══════════════════════════════════════════════════════════════════════
+  1. Ir a: Firebase Console → Firestore Database → Rules
+  2. Pegar y publicar:
+
+  rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      match /{document=**} {
+        allow read, write: if true;
+      }
+    }
+  }
+
+  Contraseña admin del blog: sangresasha123
+  ═══════════════════════════════════════════════════════════════════════
+-->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English+SC&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
@@ -58,9 +77,6 @@
   .nav-btn:hover { color: var(--gold2); }
   .nav-btn.active { color: var(--gold2); border-bottom-color: var(--gold); }
 
-  /* ==============================
-     WIDGET RELOJ + VISITANTES
-  ============================== */
   .widget-container {
     position: static;
     display: flex;
@@ -158,9 +174,6 @@
     .reloj { font-size: 1rem; }
   }
 
-  /* ==============================
-     PÁGINA INICIO
-  ============================== */
   #page-inicio {
     min-height: calc(100vh - 56px);
     position: relative;
@@ -201,9 +214,6 @@
   .inicio-btn-secundario:hover { border-color: var(--accent); color: var(--gold2); }
   .inicio-lema { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-family: 'IM Fell English SC', serif; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.15em; opacity: 0.5; white-space: nowrap; font-style: italic; }
 
-  /* ==============================
-     HEADER GENERAL
-  ============================== */
   header { text-align: center; padding: 3rem 2rem 1.5rem; border-bottom: 1px solid var(--border); }
   header::after { content: ''; display: block; width: 120px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 1.2rem auto 0; }
   h1 { font-family: 'Cinzel Decorative', serif; font-size: clamp(1rem, 2.5vw, 1.6rem); color: var(--gold2); letter-spacing: 0.06em; line-height: 1.3; text-shadow: 0 0 40px rgba(201,147,58,0.25); }
@@ -220,9 +230,6 @@
   .page { display: none; }
   .page.active { display: block; }
 
-  /* ==============================
-     CARDS DE PERSONAJES Y LUGARES
-  ============================== */
   main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem 1.4rem; position: relative; transition: border-color 0.25s, transform 0.2s; overflow: hidden; cursor: pointer; }
   .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.25s; }
@@ -250,9 +257,6 @@
   .char-desc { font-size: 0.93rem; color: var(--text); line-height: 1.55; font-style: italic; opacity: 0.9; }
   .char-source { margin-top: 0.7rem; font-size: 0.73rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
 
-  /* ==============================
-     CRONOLOGÍA
-  ============================== */
   .crono-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.2rem 4rem; position: relative; }
   .crono-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--border) 5%, var(--border) 95%, transparent); transform: translateX(-50%); }
   @media (max-width: 640px) { .crono-line { left: 1.2rem; } }
@@ -277,9 +281,6 @@
     .crono-evento.izq .crono-card::before { left: 0; right: auto; border-radius: 3px 0 0 3px; }
   }
 
-  /* ==============================
-     FACCIONES
-  ============================== */
   .facciones-wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   .faccion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.2rem; }
   .faccion-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1.4rem; position: relative; overflow: hidden; transition: border-color 0.25s, transform 0.2s; }
@@ -308,9 +309,6 @@
   .faccion-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
   .faccion-tag { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.65rem; padding: 0.15em 0.6em; border-radius: 2px; letter-spacing: 0.06em; }
 
-  /* ==============================
-     GLOSARIO
-  ============================== */
   .glosario-wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   .glosario-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
   .glosario-tab { background: var(--tag-bg); border: 1px solid var(--border); color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.75rem; padding: 0.3em 1em; cursor: pointer; border-radius: 2px; letter-spacing: 0.08em; transition: all 0.2s; }
@@ -332,9 +330,6 @@
   .idioma-trad { font-size: 0.83rem; color: var(--text); line-height: 1.5; }
   .idioma-ctx { margin-top: 0.5rem; font-size: 0.7rem; color: var(--muted); font-family: 'IM Fell English SC', serif; letter-spacing: 0.05em; }
 
-  /* ==============================
-     VIDEOS
-  ============================== */
   .videos-wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   .videos-intro { text-align: center; margin-bottom: 2rem; }
   .videos-intro p { font-size: 0.95rem; color: var(--muted); font-style: italic; margin-top: 0.5rem; }
@@ -354,9 +349,6 @@
   .video-titulo { font-family: 'IM Fell English SC', serif; font-size: 0.95rem; color: var(--gold2); margin-bottom: 0.3rem; line-height: 1.3; }
   .video-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 
-  /* ==============================
-     FORO
-  ============================== */
   .foro-wrap { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   #foro-lista { display: block; }
   #foro-hilo  { display: none; }
@@ -398,9 +390,6 @@
   .foro-vacio-icon { font-size: 2rem; display: block; margin-bottom: 0.7rem; opacity: 0.35; }
   .foro-loading { text-align: center; padding: 2rem; color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.85rem; letter-spacing: 0.1em; }
 
-  /* ==============================
-     BLOG
-  ============================== */
   .blog-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
   .blog-header-actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
   .btn-nuevo-post { display: none; align-items: center; gap: 0.5rem; background: none; border: 1px solid var(--accent); color: var(--gold2); font-family: 'IM Fell English SC', serif; font-size: 0.82rem; letter-spacing: 0.1em; padding: 0.5rem 1.2rem; cursor: pointer; border-radius: 2px; transition: all 0.2s; }
@@ -421,9 +410,6 @@
   .blog-vacio { text-align: center; padding: 3rem 1rem; color: var(--muted); font-family: 'IM Fell English SC', serif; font-size: 0.9rem; letter-spacing: 0.08em; }
   .blog-vacio-icon { font-size: 2rem; display: block; margin-bottom: 0.7rem; opacity: 0.35; }
 
-  /* ==============================
-     MODALES
-  ============================== */
   .modal-bg { display: none; position: fixed; inset: 0; background: rgba(5,3,4,0.88); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
   .modal-bg.open { display: flex; }
   .modal { background: var(--card); border: 1px solid var(--border); border-radius: 5px; padding: 1.8rem; max-width: 540px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
@@ -443,7 +429,6 @@
   .login-modal { max-width: 400px; }
   .login-modal h2 { text-align: center; margin-bottom: 1.8rem; }
 
-  /* Detalle modal */
   .detalle-nombre { font-family: 'IM Fell English SC', serif; font-size: 1.4rem; color: var(--gold2); margin-bottom: 0.3rem; }
   .detalle-tipo { font-size: 0.85rem; margin-bottom: 1rem; display: inline-block; }
   .detalle-desc { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
@@ -466,9 +451,6 @@
   <button class="nav-btn" data-page="blog">Blog</button>
 </nav>
 
-<!-- ==============================
-     INICIO
-============================== -->
 <div id="page-inicio" class="page active">
   <div class="inicio-wrap">
     <div class="inicio-ornamento">· · · · ·</div>
@@ -482,9 +464,6 @@
   </div>
 </div>
 
-<!-- ==============================
-     PERSONAJES
-============================== -->
 <div id="page-personajes" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -507,9 +486,6 @@
   <main id="grid-personajes"></main>
 </div>
 
-<!-- ==============================
-     LUGARES
-============================== -->
 <div id="page-lugares" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -528,9 +504,6 @@
   <main id="grid-lugares"></main>
 </div>
 
-<!-- ==============================
-     CRONOLOGÍA
-============================== -->
 <div id="page-cronologia" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -596,9 +569,6 @@
   </div>
 </div>
 
-<!-- ==============================
-     FACCIONES
-============================== -->
 <div id="page-facciones" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -616,9 +586,6 @@
   </div>
 </div>
 
-<!-- ==============================
-     GLOSARIO
-============================== -->
 <div id="page-glosario" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -657,9 +624,6 @@
   </div>
 </div>
 
-<!-- ==============================
-     VIDEOS
-============================== -->
 <div id="page-videos" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -674,9 +638,6 @@
   </div>
 </div>
 
-<!-- ==============================
-     FORO
-============================== -->
 <div id="page-foro" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -706,9 +667,6 @@
   </div>
 </div>
 
-<!-- ==============================
-     BLOG
-============================== -->
 <div id="page-blog" class="page">
   <header>
     <h1>Academia de las Artes Oscuras</h1>
@@ -727,10 +685,6 @@
   </div>
 </div>
 
-<!-- ==============================
-     MODALES
-============================== -->
-<!-- Nuevo hilo foro -->
 <div class="modal-bg" id="modal-bg">
   <div class="modal">
     <button class="btn-cerrar-modal" id="cerrar-modal-btn">✕</button>
@@ -749,7 +703,6 @@
   </div>
 </div>
 
-<!-- Login admin blog -->
 <div class="modal-bg" id="modal-login">
   <div class="modal login-modal">
     <button class="btn-cerrar-modal" id="cerrar-login">✕</button>
@@ -762,7 +715,6 @@
   </div>
 </div>
 
-<!-- Crear/editar post blog -->
 <div class="modal-bg" id="modal-post">
   <div class="modal wide">
     <button class="btn-cerrar-modal" id="cerrar-modal-post">✕</button>
@@ -779,7 +731,6 @@
   </div>
 </div>
 
-<!-- Detalle personaje/lugar -->
 <div class="modal-bg" id="detalle-modal-bg">
   <div class="modal wide">
     <button class="btn-cerrar-modal" id="cerrar-detalle-btn">✕</button>
@@ -791,7 +742,6 @@
 </div>
 
 <footer>
-  <!-- WIDGET RELOJ + VISITANTES -->
   <div class="widget-container">
     <div class="widget">
       <div class="widget-titulo">⏰ Hora Actual</div>
@@ -801,7 +751,7 @@
     <div class="widget">
       <div class="visitantes">
         <div class="widget-titulo">👁 Visitantes</div>
-        <div class="visitantes-numero" id="contador-visitantes">0</div>
+        <div class="visitantes-numero" id="contador-visitantes">—</div>
         <div class="visitantes-label">almas que transitan</div>
       </div>
     </div>
@@ -809,11 +759,10 @@
   SANGRE SASHA
 </footer>
 
-<!-- ==============================
-     SCRIPT PRINCIPAL
-============================== -->
+<!-- ═══════════════════════════════════════════════════════════════
+     SCRIPT PRINCIPAL (reloj, calendario, grid, navegación)
+═══════════════════════════════════════════════════════════════ -->
 <script>
-// ——— RELOJ Y CALENDARIO ———
 function actualizarReloj() {
   const ahora = new Date();
   document.getElementById('reloj').textContent =
@@ -840,7 +789,6 @@ setInterval(actualizarCalendario, 60000);
 actualizarReloj();
 actualizarCalendario();
 
-// ——— DATOS ———
 const personajes = [
   { nombre:"Babalón", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Súcubo escarlata, hermana de Saturno/Saklas y personificación del morbo. Se manifiesta como Gran Maestra en el rito de la boda: emerge de la sangre de Julieta, dirige la ceremonia y dibuja la Runa del Augurio.", fuente:"Caps. 1, 2, 3 y 4" },
   { nombre:"Saturno / Saklas", tipo:"divino", tipoLabel:"Divino / Arconte", desc:"Arconte creado para ser juez y regir el destino. Se rebeló contra su creador junto a Babalón. Se presenta como cubo negro flotante; voz espléndida que retumba kilómetros.", fuente:"Cap. 1 – El infierno" },
@@ -912,7 +860,6 @@ const lugares = [
   { nombre:"El Campo de Nieve de Morgana", tipo:"otro", tipoLabel:"Otro Plano", desc:"Plano onírico de Morgana: vasto campo nevado con tormenta blanca. El súcubo escarlata le revela aquí su maldición.", fuente:"Cap. 3 – Solsticio de invierno" },
 ];
 
-// ——— FUNCIONES GLOBALES ———
 let currentFilterP = 'todos';
 let currentFilterL = 'todos';
 
@@ -972,7 +919,7 @@ function switchPage(page, targetBtn = null) {
     if (matchingBtn) matchingBtn.classList.add('active');
   }
   if (page === 'videos') renderVideos();
-  if (page === 'foro' && typeof initForo === 'function') initForo();
+  if (page === 'foro' && typeof window.initForo === 'function') window.initForo();
 }
 
 function abrirDetalle(item) {
@@ -1021,7 +968,7 @@ async function cargarVideosYT() {
       card.innerHTML = `<div class="video-thumb" onclick="playVideo(this,'${videoId}')"><img src="${thumb}" alt="${escapeHtml(titulo)}" loading="lazy"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-iframe-wrap" id="iframe-${videoId}"></div><div class="video-info"><div class="video-titulo">${escapeHtml(titulo)}</div><div class="video-desc">${escapeHtml(desc)}${desc.length >= 100 ? '…' : ''}</div></div>`;
       grid.appendChild(card);
     });
-  } catch(e) { console.log('Feed no disponible'); }
+  } catch(e) { console.log('Feed de videos no disponible (fallback ya mostrado)'); }
 }
 
 window.playVideo = function(thumbEl, videoId) {
@@ -1031,7 +978,6 @@ window.playVideo = function(thumbEl, videoId) {
   iframeWrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 };
 
-// ——— INICIALIZACIÓN ———
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => switchPage(btn.dataset.page, btn));
@@ -1053,14 +999,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.glosario-tab').forEach(btn => {
     btn.addEventListener('click', () => setGlosarioTab(btn.dataset.gtab, btn));
   });
-  // Modales foro
   document.getElementById('abrir-modal-btn')?.addEventListener('click', () => document.getElementById('modal-bg').classList.add('open'));
   document.getElementById('cerrar-modal-btn')?.addEventListener('click', () => document.getElementById('modal-bg').classList.remove('open'));
   document.getElementById('modal-bg')?.addEventListener('click', e => { if (e.target === e.currentTarget) document.getElementById('modal-bg').classList.remove('open'); });
-  // Modales detalle
   document.getElementById('cerrar-detalle-btn')?.addEventListener('click', cerrarDetalle);
   document.getElementById('detalle-modal-bg')?.addEventListener('click', e => { if (e.target === e.currentTarget) cerrarDetalle(); });
-  // Render inicial
   renderGrid('grid-personajes', 'badge-personajes', personajes, false);
   renderGrid('grid-lugares', 'badge-lugares', lugares, true);
 });
@@ -1075,13 +1018,11 @@ window.cerrarDetalle = cerrarDetalle;
 window.abrirDetalle = abrirDetalle;
 </script>
 
-<!-- ==============================
-     FIREBASE — VISITANTES GLOBAL
-============================== -->
+<!-- ═══════════════════════════════════════════════════════════════
+     FIREBASE — MÓDULO ÚNICO (VISITAS + FORO + BLOG)
+     Consolidado para evitar duplicación y errores.
+═══════════════════════════════════════════════════════════════ -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, doc, getDoc, setDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
   const firebaseConfig = {
     apiKey: "AIzaSyCOdpTR_Y-9eQoCJBlZ-OMybckIPqdstQo",
     authDomain: "aao-ecds-1.firebaseapp.com",
@@ -1091,82 +1032,128 @@ window.abrirDetalle = abrirDetalle;
     appId: "1:186213040999:web:9e8c9fd8e7ac7e3dc065c2"
   };
 
-  const app = initializeApp(firebaseConfig, 'visitas-app');
-  const db = getFirestore(app);
-  const viewsRef = doc(db, 'stats', 'views');
-
-  async function inicializarContador() {
-    const snap = await getDoc(viewsRef);
-    if (!snap.exists()) {
-      await setDoc(viewsRef, { count: 1 });
-      document.getElementById('contador-visitantes').textContent = '1';
-    } else {
-      await setDoc(viewsRef, { count: increment(1) }, { merge: true });
+  // ─── Utilidades de error ───
+  function mostrarBannerError(msg, detalle) {
+    let banner = document.getElementById('fb-error-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'fb-error-banner';
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#8b1a2f;color:#fff;padding:0.8rem 1rem;text-align:center;z-index:99999;font-family:serif;font-size:0.9rem;border-bottom:2px solid #c9933a;line-height:1.4;';
+      document.body.prepend(banner);
     }
-    onSnapshot(viewsRef, (docSnap) => {
-      if (docSnap.exists()) {
-        document.getElementById('contador-visitantes').textContent = docSnap.data().count;
-      }
-    });
+    banner.innerHTML = '⚠ <strong>Firebase:</strong> ' + msg + (detalle ? ' <span style="opacity:0.7;font-size:0.78rem">(' + detalle + ')</span>' : '');
   }
-  inicializarContador();
-</script>
 
-<!-- ==============================
-     FIREBASE — FORO
-============================== -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, doc, updateDoc, arrayUnion, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  function formatearErrorFirestore(err) {
+    const code = (err && err.code) ? String(err.code) : '';
+    if (code.includes('permission-denied')) {
+      return { msg: 'Permisos denegados en Firestore. Publicá las reglas del bloque comentado arriba en el archivo (Firebase Console → Firestore → Rules).', det: code };
+    }
+    if (code.includes('unavailable')) {
+      return { msg: 'Firestore no disponible. Revisá tu conexión a internet.', det: code };
+    }
+    if (code.includes('failed-precondition')) {
+      return { msg: 'Falta un índice. Esperá unos minutos o crealo en Firebase Console.', det: code };
+    }
+    if (code.includes('not-found')) return { msg: 'Recurso no encontrado.', det: code };
+    return { msg: 'Error de conexión con Firestore.', det: (err && err.message) || String(err) };
+  }
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCOdpTR_Y-9eQoCJBlZ-OMybckIPqdstQo",
-    authDomain: "aao-ecds-1.firebaseapp.com",
-    projectId: "aao-ecds-1",
-    storageBucket: "aao-ecds-1.firebasestorage.app",
-    messagingSenderId: "186213040999",
-    appId: "1:186213040999:web:9e8c9fd8e7ac7e3dc065c2"
-  };
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
 
-  const app = initializeApp(firebaseConfig, 'foro-app');
-  const db = getFirestore(app);
-
-  let hiloActualId = null;
-  let unsubHilos = null;
-  let unsubMensajes = null;
-
-  function fechaFormato(ts) {
+  function fmtFecha(ts) {
     if (!ts) return '…';
     const d = (ts.toDate) ? ts.toDate() : new Date(ts);
     return d.toLocaleDateString('es', { day:'2-digit', month:'short', year:'numeric' }) + ' · ' + d.toLocaleTimeString('es', { hour:'2-digit', minute:'2-digit' });
   }
-  function escHtml(str) { return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+  // ─── Cargar Firebase dinámicamente (con manejo de error) ───
+  let fb, db;
+  try {
+    const appMod = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+    fb = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    const app = appMod.initializeApp(firebaseConfig);
+    db = fb.getFirestore(app);
+    console.log('[FIREBASE] Inicializado OK');
+  } catch (e) {
+    console.error('[FIREBASE] Error de carga:', e);
+    mostrarBannerError('No se pudo cargar el SDK de Firebase. Revisá tu conexión a internet, bloqueadores de anuncios, o si gstatic.com está bloqueado.', e.message);
+    const pc = document.getElementById('posts-container');
+    if (pc) pc.innerHTML = '<div class="blog-vacio"><span class="blog-vacio-icon">⚠</span>No se pudo conectar con el servidor.<br><span style="font-size:0.75rem;opacity:0.7">Firebase no cargó.</span></div>';
+    const hc = document.getElementById('hilos-container');
+    if (hc) hc.innerHTML = '<div class="foro-vacio"><span class="foro-vacio-icon">⚠</span>No se pudo conectar con el servidor.</div>';
+    throw e;
+  }
+
+  const { doc, getDoc, setDoc, increment, onSnapshot, collection, addDoc, updateDoc, deleteDoc, arrayUnion, query, orderBy, serverTimestamp } = fb;
+
+  // ═══════════════════════════════════════════════════════════════
+  // VISITANTES
+  // ═══════════════════════════════════════════════════════════════
+  (async () => {
+    const el = document.getElementById('contador-visitantes');
+    try {
+      const viewsRef = doc(db, 'stats', 'views');
+      const snap = await getDoc(viewsRef);
+      if (!snap.exists()) {
+        await setDoc(viewsRef, { count: 1 });
+      } else {
+        await setDoc(viewsRef, { count: increment(1) }, { merge: true });
+      }
+      onSnapshot(viewsRef, (ds) => {
+        if (ds.exists() && el) el.textContent = ds.data().count;
+      }, (err) => console.warn('[VISITAS]', formatearErrorFirestore(err).msg));
+    } catch (e) {
+      console.error('[VISITAS]', e);
+      if (el) el.textContent = '—';
+    }
+  })();
+
+  // ═══════════════════════════════════════════════════════════════
+  // FORO
+  // ═══════════════════════════════════════════════════════════════
+  let hiloActualId = null;
+  let unsubHilos = null;
+  let unsubMensajes = null;
 
   function iniciarEscuchaHilos() {
     if (unsubHilos) return;
-    const q = query(collection(db, 'hilos'), orderBy('fecha', 'desc'));
-    unsubHilos = onSnapshot(q, (snap) => {
-      const cont = document.getElementById('hilos-container');
-      const badge = document.getElementById('badge-foro');
-      if (badge) badge.textContent = snap.size + ' hilo' + (snap.size !== 1 ? 's' : '');
-      if (snap.empty) {
-        if (cont) cont.innerHTML = `<div class="foro-vacio"><span class="foro-vacio-icon">🕯</span>Ningún hilo ha sido abierto aún.<br>Sé el primero en romper el silencio.</div>`;
-        return;
-      }
-      if (!cont) return;
-      cont.innerHTML = '';
-      snap.forEach(docSnap => {
-        const h = docSnap.data();
-        const id = docSnap.id;
-        const respCount = h.mensajes ? h.mensajes.length - 1 : 0;
-        const preview = h.mensajes && h.mensajes[0] ? h.mensajes[0].texto.slice(0, 120) : '';
-        const div = document.createElement('div');
-        div.className = 'hilo-item';
-        div.onclick = () => abrirHilo(id, h);
-        div.innerHTML = `<div class="hilo-titulo">${escHtml(h.titulo)}</div><div class="hilo-preview">${escHtml(preview)}${preview.length >= 120 ? '…' : ''}</div><div class="hilo-meta"><span>✦ ${escHtml(h.autor)}</span>${h.categoria ? `<span>· ${escHtml(h.categoria)}</span>` : ''}<span>· ${fechaFormato(h.fecha)}</span><span class="resp-count">${respCount} resp.</span></div>`;
-        cont.appendChild(div);
+    try {
+      const q = query(collection(db, 'hilos'), orderBy('fecha', 'desc'));
+      unsubHilos = onSnapshot(q, (snap) => {
+        const cont = document.getElementById('hilos-container');
+        const badge = document.getElementById('badge-foro');
+        if (badge) badge.textContent = snap.size + ' hilo' + (snap.size !== 1 ? 's' : '');
+        if (snap.empty) {
+          if (cont) cont.innerHTML = '<div class="foro-vacio"><span class="foro-vacio-icon">🕯</span>Ningún hilo ha sido abierto aún.<br>Sé el primero en romper el silencio.</div>';
+          return;
+        }
+        if (!cont) return;
+        cont.innerHTML = '';
+        snap.forEach(docSnap => {
+          const h = docSnap.data();
+          const id = docSnap.id;
+          const respCount = h.mensajes ? h.mensajes.length - 1 : 0;
+          const preview = h.mensajes && h.mensajes[0] ? h.mensajes[0].texto.slice(0, 120) : '';
+          const div = document.createElement('div');
+          div.className = 'hilo-item';
+          div.onclick = () => abrirHilo(id, h);
+          div.innerHTML = `<div class="hilo-titulo">${escHtml(h.titulo)}</div><div class="hilo-preview">${escHtml(preview)}${preview.length >= 120 ? '…' : ''}</div><div class="hilo-meta"><span>✦ ${escHtml(h.autor)}</span>${h.categoria ? `<span>· ${escHtml(h.categoria)}</span>` : ''}<span>· ${fmtFecha(h.fecha)}</span><span class="resp-count">${respCount} resp.</span></div>`;
+          cont.appendChild(div);
+        });
+      }, (err) => {
+        const e = formatearErrorFirestore(err);
+        mostrarBannerError('Foro: ' + e.msg, e.det);
+        const cont = document.getElementById('hilos-container');
+        if (cont) cont.innerHTML = `<div class="foro-vacio" style="color:#e06060"><span class="foro-vacio-icon">⚠</span><strong>${escHtml(e.msg)}</strong></div>`;
+        unsubHilos = null;
       });
-    }, err => console.error(err));
+    } catch (e) {
+      console.error('[FORO]', e);
+      unsubHilos = null;
+    }
   }
 
   function abrirHilo(id, data) {
@@ -1174,13 +1161,13 @@ window.abrirDetalle = abrirDetalle;
     document.getElementById('foro-lista').style.display = 'none';
     document.getElementById('foro-hilo').style.display = 'block';
     document.getElementById('hilo-titulo-detalle').textContent = data.titulo;
-    document.getElementById('hilo-meta-detalle').textContent = `Iniciado por ${data.autor}${data.categoria ? ' · ' + data.categoria : ''} · ${fechaFormato(data.fecha)}`;
+    document.getElementById('hilo-meta-detalle').textContent = `Iniciado por ${data.autor}${data.categoria ? ' · ' + data.categoria : ''} · ${fmtFecha(data.fecha)}`;
     document.getElementById('resp-autor').value = '';
     document.getElementById('resp-texto').value = '';
     if (unsubMensajes) unsubMensajes();
     unsubMensajes = onSnapshot(doc(db, 'hilos', id), (snap) => {
       if (snap.exists()) renderMensajes(snap.data().mensajes || []);
-    });
+    }, (err) => console.error('[HILO]', err));
   }
 
   function renderMensajes(mensajes) {
@@ -1190,7 +1177,7 @@ window.abrirDetalle = abrirDetalle;
     mensajes.forEach((m, i) => {
       const div = document.createElement('div');
       div.className = 'mensaje' + (i === 0 ? ' op' : '');
-      div.innerHTML = `<div class="msg-autor">${escHtml(m.autor)}<span class="msg-fecha">${fechaFormato(m.fecha)}</span></div><div class="msg-texto">${escHtml(m.texto)}</div>`;
+      div.innerHTML = `<div class="msg-autor">${escHtml(m.autor)}<span class="msg-fecha">${fmtFecha(m.fecha)}</span></div><div class="msg-texto">${escHtml(m.texto)}</div>`;
       cont.appendChild(div);
     });
   }
@@ -1220,7 +1207,11 @@ window.abrirDetalle = abrirDetalle;
       document.getElementById('modal-bg').classList.remove('open');
       ['nuevo-autor','nuevo-cat','nuevo-titulo','nuevo-texto'].forEach(id => { document.getElementById(id).value = ''; });
       abrirHilo(ref.id, { titulo, autor, categoria: cat, fecha: { toDate: () => new Date() } });
-    } catch(e) { alert('Error al crear el hilo.'); console.error(e); }
+    } catch (e) {
+      const err = formatearErrorFirestore(e);
+      alert('Error al crear el hilo: ' + err.msg);
+      console.error(e);
+    }
     btn.disabled = false; btn.textContent = 'Abrir hilo';
   }
 
@@ -1241,7 +1232,11 @@ window.abrirDetalle = abrirDetalle;
       setTimeout(() => {
         document.getElementById('mensajes-container')?.lastElementChild?.scrollIntoView({ behavior:'smooth', block:'nearest' });
       }, 300);
-    } catch(e) { alert('Error al enviar.'); console.error(e); }
+    } catch (e) {
+      const err = formatearErrorFirestore(e);
+      alert('Error al enviar: ' + err.msg);
+      console.error(e);
+    }
     btn.disabled = false; btn.textContent = 'Enviar respuesta';
   }
 
@@ -1249,71 +1244,107 @@ window.abrirDetalle = abrirDetalle;
   document.getElementById('volver-lista-btn')?.addEventListener('click', volverLista);
   document.getElementById('btn-crear')?.addEventListener('click', crearHilo);
   document.getElementById('btn-resp')?.addEventListener('click', enviarRespuesta);
-  if (document.getElementById('page-foro').classList.contains('active')) iniciarEscuchaHilos();
-</script>
 
-<!-- ==============================
-     FIREBASE — BLOG
-============================== -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  if (document.getElementById('page-foro')?.classList.contains('active')) iniciarEscuchaHilos();
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCOdpTR_Y-9eQoCJBlZ-OMybckIPqdstQo",
-    authDomain: "aao-ecds-1.firebaseapp.com",
-    projectId: "aao-ecds-1",
-    storageBucket: "aao-ecds-1.firebasestorage.app",
-    messagingSenderId: "186213040999",
-    appId: "1:186213040999:web:9e8c9fd8e7ac7e3dc065c2"
-  };
-
-  const app = initializeApp(firebaseConfig, 'blog-app');
-  const db = getFirestore(app);
-
+  // ═══════════════════════════════════════════════════════════════
+  // BLOG
+  // ═══════════════════════════════════════════════════════════════
   const ADMIN_PASSWORD = "sangresasha123";
   let isAdmin = false;
   let editingPostId = null;
   let unsubPosts = null;
+  const postsMap = new Map();
 
-  function formatFecha(ts) {
-    if (!ts) return '…';
-    const d = (ts.toDate) ? ts.toDate() : new Date(ts);
-    return d.toLocaleDateString('es', { day:'2-digit', month:'short', year:'numeric' }) + ' · ' + d.toLocaleTimeString('es', { hour:'2-digit', minute:'2-digit' });
+  function renderPosts(snap) {
+    const cont = document.getElementById('posts-container');
+    if (!cont) return;
+    postsMap.clear();
+    if (snap.empty) {
+      cont.innerHTML = '<div class="blog-vacio"><span class="blog-vacio-icon">📖</span>Sin publicaciones aún.<br>Los secretos guardan silencio...</div>';
+      return;
+    }
+    cont.innerHTML = '';
+    snap.forEach(docSnap => {
+      const post = docSnap.data();
+      const id = docSnap.id;
+      postsMap.set(id, post);
+      const preview = (post.contenido || '').slice(0, 200);
+      const div = document.createElement('div');
+      div.className = 'blog-post';
+      let html = `<div class="blog-titulo">${escHtml(post.titulo)}</div>`;
+      html += `<div class="blog-meta">${escHtml(post.autor)} · ${fmtFecha(post.fecha)}</div>`;
+      html += `<div class="blog-preview">${escHtml(preview)}${preview.length >= 200 ? '…' : ''}</div>`;
+      if (isAdmin) {
+        html += `<div class="blog-actions">
+          <button class="blog-btn btn-editar" data-post-id="${id}">Editar</button>
+          <button class="blog-btn eliminar btn-eliminar" data-post-id="${id}">Eliminar</button>
+        </div>`;
+      }
+      div.innerHTML = html;
+      cont.appendChild(div);
+    });
+
+    // Listeners por data-attribute (evita bugs con apóstrofes y comillas)
+    if (isAdmin) {
+      cont.querySelectorAll('.btn-editar').forEach(b => {
+        b.addEventListener('click', () => {
+          const id = b.dataset.postId;
+          const post = postsMap.get(id);
+          if (post) abrirEditarPost(id, post.titulo, post.contenido);
+        });
+      });
+      cont.querySelectorAll('.btn-eliminar').forEach(b => {
+        b.addEventListener('click', () => confirmarEliminarPost(b.dataset.postId));
+      });
+    }
   }
-  function escHtml(str) { return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
   function cargarPosts() {
-    if (unsubPosts) unsubPosts();
-    const q = query(collection(db, 'blog_posts'), orderBy('fecha', 'desc'));
-    unsubPosts = onSnapshot(q, (snap) => {
-      const cont = document.getElementById('posts-container');
-      if (!cont) return;
-      if (snap.empty) {
-        cont.innerHTML = `<div class="blog-vacio"><span class="blog-vacio-icon">📖</span>Sin publicaciones aún.<br>Los secretos guardan silencio...</div>`;
-        return;
-      }
-      cont.innerHTML = '';
-      snap.forEach(docSnap => {
-        const post = docSnap.data();
-        const id = docSnap.id;
-        const preview = post.contenido.slice(0, 200);
-        const div = document.createElement('div');
-        div.className = 'blog-post';
-        let html = `<div class="blog-titulo">${escHtml(post.titulo)}</div>`;
-        html += `<div class="blog-meta">${escHtml(post.autor)} · ${formatFecha(post.fecha)}</div>`;
-        html += `<div class="blog-preview">${escHtml(preview)}${preview.length >= 200 ? '…' : ''}</div>`;
-        if (isAdmin) {
-          html += `<div class="blog-actions"><button class="blog-btn" onclick="window.editarPost('${id}','${escHtml(post.titulo).replace(/'/g,"\\'")}','${escHtml(post.contenido).replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">Editar</button><button class="blog-btn eliminar" onclick="window.eliminarPost('${id}')">Eliminar</button></div>`;
+    if (unsubPosts) { unsubPosts(); unsubPosts = null; }
+    const cont = document.getElementById('posts-container');
+    if (cont) cont.innerHTML = '<div class="blog-vacio"><span class="blog-vacio-icon">🕯</span>Cargando bitácora…</div>';
+
+    try {
+      const q = query(collection(db, 'blog_posts'), orderBy('fecha', 'desc'));
+      unsubPosts = onSnapshot(q,
+        (snap) => renderPosts(snap),
+        (err) => {
+          const e = formatearErrorFirestore(err);
+          mostrarBannerError('Blog: ' + e.msg, e.det);
+          const c = document.getElementById('posts-container');
+          if (c) c.innerHTML = `<div class="blog-vacio" style="color:#e06060"><span class="blog-vacio-icon">⚠</span><strong>${escHtml(e.msg)}</strong><br><span style="font-size:0.72rem;opacity:0.7;margin-top:0.4rem;display:block">${escHtml(e.det || '')}</span></div>`;
+          unsubPosts = null;
         }
-        div.innerHTML = html;
-        cont.appendChild(div);
-      });
-    }, err => console.error(err));
+      );
+    } catch (e) {
+      console.error('[BLOG]', e);
+      if (cont) cont.innerHTML = `<div class="blog-vacio" style="color:#e06060"><span class="blog-vacio-icon">⚠</span>Error: ${escHtml(e.message || String(e))}</div>`;
+    }
   }
 
-  cargarPosts();
+  function abrirEditarPost(id, titulo, contenido) {
+    if (!isAdmin) return;
+    editingPostId = id;
+    document.getElementById('modal-titulo').textContent = '✦ Editar Post';
+    document.getElementById('post-titulo').value = titulo || '';
+    document.getElementById('post-contenido').value = contenido || '';
+    document.getElementById('modal-post').classList.add('open');
+  }
 
+  async function confirmarEliminarPost(id) {
+    if (!isAdmin) return;
+    if (!confirm('¿Eliminar este post?')) return;
+    try {
+      await deleteDoc(doc(db, 'blog_posts', id));
+    } catch (e) {
+      const err = formatearErrorFirestore(e);
+      alert('Error al eliminar: ' + err.msg);
+      console.error(e);
+    }
+  }
+
+  // Listeners UI blog
   document.getElementById('btn-login-admin')?.addEventListener('click', () => {
     document.getElementById('modal-login').classList.add('open');
   });
@@ -1358,7 +1389,7 @@ window.abrirDetalle = abrirDetalle;
     const contenido = document.getElementById('post-contenido').value.trim();
     if (!titulo || !contenido) { alert('Por favor completa título y contenido'); return; }
     const btn = document.getElementById('btn-guardar-post');
-    btn.disabled = true;
+    btn.disabled = true; btn.textContent = 'Guardando…';
     try {
       if (editingPostId) {
         await updateDoc(doc(db, 'blog_posts', editingPostId), { titulo, contenido, fecha_editado: serverTimestamp() });
@@ -1369,25 +1400,16 @@ window.abrirDetalle = abrirDetalle;
       document.getElementById('post-titulo').value = '';
       document.getElementById('post-contenido').value = '';
       editingPostId = null;
-    } catch(err) { console.error(err); alert('Error al guardar'); }
-    btn.disabled = false;
+    } catch (err) {
+      const e = formatearErrorFirestore(err);
+      alert('Error al guardar: ' + e.msg);
+      console.error(err);
+    }
+    btn.disabled = false; btn.textContent = 'Guardar Post';
   });
 
-  window.editarPost = function(id, titulo, contenido) {
-    if (!isAdmin) return;
-    editingPostId = id;
-    document.getElementById('modal-titulo').textContent = '✦ Editar Post';
-    document.getElementById('post-titulo').value = titulo;
-    document.getElementById('post-contenido').value = contenido.replace(/\\n/g,'\n');
-    document.getElementById('modal-post').classList.add('open');
-  };
-
-  window.eliminarPost = function(id) {
-    if (!isAdmin) return;
-    if (confirm('¿Eliminar este post?')) {
-      deleteDoc(doc(db, 'blog_posts', id)).catch(err => console.error(err));
-    }
-  };
+  // Carga inicial del blog
+  cargarPosts();
 </script>
 
 </body>
